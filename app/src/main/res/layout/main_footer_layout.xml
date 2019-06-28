@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--许朗铭 2017302580224-->
+
+<!--每个分组的尾部，显示每餐的总热量和推荐热量-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <!--分割线-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#A1CE6C" />
+    <!--所有文字的布局容器-->
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--总热量 文本标签-->
+        <TextView
+            android:id="@+id/total_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="总热量："
+            android:layout_toLeftOf="@id/total_text"/>
+        <!--总热量-->
+        <TextView
+            android:id="@+id/total_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@id/footer_bottom_center"/>
+        <!--底部居中参照物-->
+        <TextView
+            android:id="@+id/footer_bottom_center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+        <!--推荐总量 文本标签-->
+        <TextView
+            android:id="@+id/expected_total_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="推荐总量："
+            android:layout_toRightOf="@id/footer_bottom_center"/>
+        <!--推荐总量-->
+        <TextView
+            android:id="@+id/expected_total_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/expected_total_label"/>
+    </RelativeLayout>
+</LinearLayout>

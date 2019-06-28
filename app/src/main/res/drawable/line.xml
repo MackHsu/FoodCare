@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--许朗铭 2017302580224-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:left="8dp" android:right="8dp"><shape>
+        <solid android:color="#000" />
+    </shape></item>
+    <item android:bottom="3dp"><shape>
+        <solid android:color="#fff" />
+    </shape></item>
+</layer-list>

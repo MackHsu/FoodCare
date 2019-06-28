@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FoodCare</string>
+    <string name="main_search_hint">搜索菜品或食材</string>
+</resources>

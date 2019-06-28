@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--许朗铭 2017302580224-->
+
+<!--列表格子布局，显示名称、分量和总热量-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+    <!--图片-->
+    <ImageView
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/food_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="20dp"
+        android:src="@mipmap/ic_launcher"/>
+    <!--食物名称和分量的布局容器-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_toRightOf="@id/food_image"
+        android:layout_marginLeft="15dp">
+        <!--食物名称-->
+        <TextView
+            android:id="@+id/food_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="20sp" />
+        <!--分量-->
+        <TextView
+            android:id="@+id/food_weight_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/food_name_text"
+            android:textSize="15dp"/>
+    </RelativeLayout>
+    <!--总热量-->
+    <TextView
+        android:id="@+id/total_energy_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/food_info_button"
+        android:layout_centerVertical="true"
+        android:textSize="20sp"/>
+    <!--详情按钮-->
+    <ImageButton
+        android:id="@+id/food_info_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/food_info_button"
+        android:background="#00000000"
+        android:layout_marginLeft="10dp"/>
+</RelativeLayout>
