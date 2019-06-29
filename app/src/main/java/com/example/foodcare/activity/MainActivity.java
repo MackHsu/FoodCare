@@ -3,6 +3,7 @@
 //使用github上的CircleTextImageView来做圆形头像框 https://github.com/CoolThink/CircleTextImageView
 package com.example.foodcare.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,15 +14,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.example.foodcare.R;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.entity.MainFood;
 import com.example.foodcare.entity.MainGroup;
-import com.orhanobut.dialogplus.DialogPlus;
-import com.orhanobut.dialogplus.DialogPlusBuilder;
-import com.orhanobut.dialogplus.ViewHolder;
 
 import java.util.ArrayList;
 
@@ -66,16 +63,6 @@ public class MainActivity extends AppCompatActivity {
         mainRecycler.setLayoutManager(new LinearLayoutManager(this));
         MainRecyclerAdapter adapter = new MainRecyclerAdapter(this,groupList);
         mainRecycler.setAdapter(adapter);
-
-        //这是一个弹窗测试
-        ImageButton imageButton = (ImageButton) findViewById(R.id.main_camera_button);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogPlus dialog = DialogPlus.newDialog(MainActivity.this).setContentHolder(new ViewHolder(R.layout.bottomsheet)).create();
-                dialog.show();
-            }
-        });
     }
 
 

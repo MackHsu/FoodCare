@@ -1,14 +1,26 @@
 package com.example.foodcare.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.foodcare.activity.AddFoodActivity;
+import com.example.foodcare.activity.FoodInfoActivity;
 import com.example.foodcare.entity.AddFood;
 import com.example.foodcare.R;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
 
+import org.angmarch.views.NiceSpinner;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddFoodAdapter extends RecyclerView.Adapter<AddFoodAdapter.ViewHolder> {
@@ -18,12 +30,54 @@ public class AddFoodAdapter extends RecyclerView.Adapter<AddFoodAdapter.ViewHold
     static class ViewHolder extends  RecyclerView.ViewHolder {
         TextView nameText;
         TextView energyText;
+        ImageButton infoButton;
+        RelativeLayout itemLayout;
 
         public ViewHolder(View view) {
             //ImageView初始化
             super(view);
             nameText = (TextView) view.findViewById(R.id.food_name_text);
             energyText = (TextView) view.findViewById(R.id.food_energy_text);
+            infoButton = (ImageButton) view.findViewById(R.id.food_info_button);
+            itemLayout = (RelativeLayout) view.findViewById(R.id.item_layout);
+
+            infoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO: 弹窗到详情
+                    Intent intent = new Intent(nameText.getContext(), FoodInfoActivity.class);
+                    nameText.getContext().startActivity(intent);
+                }
+            });
+
+            itemLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final DialogPlus dialog = DialogPlus.newDialog(nameText.getContext())
+                            .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.bottomsheet))
+                            .create();
+                    //下拉框
+                    NiceSpinner spinner = (NiceSpinner) dialog.findViewById(R.id.spinner);
+                    ArrayList<String> meals = new ArrayList<>();
+                    meals.add("早餐"); meals.add("午餐"); meals.add("晚餐");
+                    spinner.attachDataSource(meals);
+                    //文本
+                    TextView nameText2 = (TextView) dialog.findViewById(R.id.food_name);
+                    TextView energyText2 = (TextView) dialog.findViewById(R.id.food_energy);
+                    nameText2.setText(nameText.getText());
+                    energyText2.setText(energyText.getText());
+                    dialog.show();
+
+                    //取消
+                    Button cancelButton = (Button) dialog.findViewById(R.id.cancel);
+                    cancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            });
         }
     }
 

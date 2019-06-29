@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AddFoodActivity"
+        <activity android:name=".activity.FoodInfoActivity"
             android:theme="@style/FoodCareStatusBarTheme"></activity>
+        <activity
+            android:name=".activity.AddFoodActivity"
+            android:theme="@style/FoodCareStatusBarTheme" />
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/FoodCareStatusBarTheme">

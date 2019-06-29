@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--许朗铭-->
+<!--食物详细 界面-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--标题栏布局容器-->
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mainColor">
+        <!--返回按钮-->
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_button"
+            android:background="#00000000"
+            android:layout_margin="10dp" />
+        <!--标题 名称-->
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FoodName"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <!--图片-->
+    <ImageView
+        android:id="@+id/food_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/title_layout"
+        android:scaleType="centerCrop"
+        android:src="@drawable/apple"/>
+    <!--<com.github.siyamed.shapeimageview.RoundedImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="15dp"
+        android:layout_below="@id/title_layout"
+        android:src="@drawable/apple"
+        app:siRadius="20dp"
+        app:siBorderWidth="5dp"
+        app:siBorderColor="@color/mainColor"
+        app:siSquare="false"/>-->
+    <!--名称-->
+    <TextView
+        android:id="@+id/food_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FoodName"
+        android:textSize="18sp"
+        android:textColor="@color/mainColor"
+        android:layout_below="@id/food_image"/>
+</RelativeLayout>

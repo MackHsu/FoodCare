@@ -3,11 +3,11 @@
 
 <!--使用左抽屉菜单样式-->
 <android.support.v4.widget.DrawerLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
         <!--首页 DrawerLayout中的第一个子控件（布局）是页面布局-->
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,8 +15,7 @@
             android:id="@+id/main_layout"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
+            android:layout_height="match_parent">
                 <!--将除了底部的两个按钮之外的部分放在一个容器里，这样那两个按钮就可以放在底部-->
                 <LinearLayout
                     android:orientation="vertical"
@@ -29,7 +28,7 @@
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="250dp"
-                            android:background="#A1CE6C">
+                            android:background="@color/mainColor">
                         <!--首页标题栏 布局容器-->
                         <RelativeLayout
                             android:id="@+id/main_header_layout"
@@ -244,7 +243,7 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
                             app:citv_border_width="5dp"
-                            app:citv_border_color="#A1CE6C"
+                            app:citv_border_color="@color/mainColor"
                             app:citv_text_text="M"
                             app:citv_text_size="60sp"
                             app:citv_text_color="#6A6A6A"
@@ -257,7 +256,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_toRightOf="@id/avatar"
                             android:text="username"
-                            android:textColor="#A1CE6C"
+                            android:textColor="@color/mainColor"
                             android:textSize="20sp"
                             android:layout_alignTop="@id/avatar"/>
                         <!--帐号-->
@@ -268,7 +267,7 @@
                             android:layout_below="@id/username"
                             android:layout_toRightOf="@id/avatar"
                             android:text="account"
-                            android:textColor="#A1CE6C"
+                            android:textColor="@color/mainColor"
                             android:layout_marginTop="5dp"
                             android:layout_marginLeft="10dp"/>
                 </RelativeLayout>
@@ -276,7 +275,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="#A1CE6C"
+                    android:background="@color/mainColor"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="10dp"/>
                 <!--首页-->
@@ -287,7 +286,7 @@
                     android:layout_margin="15dp"
                     android:text="首页"
                     android:background="#00000000"
-                    android:textColor="#A1CE6C"
+                    android:textColor="@color/mainColor"
                     android:textSize="23sp"
                     android:layout_gravity="center_horizontal"/>
         </LinearLayout>

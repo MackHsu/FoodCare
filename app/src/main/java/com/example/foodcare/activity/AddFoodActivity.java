@@ -32,7 +32,7 @@ public class AddFoodActivity extends AppCompatActivity {
         //初始化
         backButton = (ImageButton) findViewById(R.id.back_button);
         recyclerView = (RecyclerView) findViewById(R.id.add_food_recycler);
-
+        //返回
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
