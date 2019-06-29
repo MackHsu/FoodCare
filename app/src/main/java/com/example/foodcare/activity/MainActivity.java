@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.foodcare.R;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
@@ -35,9 +36,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initGroupList();
+
         menuButton = (ImageButton) findViewById(R.id.main_menu_button);
         mainDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         addFoodButton = (Button) findViewById(R.id.mian_add_button);
+        mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
+
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
 
         mainRecycler.setLayoutManager(new LinearLayoutManager(this));
         MainRecyclerAdapter adapter = new MainRecyclerAdapter(this,groupList);
