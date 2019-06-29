@@ -25,22 +25,30 @@ public class AddFoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food);
+
+        //TODO: 以List<AddFood>的方式装好数据，替换掉initFoods()
         initFoods();
+
+        //初始化
         backButton = (ImageButton) findViewById(R.id.back_button);
+        recyclerView = (RecyclerView) findViewById(R.id.add_food_recycler);
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //返回
                 finish();
             }
         });
-        recyclerView = (RecyclerView) findViewById(R.id.add_food_recycler);
+
+        //显示列表数据
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         AddFoodAdapter adapter = new AddFoodAdapter(foodList);
         recyclerView.setAdapter(adapter);
-
     }
 
+    //前端测试用
     private void initFoods() {
         foodList.add(new AddFood("米饭", 150));
         foodList.add(new AddFood("鸡腿", 400));

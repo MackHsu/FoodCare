@@ -19,6 +19,9 @@ import com.example.foodcare.R;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.entity.MainFood;
 import com.example.foodcare.entity.MainGroup;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.DialogPlusBuilder;
+import com.orhanobut.dialogplus.ViewHolder;
 
 import java.util.ArrayList;
 
@@ -35,8 +38,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //TODO: 以ArrayList<MainGroup>的方式装好数据，替换掉initGroupList()
         initGroupList();
 
+        //初始化
         menuButton = (ImageButton) findViewById(R.id.main_menu_button);
         mainDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         addFoodButton = (Button) findViewById(R.id.mian_add_button);
@@ -56,11 +62,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //显示列表
         mainRecycler.setLayoutManager(new LinearLayoutManager(this));
         MainRecyclerAdapter adapter = new MainRecyclerAdapter(this,groupList);
         mainRecycler.setAdapter(adapter);
+
+        //这是一个弹窗测试
+        ImageButton imageButton = (ImageButton) findViewById(R.id.main_camera_button);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogPlus dialog = DialogPlus.newDialog(MainActivity.this).setContentHolder(new ViewHolder(R.layout.bottomsheet)).create();
+                dialog.show();
+            }
+        });
     }
 
+
+    //前端测试用
     public void initGroupList() {
         groupList = new ArrayList<>();
         ArrayList<MainFood> foodList = new ArrayList<>();

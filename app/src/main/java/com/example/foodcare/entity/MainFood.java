@@ -2,6 +2,9 @@
 package com.example.foodcare.entity;
 
 public class MainFood {
+
+    //主界面每一个列表格（食物）的数据结构，包括名称、分量和每百克热量
+    //TODO: 添加图片
     private String foodName;
     private double foodWeight;
     private double energyPerHectogram;
