@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">FoodCare</string>
     <string name="main_search_hint">搜索菜品或食材</string>
+    <string name="today_detail_date">%d年%d月%d日</string>
+    <string name="today_recommended">推荐摄入总量    %d</string>
+    <string name="today_intake">今日摄入能量    %d</string>
+    <string name="today_sport">今日运动消耗    %d</string>
+    <string name="today_left">今日剩余可摄入  %d</string>
+    <string name="title_activity_today_analyse">TodayAnalyse</string>
 </resources>

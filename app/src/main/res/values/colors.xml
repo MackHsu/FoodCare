@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="mainColor">#A1CE6C</color>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="mainColor">#A1CE6C</color>
+    <color name="pie_orange">#FF9800</color>
+    <color name="pie_green">#8BC34A</color>
+    <color name="pie_purple">#9C27B0</color>
+    <color name="pie_blue">#00BCD4</color>
+    <color name="today_green_yellow">#ccff90</color>
+    <color name="radar_recommended_fillcolor">#00bcd4</color>
+    <color name="radar_recommended_textcolor">#1e88e5</color>
+    <color name="radar_actual_fillcolor">#ff9800</color>
+    <color name="radar_actual_textcolor">#f4511e</color>
+    <color name="calendar_selected_color">#AD03A9F4</color>
+
 </resources>

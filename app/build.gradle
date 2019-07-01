@@ -31,6 +31,21 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
 
+    //图表和material design
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'//画图
+    implementation 'com.haibin:calendarview:3.6.3'//日历
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'//material calendar
+//    implementation 'com.github.applikeysolutions:cosmocalendar:1.0.4'//cosmo calendar
+
+    //网络
+    implementation 'com.google.code.gson:gson:2.7'
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.1.2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    implementation 'com.github.thinkcool:circletextimageview:1.0.20151218'
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
