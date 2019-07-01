@@ -19,7 +19,8 @@
         <activity android:name=".activity.TodayAnalysis" />
         <activity android:name=".activity.PassageDetailActivity" />
         <activity android:name=".activity.PassageActivity" />
-        <activity android:name=".activity.CalendarActivity" />
+        <activity android:name=".activity.CalendarActivity"
+            android:theme="@style/FoodCareStatusBarTheme"/>
         <activity android:name=".activity.UploadPictureActivity"/>
         <activity
             android:name=".activity.FoodInfoActivity"
