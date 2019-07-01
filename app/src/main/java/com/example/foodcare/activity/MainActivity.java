@@ -15,17 +15,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.foodcare.R;
-import com.example.foodcare.UploadPicture.UploadPicture;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.entity.MainFood;
 import com.example.foodcare.entity.MainGroup;
+import com.example.foodcare.presenter.MainPresenter;
+import com.example.foodcare.view.IMainView;
 import com.thinkcool.circletextimageview.CircleTextImageView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMainView {
 
     ImageButton menuButton;
     DrawerLayout mainDrawerLayout;
@@ -37,13 +39,17 @@ public class MainActivity extends AppCompatActivity {
     CircleTextImageView UserInformation;
     RecyclerView mainRecycler;
     SearchView searchView;
-private  Uri imageUri;
+    TextView recommendedIntakeText;
+    private Uri imageUri;
+
+    MainPresenter mainPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TODO: 以ArrayList<MainGroup>的方式装好数据，替换掉initGroupList()
+        //TODO: change to mPresenter.initGroupList();
         initGroupList();
 
         //初始化
@@ -56,7 +62,10 @@ private  Uri imageUri;
         mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
         cameraButton = (ImageButton)findViewById(R.id.main_camera_button);
         searchView = (SearchView)findViewById(R.id.mainsearchView);
+        recommendedIntakeText = (TextView) findViewById(R.id.recommended_intake);
 
+        mainPresenter = new MainPresenter(this);
+        mainPresenter.refreshMeal();
 
         //点击左上方的按钮左侧菜单栏滑出
         menuButton.setOnClickListener(new View.OnClickListener() {
@@ -98,12 +107,6 @@ private  Uri imageUri;
            }
         });
 
-
-        //显示列表
-        mainRecycler.setLayoutManager(new LinearLayoutManager(this));
-        MainRecyclerAdapter adapter = new MainRecyclerAdapter(this,groupList);
-        mainRecycler.setAdapter(adapter);
-
         //日历跳转
         //日历界面跳转
         calendarButton.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +126,16 @@ private  Uri imageUri;
         });
     }
 
+    @Override
+    public void refresh(ArrayList<MainGroup> groupList, double recommendedIntake, double intake, double consumption) {
+        //显示列表
+        mainRecycler.setLayoutManager(new LinearLayoutManager(this));
+        MainRecyclerAdapter adapter = new MainRecyclerAdapter(this,groupList);
+        mainRecycler.setAdapter(adapter);
+
+        //刷新热量
+        mainPresenter.refreshEnergy();
+    }
 
     //前端测试用
     public void initGroupList() {
