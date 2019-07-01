@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--创建者：曾志昊
+最后修改时间 2019.6.29  23:10-->
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#A1CE6C">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/main_menu_button"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/menu_button"
+                android:background="#00000000"
+                android:padding="10dp"/>
+
+            <TextView
+                android:id="@+id/today_detail_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="#00000000"
+                android:padding="10dp"
+                android:text="文章"
+                android:textColor="#ffffff"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+    </LinearLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:text="震惊！！！！！"
+                    android:textSize="25dp"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/article_title">
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="800dp"
+                    android:layout_marginTop="15dp"
+                    android:text="震惊！！！！！震惊！！！！！震惊！！！！！震惊！！！！！震惊！！！！！震惊！！！！！震惊！！！！！震惊！！！！！"
+                    android:textSize="25dp"
+                    android:id="@+id/article_content">
+                </TextView>
+            </RelativeLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

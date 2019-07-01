@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--创建者：曾志昊
+最后修改时间 2019.6.29  23:10-->
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#A1CE6C">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/main_menu_button"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/menu_button"
+                android:background="#00000000"
+                android:padding="10dp"/>
+
+            <TextView
+                android:id="@+id/today_detail_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="#00000000"
+                android:padding="10dp"
+                android:text="@string/today_detail_date"
+                android:textColor="#ffffff"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="horizontal"
+
+                android:background="@color/today_green_yellow">
+
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/TodayRecommended"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="@string/today_recommended"
+                        android:textSize="20dp"
+                        android:typeface="normal" />
+
+                    <TextView
+                        android:id="@+id/TodayIntake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="@string/today_intake"
+                        android:textSize="20dp"
+                        android:typeface="normal" />
+
+                    <TextView
+                        android:id="@+id/TodaySport"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="@string/today_sport"
+                        android:textSize="20dp"
+                        android:typeface="normal" />
+
+                    <TextView
+                        android:id="@+id/TodayLeft"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="@string/today_left"
+                        android:textSize="20dp"
+                        android:typeface="normal" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent">
+
+                </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/PieChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
+
+                <com.github.mikephil.charting.charts.RadarChart
+                    android:id="@+id/RadarChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
+                <!--com.haibin.calendarview.CalendarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:orientation="vertical"
+                    app:default_status="shrink"
+                    app:calendar_show_mode="only_month_view">
+                    <com.haibin.calendarview.CalendarView
+                        android:id="@+id/calendarView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#fff"
+                        app:calendar_height="50dp"
+                        app:current_month_text_color="#333333"
+                        app:min_year="2004"
+                        app:month_view="com.haibin.calendarviewproject.simple.SimpleMonthView"
+                        app:week_view="com.haibin.calendarviewproject.simple.SimpleWeekView"
+                        app:week_bar_view="com.haibin.calendarviewproject.EnglishWeekBar"
+                        />
+
+                </com.haibin.calendarview.CalendarLayout-->
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>
