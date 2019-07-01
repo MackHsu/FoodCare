@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import com.example.foodcare.R;
+import com.example.foodcare.UploadPicture.UploadPicture;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.entity.MainFood;
 import com.example.foodcare.entity.MainGroup;
@@ -92,59 +93,9 @@ private  Uri imageUri;
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
-                final DialogPlus dialog = DialogPlus.newDialog(MainActivity.this)
-                        .setContentHolder(new ViewHolder(R.layout.dialog_items))
-                        .create();
-                Button buttonTake=(Button)dialog.findViewById(R.id.take_photo_item_dialog);
-                Button buttonSelect=(Button)dialog.findViewById(R.id.select_photo_item_dialog);
-                buttonTake.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        File outputImage=new File(getExternalCacheDir(),"output_image.jpg");
-                        try{
-                            if(outputImage.exists()){
-                                outputImage.delete();
-                            }
-                            outputImage.createNewFile();
-                        }
-                        catch (IOException e){
-                            e.printStackTrace();
-                        }
-                        if(Build.VERSION.SDK_INT>=24){
-                            try{
-                                imageUri= FileProvider.getUriForFile(MainActivity.this,"com.example.search.fileprovider",outputImage);
-                            }
-                            catch (Exception e){
-                                Toast.makeText(MainActivity.this,"faile to get image ",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        else{
-                            imageUri= Uri.fromFile(outputImage);
-                        }
-                        Intent intent=new Intent("android.media.action.IMAGE_CAPTURE");
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-                        startActivityForResult(intent,TAKE_PHOTO);
-                        dialog.dismiss();
-                    }
-                });
-                buttonSelect.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
-                            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-                        }
-                        else{
-                            openAlbum();
-
-                        }
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
-           */ }
+                Intent intent = new Intent(MainActivity.this, UploadPictureActivity.class);
+                startActivity(intent);
+           }
         });
 
 

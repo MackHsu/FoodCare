@@ -20,6 +20,7 @@
         <activity android:name=".activity.PassageDetailActivity" />
         <activity android:name=".activity.PassageActivity" />
         <activity android:name=".activity.CalendarActivity" />
+        <activity android:name=".activity.UploadPictureActivity"/>
         <activity
             android:name=".activity.FoodInfoActivity"
             android:theme="@style/FoodCareStatusBarTheme" />
