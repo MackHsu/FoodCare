@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.foodcare">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.FruitActivity"></activity>
+        <activity android:name=".activity.ChangeAccountInfoActivity"></activity>
+        <activity android:name=".activity.FruitActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.UserInfoActivity" />
         <activity android:name=".RequestAndTransaction.UploadActivity" />
@@ -18,9 +21,10 @@
         <activity android:name=".activity.TodayAnalyseActivity" />
         <activity android:name=".activity.PassageDetailActivity" />
         <activity android:name=".activity.PassageActivity" />
-        <activity android:name=".activity.CalendarActivity"
-            android:theme="@style/FoodCareStatusBarTheme"/>
-        <activity android:name=".activity.UploadPictureActivity"/>
+        <activity
+            android:name=".activity.CalendarActivity"
+            android:theme="@style/FoodCareStatusBarTheme" />
+        <activity android:name=".activity.UploadPictureActivity" />
         <activity
             android:name=".activity.FoodInfoActivity"
             android:theme="@style/FoodCareStatusBarTheme" />
@@ -36,6 +40,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.search.fileprovider"
@@ -45,7 +50,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

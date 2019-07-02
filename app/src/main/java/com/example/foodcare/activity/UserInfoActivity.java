@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodcare.R;
@@ -34,6 +35,17 @@ public class UserInfoActivity extends AppCompatActivity {
 
     public static final int TAKE_PHOTO=1;
     public static final int CHOOSE_PHOTO=2;
+    public static final int USER_NAME=3;
+    public static final int USER_AGE=4;
+    public static final int USER_WEIGHT=5;
+    public static final int USER_HEIGHT=6;
+    public static final int USER_FAT_RATE=7;
+
+    private TextView name_account;
+    private TextView age_account;
+    private TextView weight_account;
+    private TextView height_account;
+    private TextView fat_rate_account;
     private Uri imageUri;
     private CircleTextImageView imageView;
 
@@ -41,6 +53,44 @@ public class UserInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+        name_account=(TextView)findViewById(R.id.name_account_r);
+        age_account=(TextView)findViewById(R.id.age_account_r);
+        weight_account=(TextView)findViewById(R.id.weight_account_r);
+        height_account=(TextView)findViewById(R.id.height_account_r);
+        fat_rate_account=(TextView)findViewById(R.id.fat_rate_account_r);
+        name_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myStartActivityForREsult("用户名/昵称",USER_NAME);
+            }
+        });
+        age_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myStartActivityForREsult("年龄",USER_AGE);
+            }
+        });
+        height_account.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                myStartActivityForREsult("身高",USER_HEIGHT);
+            }
+        });
+        weight_account.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                myStartActivityForREsult("体重",USER_WEIGHT);
+            }
+        });
+        fat_rate_account.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                myStartActivityForREsult("体脂率",USER_FAT_RATE);
+            }
+        });
+
+
+
         imageView=(CircleTextImageView)findViewById(R.id.profile_image);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +195,46 @@ public class UserInfoActivity extends AppCompatActivity {
                     }
                 }
                 break;
+            case USER_NAME:
+                if(resultCode==RESULT_OK){
+                    String s=data.getStringExtra("info");
+                    if(judgeChange(s)){
+                        name_account.setText(s);
+                    }
+                }
+                break;
+            case USER_AGE:
+                if(resultCode==RESULT_OK){
+                    String s=data.getStringExtra("info");
+                    if(judgeChange(s)){
+                        age_account.setText(s+"岁");
+                    }
+                }
+                break;
+            case USER_WEIGHT:
+                if(resultCode==RESULT_OK){
+                    String s=data.getStringExtra("info");
+                    if(judgeChange(s)){
+                        weight_account.setText(s+"kg");
+                    }
+                }
+                break;
+            case USER_HEIGHT:
+                if(resultCode==RESULT_OK){
+                    String s=data.getStringExtra("info");
+                    if(judgeChange(s)){
+                        height_account.setText(s+"cm");
+                    }
+                }
+                break;
+            case USER_FAT_RATE:
+                if(resultCode==RESULT_OK){
+                    String s=data.getStringExtra("info");
+                    if(judgeChange(s)){
+                        fat_rate_account.setText(s+"%");
+                    }
+                }
+                break;
             default:
                 break;
         }
@@ -200,5 +290,17 @@ public class UserInfoActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this,"faile to get image ",Toast.LENGTH_SHORT).show();
         }
+    }
+    private void myStartActivityForREsult(String title,int code){
+        //两个参数一个是下个界面的标题，一个是下个界面的返回码
+        Intent intent=new Intent(getApplicationContext(),ChangeAccountInfoActivity.class);
+        intent.putExtra("change_title",title);
+        startActivityForResult(intent,code);
+    }
+    private boolean judgeChange(String s){
+        if(s.equals("未确定")){
+            return false;
+        }
+        return true;
     }
 }
