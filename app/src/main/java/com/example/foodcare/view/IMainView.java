@@ -11,7 +11,4 @@ public interface IMainView {
 
     //刷新登录状态
     void onLogin();
-
-    //获取今日推荐热量
-    void getRecommendedIntake();
 }

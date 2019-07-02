@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     ImageButton menuButton;
     DrawerLayout mainDrawerLayout;
-    ArrayList<MainGroup> groupList;
     Button addFoodButton;
     Button analysisButton;
     Button calendarButton;
@@ -40,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     RecyclerView mainRecycler;
     SearchView searchView;
     TextView recommendedIntakeText;
+    TextView intakeText;
+    TextView consumptionText;
+    TextView restText;
     private Uri imageUri;
 
     MainPresenter mainPresenter;
@@ -48,9 +50,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //TODO: change to mPresenter.initGroupList();
-        initGroupList();
 
         //初始化
         menuButton = (ImageButton) findViewById(R.id.main_menu_button);
@@ -63,9 +62,12 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         cameraButton = (ImageButton)findViewById(R.id.main_camera_button);
         searchView = (SearchView)findViewById(R.id.mainsearchView);
         recommendedIntakeText = (TextView) findViewById(R.id.recommended_intake);
+        intakeText = (TextView) findViewById(R.id.intake_today);
+        consumptionText = (TextView) findViewById(R.id.consumption_today);
+        restText = (TextView) findViewById(R.id.rest_today_text);
 
         mainPresenter = new MainPresenter(this);
-        mainPresenter.refreshMeal();
+        mainPresenter.refreshTodayMealListAndEnergy();
 
         //点击左上方的按钮左侧菜单栏滑出
         menuButton.setOnClickListener(new View.OnClickListener() {
@@ -133,32 +135,19 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         MainRecyclerAdapter adapter = new MainRecyclerAdapter(this,groupList);
         mainRecycler.setAdapter(adapter);
 
-        //刷新热量
-        mainPresenter.refreshEnergy();
+        //热量
+        recommendedIntakeText.setText(recommendedIntake + "");
+        intakeText.setText(intake + "");
+        consumptionText.setText(consumption + "");
+        double rest = recommendedIntake - intake + consumption;
+        restText.setText(rest + "");
     }
 
-    //前端测试用
-    public void initGroupList() {
-        groupList = new ArrayList<>();
-        ArrayList<MainFood> foodList = new ArrayList<>();
+    @Override
+    public void onLogin() {
 
-        //早餐
-        MainFood mainFood = new MainFood("煮鸡蛋", 50, 100);
-        foodList.add(mainFood);
-        mainFood = new MainFood("豆浆", 200, 50);
-        foodList.add(mainFood);
-        MainGroup mainGroup = new MainGroup("早餐", 155, foodList);
-        groupList.add(mainGroup);
-
-        //午餐
-        foodList = new ArrayList<>();
-        mainFood = new MainFood("米饭", 200, 150);
-        foodList.add(mainFood);
-        mainFood = new MainFood("鸡腿", 50, 400);
-        foodList.add(mainFood);
-        mainGroup = new MainGroup("午餐", 450, foodList);
-        groupList.add(mainGroup);
     }
+
     /*********************************************************************/
     /**********************搜索框*****************************************/
 

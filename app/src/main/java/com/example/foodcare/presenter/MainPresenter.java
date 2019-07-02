@@ -2,6 +2,7 @@ package com.example.foodcare.presenter;
 
 import com.example.foodcare.activity.MainActivity;
 import com.example.foodcare.model.IMainModel;
+import com.example.foodcare.model.MainModel;
 import com.example.foodcare.view.IMainView;
 
 public class MainPresenter implements IMainPresenter {
@@ -10,7 +11,7 @@ public class MainPresenter implements IMainPresenter {
     private IMainModel mainModel;
 
     public MainPresenter(IMainView mainView) {
-        this.mainModel = mainModel;
+        this.mainModel = new MainModel(this);
         this.mainView = mainView;
     }
 
