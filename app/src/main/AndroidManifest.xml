@@ -31,7 +31,8 @@
             android:theme="@style/FoodCareStatusBarTheme" />
         <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/FoodCareStatusBarTheme">
+            android:theme="@style/FoodCareStatusBarTheme"
+            android:label="">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
