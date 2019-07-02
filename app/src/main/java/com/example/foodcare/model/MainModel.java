@@ -77,6 +77,7 @@ public class MainModel implements IMainModel {
         groupList.add(new MainGroup("晚餐", recommendedIntakeToday * 0.3, new ArrayList<MainFood>()));
         for (Diet diet: dietList)
         {
+            //TODO: 完成这一段代码，获取食物相关数据并整理数据
 //            String foodName;
 //            String foodWeight;
 //            double energyPerHectogram;
