@@ -16,51 +16,83 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-                <!--首页标题栏 布局容器-->
-                <RelativeLayout
-                    android:id="@+id/main_header_layout"
+                <!--首页标题栏-->
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/mainColor"
-                    android:paddingBottom="10dp">
-                        <!--菜单按钮-->
-                        <ImageButton
-                            android:id="@+id/main_menu_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:src="@drawable/menu_button"
-                            android:background="#00000000"
-                            android:layout_margin="10dp" />
-                        <!--丑陋的搜索栏-->
-                        <!--<EditText
-                            android:id="@+id/main_search"
-                            android:layout_height="wrap_content"
-                            android:layout_width="250dp"
-                            android:layout_centerHorizontal="true"
-                            android:singleLine="true"
-                            android:hint="@string/main_search_hint"
-                            android:paddingTop="10dp" />-->
-                        <SearchView
-                            android:id="@+id/mainsearchView"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/mainColor">
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerInParent="true"
-                            android:layout_marginLeft="50dp"
-                            android:layout_marginRight="50dp"
-                            android:iconifiedByDefault="false"
-                            android:queryHint="搜索内容" />
-                        <!--摄像头按钮-->
-                        <ImageButton
-                            android:id="@+id/main_camera_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/camera_button"
-                            android:background="#00000000"
-                            android:layout_margin="10dp" />
-                </RelativeLayout>
+                            android:layout_height="wrap_content">
+                                <ImageView
+                                    android:id="@+id/last_day"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toLeftOf="@id/date"
+                                    android:layout_centerVertical="true"
+                                    android:src="@drawable/last_day_img"/>
+                                <TextView
+                                    android:id="@+id/date"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="yyyy-mm-dd"
+                                    android:textColor="#fff"
+                                    android:textSize="18sp"/>
+                                <ImageView
+                                    android:id="@+id/next_day"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/date"
+                                    android:layout_centerVertical="true"
+                                    android:src="@drawable/next_day_img"/>
+                        </RelativeLayout>
+                </android.support.v7.widget.Toolbar>
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/main_header_layout"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@color/mainColor"-->
+                    <!--android:paddingBottom="10dp">-->
+                        <!--&lt;!&ndash;菜单按钮&ndash;&gt;-->
+                        <!--<ImageButton-->
+                            <!--android:id="@+id/main_menu_button"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_alignParentLeft="true"-->
+                            <!--android:src="@drawable/menu_button"-->
+                            <!--android:background="#00000000"-->
+                            <!--android:layout_margin="10dp" />-->
+                        <!--&lt;!&ndash;丑陋的搜索栏&ndash;&gt;-->
+                        <!--&lt;!&ndash;<EditText-->
+                            <!--android:id="@+id/main_search"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_width="250dp"-->
+                            <!--android:layout_centerHorizontal="true"-->
+                            <!--android:singleLine="true"-->
+                            <!--android:hint="@string/main_search_hint"-->
+                            <!--android:paddingTop="10dp" />&ndash;&gt;-->
+                        <!--<SearchView-->
+                            <!--android:id="@+id/mainsearchView"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_alignParentTop="true"-->
+                            <!--android:layout_centerInParent="true"-->
+                            <!--android:layout_marginLeft="50dp"-->
+                            <!--android:layout_marginRight="50dp"-->
+                            <!--android:iconifiedByDefault="false"-->
+                            <!--android:queryHint="搜索内容" />-->
+                        <!--&lt;!&ndash;摄像头按钮&ndash;&gt;-->
+                        <!--<ImageButton-->
+                            <!--android:id="@+id/main_camera_button"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_alignParentRight="true"-->
+                            <!--android:src="@drawable/camera_button"-->
+                            <!--android:background="#00000000"-->
+                            <!--android:layout_margin="10dp" />-->
+                <!--</RelativeLayout>-->
                 <!--将除了底部的两个按钮之外的部分放在一个容器里，这样那两个按钮就可以放在底部-->
                 <LinearLayout
                     android:layout_width="match_parent"
