@@ -19,8 +19,7 @@ import android.widget.TextView;
 
 import com.example.foodcare.R;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
-import com.example.foodcare.entity.MainFood;
-import com.example.foodcare.entity.MainGroup;
+import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.presenter.MainPresenter;
 import com.example.foodcare.view.IMainView;
 import com.thinkcool.circletextimageview.CircleTextImageView;

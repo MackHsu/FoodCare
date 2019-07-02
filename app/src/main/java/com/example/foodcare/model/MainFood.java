@@ -1,5 +1,5 @@
 //许朗铭 2017302580224
-package com.example.foodcare.entity;
+package com.example.foodcare.model;
 
 public class MainFood {
 

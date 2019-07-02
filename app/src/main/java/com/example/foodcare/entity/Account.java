@@ -1,23 +1,25 @@
 package com.example.foodcare.entity;
 
-import android.graphics.BitmapFactory;
-import android.view.View;
-
-import com.example.foodcare.R;
-import com.example.foodcare.tools.StaticVariable;
-
-
-@SuppressWarnings("ResourceType")
 public class Account {
+
     private int id;
     private String name;
     private int age;
     private String user;
     private String password;
-    private double height;
-    private double weight;
-    private double fatRate;
-    private byte[] picture;
+    private Double height;
+    private Double weight;
+    //用户图像（可自定义）
+    private Byte[] picture;
+    //体脂率
+    private Double fatRate;
+
+    public Account() {
+    }
+
+    public Account(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;
@@ -59,53 +61,27 @@ public class Account {
         this.password = password;
     }
 
-    public double getHeight() {
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 
-    public double getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
-    public double getFatRate() {
+    public Double getFatRate() {
         return fatRate;
     }
 
-    public void setFatRate(double fatRate) {
+    public void setFatRate(Double fatRate) {
         this.fatRate = fatRate;
-    }
-
-    public byte[] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public Account(View v) {
-        id=454546;
-        name="李鑫超";
-        age=20;
-        user="账号";
-        password="密码";
-        height=183.2;
-        weight=66.1;
-        fatRate=0.01;
-        try {
-            picture= StaticVariable.BitmapToByte(BitmapFactory.decodeStream(v.getContext().getResources().openRawResource(R.drawable.defult)));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
     }
 }

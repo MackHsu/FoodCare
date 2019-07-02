@@ -1,6 +1,6 @@
 package com.example.foodcare.view;
 
-import com.example.foodcare.entity.MainGroup;
+import com.example.foodcare.model.MainGroup;
 
 import java.util.ArrayList;
 

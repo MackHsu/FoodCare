@@ -1,8 +1,9 @@
 package com.example.foodcare.model;
 
-import com.example.foodcare.entity.MainGroup;
+import com.example.foodcare.entity.Diet;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IMainModel {
 
@@ -17,4 +18,7 @@ public interface IMainModel {
 
     //获取今日运动消耗
     double getConsumption();
+
+    //查询数据库并重新整理数据
+    void initGroupList(List<Diet> dietList);
 }

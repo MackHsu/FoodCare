@@ -1,10 +1,12 @@
 package com.example.foodcare.model;
 
-import com.example.foodcare.entity.MainFood;
-import com.example.foodcare.entity.MainGroup;
+import com.example.foodcare.entity.Diet;
+import com.example.foodcare.entity.DietDetail;
+import com.example.foodcare.entity.Food;
 import com.example.foodcare.presenter.IMainPresenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainModel implements IMainModel {
 
@@ -65,5 +67,21 @@ public class MainModel implements IMainModel {
         foodList.add(mainFood);
         mainGroup = new MainGroup("午餐", 450, foodList);
         groupList.add(mainGroup);
+    }
+
+    //查询数据库并整理数据适配adapter，按3:4:3分配三餐热量
+    @Override
+    public void initGroupList(List<Diet> dietList) {
+        groupList.add(new MainGroup("早餐", recommendedIntakeToday * 0.3, new ArrayList<MainFood>()));
+        groupList.add(new MainGroup("午餐", recommendedIntakeToday * 0.4, new ArrayList<MainFood>()));
+        groupList.add(new MainGroup("晚餐", recommendedIntakeToday * 0.3, new ArrayList<MainFood>()));
+        for (Diet diet: dietList)
+        {
+//            String foodName;
+//            String foodWeight;
+//            double energyPerHectogram;
+//            查询数据库得到上面三个数据
+//            groupList.get(diet.getGroup()).getFoodsThisMeal().add(new MainFood(foodName, foodWeight, energyPerHectogram));
+        }
     }
 }

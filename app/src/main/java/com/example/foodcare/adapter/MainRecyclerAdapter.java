@@ -5,8 +5,8 @@ import android.content.Context;
 
 import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
 import com.donkingliang.groupedadapter.holder.BaseViewHolder;
-import com.example.foodcare.entity.MainFood;
-import com.example.foodcare.entity.MainGroup;
+import com.example.foodcare.model.MainFood;
+import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.R;
 
 import java.util.ArrayList;
