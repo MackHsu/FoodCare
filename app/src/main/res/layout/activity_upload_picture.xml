@@ -29,7 +29,7 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
         android:layout_width="match_parent"
         android:id="@+id/image_upload_for_analyze"
         android:gravity="center_horizontal"

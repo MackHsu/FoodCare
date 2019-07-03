@@ -134,6 +134,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 startActivity(intent);
             }
         });
+
+        Intent intent = new Intent(MainActivity.this, UploadPictureActivity.class);
+        startActivity(intent);
+
     }
 
     //向标题栏添加Camera按钮

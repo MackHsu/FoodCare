@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import com.example.foodcare.R;
 import com.example.foodcare.ToolClass.StaticVariable;
 import com.example.foodcare.UploadPicture.*;
+import com.example.foodcare.tools.NullOnEmptyFactory;
 
 import java.io.FileNotFoundException;
 
@@ -44,6 +46,7 @@ public class UploadPictureActivity extends AppCompatActivity {
     private Button btnUpload;
     private Button btnChoose;
     private Button btnTakePicture;
+    Drawable pic ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +66,7 @@ public class UploadPictureActivity extends AppCompatActivity {
                 }
             }
         });
-
+        pic = getResources().getDrawable(R.drawable.back_button);
         btnUpload=(Button)findViewById(R.id.upload_picture_for_analyze_upload_activity);
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,34 +82,44 @@ public class UploadPictureActivity extends AppCompatActivity {
         //步骤4:创建Retrofit对象
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.137.238:8080/foodcare/") // 设置 网络请求 Url
+                .addConverterFactory(new NullOnEmptyFactory())
                 .addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
                 .build();
 
         // 步骤5:创建 网络请求接口 的实例
         UploadPicture request = retrofit.create(UploadPicture.class);
+       // Bitmap bitmap=((BitmapDrawable)image_upload_for_analyze.getDrawable()).getBitmap();
+        BitmapDrawable temp =(BitmapDrawable) pic;
+        Bitmap bitmap = temp.getBitmap();
 
-        Bitmap bitmap=((BitmapDrawable)image_upload_for_analyze.getDrawable()).getBitmap();
         //对 发送请求 进行封装
         Call<ReturnInfo> call=request.getCall(StaticVariable.BitmapToByte(bitmap));
+        try{ //步骤6:发送网络请求(异步)
+            call.enqueue(new Callback<ReturnInfo>() {
+                //请求成功时回调
+                @Override
+                public void onResponse(Call<ReturnInfo> call, Response<ReturnInfo> response) {
+                    // 步骤7：处理返回的数据结果
+                    //response.body().show();
+                    System.out.println("请求成功");
+                    //setTxetOfResult(response.body().show());
+                }
 
-        //步骤6:发送网络请求(异步)
-        call.enqueue(new Callback<ReturnInfo>() {
-            //请求成功时回调
-            @Override
-            public void onResponse(Call<ReturnInfo> call, Response<ReturnInfo> response) {
-                // 步骤7：处理返回的数据结果
-                //response.body().show();
-                System.out.println("请求成功");
-                setTxetOfResult(response.body().show());
-            }
+                //请求失败时回调
+                @Override
+                public void onFailure(Call<ReturnInfo> call, Throwable throwable) {
 
-            //请求失败时回调
-            @Override
-            public void onFailure(Call<ReturnInfo> call, Throwable throwable) {
-                System.out.println("连接失败");
-                System.out.println(throwable.getMessage());
-            }
-        });
+
+                    System.out.println("连接失败");
+                    System.out.println(throwable.toString());
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.toString());
+        }
+
     }
 
     private void setTxetOfResult(String info){
@@ -200,7 +213,8 @@ public class UploadPictureActivity extends AppCompatActivity {
     private void displayImage(String imagePath){
         if(imagePath!=null){
             Bitmap bitmap=BitmapFactory.decodeFile(imagePath);
-            image_upload_for_analyze.setImageBitmap(bitmap);
+           // image_upload_for_analyze.setImageBitmap(bitmap);
+            image_upload_for_analyze.setImageDrawable(new BitmapDrawable(bitmap));
         }else{
             Toast.makeText(this,"faile to get image ",Toast.LENGTH_SHORT).show();
         }
