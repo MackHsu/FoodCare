@@ -29,6 +29,10 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.Toolbar>
     <!--搜索栏和拍照、扫描按钮的布局容器-->
     <RelativeLayout
         android:layout_width="match_parent"
