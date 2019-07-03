@@ -5,6 +5,7 @@ package com.example.foodcare.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.Px;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -17,8 +18,11 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -27,6 +31,8 @@ import com.example.foodcare.R;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.presenter.MainPresenter;
+import com.example.foodcare.util.CommonUtil;
+import com.example.foodcare.view.HeaderAnimatedScrollView;
 import com.example.foodcare.view.IMainView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -55,6 +61,15 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     Toolbar toolbar;
     private Uri imageUri;
 
+    RelativeLayout mainHeaderLayout;
+    HeaderAnimatedScrollView scrollView;
+    RelativeLayout centerLayout;
+    TextView restTodayLabel;
+    TextView recommendedIntakeLabel;
+    TextView intakeLabel;
+    TextView consumptionLabel;
+    LinearLayout mainBgLayout;
+
     MainPresenter mainPresenter;
 
     @Override
@@ -80,6 +95,17 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         consumptionText = (TextView) findViewById(R.id.consumption_today);
         restText = (TextView) findViewById(R.id.rest_today_text);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        mainHeaderLayout = (RelativeLayout) findViewById(R.id.main_header_layout);
+        scrollView = (HeaderAnimatedScrollView) findViewById(R.id.scroll_view);
+        centerLayout = (RelativeLayout) findViewById(R.id.header_center_layout);
+        restTodayLabel = (TextView) findViewById(R.id.rest_today_label);
+        recommendedIntakeLabel = (TextView) findViewById(R.id.recommended_intake_label);
+        intakeLabel = (TextView) findViewById(R.id.intake_today_label);
+        consumptionLabel = (TextView) findViewById(R.id.consumption_today_label);
+        mainBgLayout = (LinearLayout) findViewById(R.id.main_bg);
+
+        initHeadAnimation();
 
         mainPresenter = new MainPresenter(this);
         mainPresenter.refreshTodayMealListAndEnergy();
@@ -202,4 +228,57 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     /*********************************************************************/
     /**********************搜索框*****************************************/
 
+    private void initHeadAnimation() {
+        final float maxHeight = CommonUtil.dp2px(this, 180f);
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mainHeaderLayout.getLayoutParams();
+        final float maxRestLabelTextSize = restTodayLabel.getTextSize();
+        final float maxRestTextTextSize = restText.getTextSize();
+        final float maxRecommendedLabelTextSize = recommendedIntakeLabel.getTextSize();
+        final float maxRecommendedTextTextSize = recommendedIntakeText.getTextSize();
+        final float maxIntakeLabelTextSize = intakeLabel.getTextSize();
+        final float maxIntakeTextTextSize = intakeText.getTextSize();
+        final float maxConsumptionLabelTextSize = consumptionLabel.getTextSize();
+        final float maxConsumptionTextTextSize = consumptionText.getTextSize();
+
+        scrollView.setOnScrollListener(new HeaderAnimatedScrollView.OnScrollChangeListener() {
+            @Override
+            public synchronized void onScrollChanged(int action, final float dy) {
+                float scale = (maxHeight - dy) > 0 ? (maxHeight - dy) / maxHeight : 0;
+
+                //背景
+                ViewGroup.MarginLayoutParams mainBgLayoutParams = (ViewGroup.MarginLayoutParams) mainBgLayout.getLayoutParams();
+                float newHeight = maxHeight * scale;
+                mainBgLayoutParams.height = (int) newHeight;
+                mainBgLayout.setLayoutParams(mainBgLayoutParams);
+                mainBgLayout.setAlpha(scale);
+
+                //中间
+                ViewGroup.MarginLayoutParams centerLayoutParams = (ViewGroup.MarginLayoutParams) centerLayout.getLayoutParams();
+                newHeight = maxHeight * scale;
+                centerLayoutParams.width = (int) newHeight;
+                centerLayoutParams.height = (int) newHeight;
+                centerLayout.setLayoutParams(centerLayoutParams);
+                float newSize = maxRestLabelTextSize * scale;
+                restTodayLabel.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, newSize);
+                newSize = maxRestTextTextSize * scale;
+                restText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, newSize);
+                newSize = maxRecommendedLabelTextSize * scale;
+                recommendedIntakeLabel.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, newSize);
+                newSize = maxRecommendedTextTextSize * scale;
+                recommendedIntakeText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, newSize);
+
+                //左边
+                newSize = maxIntakeLabelTextSize * scale;
+                intakeLabel.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, newSize);
+                newSize = maxIntakeTextTextSize * scale;
+                intakeText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, newSize);
+
+                //右边
+                newSize = maxConsumptionLabelTextSize * scale;
+                consumptionLabel.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, newSize);
+                newSize = maxConsumptionTextTextSize * scale;
+                consumptionText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, newSize);
+            }
+        });
+    }
 }

@@ -32,6 +32,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
+    implementation 'com.github.nirhart:ParallaxScroll:dd53d1f9d1'
 
     //图表和material design
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'//画图
