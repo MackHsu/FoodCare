@@ -78,7 +78,7 @@ public class UploadPictureActivity extends AppCompatActivity {
 
         //步骤4:创建Retrofit对象
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://129.211.79.163:9921/") // 设置 网络请求 Url
+                .baseUrl("http://192.168.137.238:8080/foodcare/") // 设置 网络请求 Url
                 .addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
                 .build();
 
@@ -104,6 +104,7 @@ public class UploadPictureActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ReturnInfo> call, Throwable throwable) {
                 System.out.println("连接失败");
+                System.out.println(throwable.getMessage());
             }
         });
     }

@@ -41,15 +41,16 @@ public class StaticVariable {
             return null;
         }
     }
-    static public Byte[] BitmapToByte(Bitmap bmp){
+    static public byte[] BitmapToByte(Bitmap bmp){
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
-        Byte[] bytes=new Byte[byteArray.length];
-        for(int i=0;i<byteArray.length;i++){
+        //Byte[] bytes=new Byte[byteArray.length];
+        /*for(int i=0;i<byteArray.length;i++){
             bytes[i]=new Byte(byteArray[i]);
         }
-        return bytes;
+        return bytes;*/
+        return byteArray;
     }
     /*static public byte[] TabkePhoto(View v){
         Uri imageUri;
