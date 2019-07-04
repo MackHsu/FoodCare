@@ -7,4 +7,7 @@
     <string name="today_sport">今日运动消耗    %d</string>
     <string name="today_left">今日剩余可摄入  %d</string>
     <string name="title_activity_today_analyse">TodayAnalyse</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

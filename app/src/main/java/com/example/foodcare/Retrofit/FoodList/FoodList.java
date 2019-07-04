@@ -1,8 +1,12 @@
 package com.example.foodcare.Retrofit.FoodList;
 
+import android.os.Handler;
+import android.os.Message;
+
 import com.example.foodcare.Retrofit.Food;
 import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -13,7 +17,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 //所有食物OKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOK
 public class FoodList {
-    static public void request() {
+    Handler handler;
+    List<Food> data;
+    public final int UPDATE_DATA = 1;
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
+    public void request() {
         Retrofit retrofit  = new Retrofit.Builder()
                 .baseUrl("http://192.168.137.238:8080/foodcare/")//http://fanyi.youdao.com/")
                 .addConverterFactory(new NullOnEmptyConverterFactory())
@@ -29,10 +41,14 @@ public class FoodList {
             @Override
             public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {
                 System.out.println("请求成功");
-                for(int i =0;i<response.body().size();i++)
-                {
-                    System.out.println(response.body().get(i).getName());
-                }
+//                for(int i =0;i<response.body().size();i++)
+//                {
+//                    data.add(response.body().get(i));
+//                }
+                data = response.body();
+                Message message = new Message();
+                message.what = UPDATE_DATA;
+                handler.sendMessage(message);
             }
 
             @Override
@@ -42,5 +58,10 @@ public class FoodList {
                 t.printStackTrace();
             }
         });
+    }
+
+
+    public List<Food> getData() {
+        return data;
     }
 }

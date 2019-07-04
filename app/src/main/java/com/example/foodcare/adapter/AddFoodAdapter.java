@@ -1,22 +1,27 @@
 package com.example.foodcare.adapter;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.foodcare.activity.AddFoodActivity;
 import com.example.foodcare.activity.FoodInfoActivity;
 import com.example.foodcare.entity.AddFood;
 import com.example.foodcare.R;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
+import com.thinkcool.circletextimageview.CircleTextImageView;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -28,14 +33,17 @@ public class AddFoodAdapter extends RecyclerView.Adapter<AddFoodAdapter.ViewHold
     private List<AddFood> foodList;
 
     static class ViewHolder extends  RecyclerView.ViewHolder {
+        CircleTextImageView foodImage;
         TextView nameText;
         TextView energyText;
         ImageButton infoButton;
         RelativeLayout itemLayout;
 
+
         public ViewHolder(View view) {
             //ImageView初始化
             super(view);
+            foodImage = (CircleTextImageView) view.findViewById(R.id.food_image);
             nameText = (TextView) view.findViewById(R.id.food_name_text);
             energyText = (TextView) view.findViewById(R.id.food_energy_text);
             infoButton = (ImageButton) view.findViewById(R.id.food_info_button);
@@ -44,7 +52,6 @@ public class AddFoodAdapter extends RecyclerView.Adapter<AddFoodAdapter.ViewHold
             infoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO: 弹窗到详情
                     Intent intent = new Intent(nameText.getContext(), FoodInfoActivity.class);
                     nameText.getContext().startActivity(intent);
                 }
@@ -95,6 +102,7 @@ public class AddFoodAdapter extends RecyclerView.Adapter<AddFoodAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         AddFood food = foodList.get(position);
+        Glide.with(viewHolder.foodImage.getContext()).load(food.getImageUrl()).into(viewHolder.foodImage);
         viewHolder.nameText.setText(food.getFoodName());
         viewHolder.energyText.setText(food.getEnergyPerHectogram() + "千卡/克");
     }

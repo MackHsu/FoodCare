@@ -46,13 +46,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     ImageButton menuButton;
     DrawerLayout mainDrawerLayout;
-//    Button addFoodButton;
-//    Button analysisButton;
     Button calendarButton;
     ImageButton cameraButton;
     CircleTextImageView UserInformation;
     RecyclerView mainRecycler;
-//    SearchView searchView;
     FloatingActionButton addButton;
     FloatingActionButton analysisButton;
     FloatingActionButton searchButton;
@@ -82,13 +79,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         //初始化
         menuButton = (ImageButton) findViewById(R.id.main_menu_button);
         mainDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        addFoodButton = (Button) findViewById(R.id.mian_add_button);
-//        analysisButton = (Button) findViewById(R.id.main_analysis_button);
         calendarButton = (Button) findViewById(R.id.calendar) ;
         UserInformation = (CircleTextImageView) findViewById(R.id.avatar);
         mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
         cameraButton = (ImageButton)findViewById(R.id.main_camera_button);
-//        searchView = (SearchView)findViewById(R.id.mainsearchView);
         addButton = (FloatingActionButton) findViewById(R.id.floating_button_add);
         analysisButton = (FloatingActionButton) findViewById(R.id.floating_button_analysis);
         searchButton = (FloatingActionButton) findViewById(R.id.floating_button_search);
@@ -165,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
            }
         });
 
-        //日历跳转
         //日历界面跳转
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,33 +176,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             }
         });
 
-        Intent intent = new Intent(MainActivity.this, UploadPictureActivity.class);
-        startActivity(intent);
-
     }
-
-//    //向标题栏添加Camera按钮
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.toolbar, menu);
-//        return true;
-//    }
-//
-//    //标题栏的点击事件
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.camera:
-//                Intent intent = new Intent(MainActivity.this, UploadPictureActivity.class);
-//                startActivity(intent);
-//                break;
-//            case android.R.id.home:
-//                mainDrawerLayout.openDrawer(Gravity.START);
-//                break;
-//            default:
-//        }
-//        return true;
-//    }
 
     @Override
     public void refresh(ArrayList<MainGroup> groupList, double recommendedIntake, double intake, double consumption) {
@@ -231,9 +198,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     }
 
-    /*********************************************************************/
-    /**********************搜索框*****************************************/
-
+    //设置首页头滑动动画
     private void initHeadAnimation() {
         final float maxHeight = CommonUtil.dp2px(this, 180f);
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mainHeaderLayout.getLayoutParams();
