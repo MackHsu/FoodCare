@@ -11,7 +11,8 @@ import retrofit2.http.Query;
 public interface UploadPicture {
     ///@GET("sports/admin/team/list")
     //@Multipart
-    @POST("sports/admin/team/list")
+    @POST("food/reg1")
     @FormUrlEncoded
-    Call<ReturnInfo> getCall(@Field("picture") Byte[] picture);
+    Call<ReturnInfo> getCall(@Field("img") byte[] picture);
 }
+
