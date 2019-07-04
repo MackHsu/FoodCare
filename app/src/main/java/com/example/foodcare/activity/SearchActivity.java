@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -27,6 +29,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private SearchView mSearchView;
     private ListView lListView;
+    private ImageButton backButton;
 
     private static Context mContent;
 
@@ -41,9 +44,16 @@ public class SearchActivity extends AppCompatActivity {
         lListView = (ListView) findViewById(R.id.listView);
         lListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mStrs));
         lListView.setTextFilterEnabled(true);
+        backButton = (ImageButton) findViewById(R.id.back_button);
 
         initFruits();
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             // 当点击搜索按钮时触发该方法
@@ -57,9 +67,9 @@ public class SearchActivity extends AppCompatActivity {
             // 当搜索内容改变时触发该方法
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (!TextUtils.isEmpty(newText)){
+                if (!TextUtils.isEmpty(newText)) {
                     lListView.setFilterText(newText);
-                }else{
+                } else {
                     lListView.clearTextFilter();
                 }
                 return false;

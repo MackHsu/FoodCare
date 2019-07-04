@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="FoodCareStatusBarTheme" parent="AppTheme">
-        <item name="android:statusBarColor">#A1CE6C</item>
+        <item name="android:statusBarColor">@color/mainColor1</item>
     </style>
 </resources>

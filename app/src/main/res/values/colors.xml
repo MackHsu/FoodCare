@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="mainColor">#A1CE6C</color>
+    <color name="mainColor1">#069471</color>
+    <color name="mainColor2">#92C796</color>
+    <color name="mainColor3">#88D37D</color>
+    <color name="mainColor4">#50CBC6</color>
+    <color name="mainColor5">#6981A0</color>
+    <color name="mainColor5_transparent">#806981A0</color>
     <color name="mainColor_transparent">#80A1CE6C</color>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>

@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:background="@color/mainColor"
+                    android:background="@color/mainColor1"
                     android:paddingBottom="10dp">
                         <!--菜单按钮-->
                         <ImageButton
@@ -124,8 +124,7 @@
                         <com.example.foodcare.view.HeaderAnimatedScrollView
                             android:id="@+id/scroll_view"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/main_bg">
+                            android:layout_height="wrap_content">
                                 <LinearLayout
                                     android:orientation="vertical"
                                     android:layout_width="match_parent"
@@ -136,7 +135,7 @@
                                             android:orientation="vertical"
                                             android:layout_width="match_parent"
                                             android:layout_height="180dp"
-                                            android:background="@color/mainColor">
+                                            android:background="@color/mainColor3">
                                                 <!--摄入、剩余、运动 布局容器-->
                                                 <LinearLayout
                                                     android:orientation="horizontal"
@@ -264,9 +263,6 @@
                                             android:id="@+id/main_recycler"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"/>
-                                        <!--<TextView-->
-                                            <!--android:layout_width="match_parent"-->
-                                            <!--android:layout_height="500dp" />-->
                                 </LinearLayout>
                         </com.example.foodcare.view.HeaderAnimatedScrollView>
                         <com.getbase.floatingactionbutton.FloatingActionsMenu
@@ -276,8 +272,8 @@
                             android:layout_alignParentRight="true"
                             android:layout_alignParentBottom="true"
                             android:layout_margin="15dp"
-                            app:fab_addButtonColorNormal="@color/mainColor_transparent"
-                            app:fab_addButtonColorPressed="@color/mainColor"
+                            app:fab_addButtonColorNormal="@color/mainColor5_transparent"
+                            app:fab_addButtonColorPressed="@color/mainColor5"
                             app:fab_labelStyle="@style/floating_button_label_style">
                                 <com.getbase.floatingactionbutton.FloatingActionButton
                                     android:id="@+id/floating_button_search"
@@ -292,6 +288,13 @@
                                     android:layout_height="wrap_content"
                                     app:fab_title="  分析  "
                                     app:fab_icon="@drawable/ic_analysis"
+                                    app:fab_colorNormal="#fff"/>
+                                <com.getbase.floatingactionbutton.FloatingActionButton
+                                    android:id="@+id/floating_button_workout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:fab_title="  运动  "
+                                    app:fab_icon="@drawable/ic_workout"
                                     app:fab_colorNormal="#fff"/>
                                 <com.getbase.floatingactionbutton.FloatingActionButton
                                     android:id="@+id/floating_button_add"

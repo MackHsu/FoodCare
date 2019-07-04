@@ -66,6 +66,6 @@ public class HeaderAnimatedScrollView extends NestedScrollView {
         if(listener == null || msgLock) {
             return;
         }
-        listener.onScrollChanged(-1, getScrollY() * 0.8f);
+        listener.onScrollChanged(-1, getScrollY() * 0.7f);
     }
 }

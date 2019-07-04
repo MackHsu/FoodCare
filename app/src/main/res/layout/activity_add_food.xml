@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/mainColor">
+        android:background="@color/mainColor1">
         <!--返回按钮-->
         <ImageButton
             android:id="@+id/back_button"

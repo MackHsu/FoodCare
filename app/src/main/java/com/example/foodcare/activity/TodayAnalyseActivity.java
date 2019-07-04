@@ -2,8 +2,12 @@
 //***********创建者：曾志昊**************
 package com.example.foodcare.activity;
 
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.foodcare.R;
 import com.github.mikephil.charting.components.Description;
@@ -39,6 +43,8 @@ public class TodayAnalyseActivity extends AppCompatActivity {
     TextView viewTodaySport;
     TextView viewTodayLeft;
 
+    ImageButton backButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +60,13 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         viewTodayIntake = (TextView)findViewById(R.id.TodayIntake);
         viewTodaySport = (TextView)findViewById(R.id.TodaySport);
         viewTodayLeft = (TextView)findViewById(R.id.TodayLeft);
+        backButton = (ImageButton) findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //查询数据
         getNumber();

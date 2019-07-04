@@ -14,13 +14,13 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:layout_margin="5dp"
-        android:textColor="@color/mainColor"/>
+        android:textColor="@color/mainColor2"/>
     <!--装饰线 分割线-->
     <View
         android:layout_width="0dp"
         android:layout_height="5dp"
         android:layout_weight="1"
         android:layout_marginRight="5dp"
-        android:background="@color/mainColor"
+        android:background="@color/mainColor2"
         android:layout_gravity="center_vertical"/>
 </LinearLayout>
