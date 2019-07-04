@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.FruitActivity"></activity>
+        <activity android:name=".activity.ChangeAccountInfoActivity"></activity>
+        <activity android:name=".activity.FruitActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.UserInfoActivity" />
         <activity android:name=".RequestAndTransaction.UploadActivity" />
@@ -32,8 +33,7 @@
             android:theme="@style/FoodCareStatusBarTheme" />
         <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/FoodCareStatusBarTheme"
-            android:label="">
+            android:theme="@style/FoodCareStatusBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
