@@ -14,10 +14,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.FoodList.FoodList;
 import com.example.foodcare.adapter.AddFoodAdapter;
+import com.example.foodcare.adapter.AddFoodAdapter2;
 import com.example.foodcare.entity.AddFood;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.victor.loading.rotate.RotateLoading;
@@ -47,8 +50,8 @@ public class AddFoodActivity extends AppCompatActivity {
 
         //初始化
         backButton = (ImageButton) findViewById(R.id.back_button);
-//        recyclerView = (RecyclerView) findViewById(R.id.add_food_recycler);
-//        loading = (RotateLoading) findViewById(R.id.loading);
+        recyclerView = (RecyclerView) findViewById(R.id.add_food_recycler);
+        loading = (RotateLoading) findViewById(R.id.loading);
 //        loading.start();
         //返回
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -59,17 +62,42 @@ public class AddFoodActivity extends AppCompatActivity {
             }
         });
 
-        for(String title: mTitles) {
-            mFragments.add(AddFoodTypeFregment.getInstant(this, title));
+        //分类显示方式
+//        for(String title: mTitles) {
+//            mFragments.add(AddFoodTypeFregment.getInstant(this, title));
+//        }
+//
+//        View decorView = getWindow().getDecorView();
+//        ViewPager pager = (ViewPager) decorView.findViewById(R.id.view_pager);
+//        mAdapter = new PageRecyclerAdapter(getSupportFragmentManager());
+//        pager.setAdapter(mAdapter);
+//        slide = decorView.findViewById(R.id.slide);
+//        slide.setViewPager(pager);
+
+        //数据写死，用来测试
+
+        initFoods();
+        final ArrayList<AddFood> newFoodList = new ArrayList<>();
+        int count = 0;
+        for(int i = 0; i < 10; i++){
+            newFoodList.add(foodList.get(i));
         }
+        final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, newFoodList);
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                if(newFoodList.size() >= foodList.size()) adapter.loadMoreEnd();
+                else {
+                    adapter.addData(foodList.get((newFoodList.size())));
+                    adapter.loadMoreComplete();
+                }
+            }
+        }, recyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
 
-        View decorView = getWindow().getDecorView();
-        ViewPager pager = (ViewPager) decorView.findViewById(R.id.view_pager);
-        mAdapter = new PageRecyclerAdapter(getSupportFragmentManager());
-        pager.setAdapter(mAdapter);
-        slide = decorView.findViewById(R.id.slide);
-        slide.setViewPager(pager);
-
+        //无分类显示方式
 //        dbFoodData = new FoodList();
 //        Handler handler = new Handler() {
 //            @Override
@@ -103,6 +131,9 @@ public class AddFoodActivity extends AppCompatActivity {
         foodList.add(new AddFood("", "鸡腿", 400));
         foodList.add(new AddFood("", "豆浆", 50));
         foodList.add(new AddFood("", "煮鸡蛋", 100));
+        for(int i = 0; i < 30; i++) {
+            foodList.add(new AddFood("", i + "", i));
+        }
     }
 
     private class PageRecyclerAdapter extends FragmentPagerAdapter {
