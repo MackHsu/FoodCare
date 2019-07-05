@@ -49,6 +49,7 @@ public class AddFoodAdapter extends RecyclerView.Adapter<AddFoodAdapter.ViewHold
             infoButton = (ImageButton) view.findViewById(R.id.food_info_button);
             itemLayout = (RelativeLayout) view.findViewById(R.id.item_layout);
 
+            //食物详细
             infoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -57,6 +58,7 @@ public class AddFoodAdapter extends RecyclerView.Adapter<AddFoodAdapter.ViewHold
                 }
             });
 
+            //添加弹窗
             itemLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

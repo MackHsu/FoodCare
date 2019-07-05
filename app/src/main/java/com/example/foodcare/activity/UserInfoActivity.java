@@ -98,11 +98,14 @@ public class UserInfoActivity extends AppCompatActivity {
                 final DialogPlus dialog = DialogPlus.newDialog(UserInfoActivity.this)
                         .setContentHolder(new ViewHolder(R.layout.dialog_items))
                         .create();
+
                 Button buttonTake=(Button)dialog.findViewById(R.id.take_photo_item_dialog);
                 Button buttonSelect=(Button)dialog.findViewById(R.id.select_photo_item_dialog);
+                //拍照监听器
                 buttonTake.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //创建缓存拍照文件
                         File outputImage=new File(getExternalCacheDir(),"output_image.jpg");
                         try{
                             if(outputImage.exists()){
@@ -130,6 +133,7 @@ public class UserInfoActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+                //选择相册监听器
                 buttonSelect.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -139,7 +143,6 @@ public class UserInfoActivity extends AppCompatActivity {
                         }
                         else{
                             openAlbum();
-
                         }
                         dialog.dismiss();
                     }

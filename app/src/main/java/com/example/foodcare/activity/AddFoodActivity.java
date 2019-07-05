@@ -1,6 +1,8 @@
 package com.example.foodcare.activity;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,12 +10,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.FoodList.FoodList;
+import com.example.foodcare.adapter.AddFoodAdapter;
 import com.example.foodcare.entity.AddFood;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.victor.loading.rotate.RotateLoading;

@@ -62,7 +62,7 @@ public class AddFoodTypeFregment extends Fragment {
                 switch (msg.what) {
                     case UPDATE_DATA:
                         for(int i = 0; i < 10; i++ ) {
-                            foodList.add(new AddFood("http://192.168.137.238:808odcare/" + dbFoodData.getData().get(i).getPicture_mid(), dbFoodData.getData().get(i).getName(), dbFoodData.getData().get(i).getFat()));
+                            foodList.add(new AddFood("http://192.168.137.238:8080/foodcare" + dbFoodData.getData().get(i).getPicture_mid(), dbFoodData.getData().get(i).getName(), dbFoodData.getData().get(i).getFat()));
                         }
                         loading.stop();
                         //显示列表数据

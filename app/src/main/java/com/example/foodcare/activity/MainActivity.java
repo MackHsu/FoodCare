@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     TextView intakeLabel;
     TextView consumptionLabel;
     LinearLayout mainBgLayout;
-
+    ImageButton uploadPictureButton;
     MainPresenter mainPresenter;
 
     @Override
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         intakeLabel = (TextView) findViewById(R.id.intake_today_label);
         consumptionLabel = (TextView) findViewById(R.id.consumption_today_label);
         mainBgLayout = (LinearLayout) findViewById(R.id.main_bg);
-
+        uploadPictureButton = (ImageButton) findViewById(R.id.main_camera_button);
         initHeadAnimation();
 
         mainPresenter = new MainPresenter(this);
@@ -176,7 +176,17 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             }
         });
 
+        uploadPictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, IdentifyFoodActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
+
+
 
     @Override
     public void refresh(ArrayList<MainGroup> groupList, double recommendedIntake, double intake, double consumption) {
