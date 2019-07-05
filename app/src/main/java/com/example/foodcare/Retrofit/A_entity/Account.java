@@ -7,6 +7,7 @@ public class Account {
     //定的目标 0-保持健康，1-减肥，2-增肌
     private int plan;
     private int age;
+    private int sex;//0为女 1为男
     private String user;
     private String password;
     private Double height;
@@ -27,6 +28,8 @@ public class Account {
     public int getId() {
         return id;
     }
+
+    public int getSex(){return sex;}
 
     public void setId(int id) {
         this.id = id;
@@ -55,6 +58,8 @@ public class Account {
     public void setUser(String user) {
         this.user = user;
     }
+
+    public void setSex(int sex){this.sex = sex;}
 
     public String getPassword() {
         return password;
