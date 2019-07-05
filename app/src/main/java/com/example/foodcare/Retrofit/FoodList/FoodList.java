@@ -46,6 +46,8 @@ public class FoodList {
 //                    data.add(response.body().get(i));
 //                }
                 data = response.body();
+                if(data == null)
+                    System.out.println("返回错误");
                 Message message = new Message();
                 message.what = UPDATE_DATA;
                 handler.sendMessage(message);

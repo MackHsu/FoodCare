@@ -34,7 +34,7 @@ public class AddFoodActivity extends AppCompatActivity {
     private FoodList dbFoodData;
     private List<AddFood> foodList = new ArrayList<>();
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private String[] mTitles = {"肉类", "蔬菜", "水果"};
+    private String[] mTitles = {"常见", "食材", "菜品"};
     private PageRecyclerAdapter mAdapter;
     private SlidingTabLayout slide;
 

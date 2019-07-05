@@ -2,14 +2,11 @@
 <!--许朗铭 2017302580224-->
 
 <!--总布局容器-->
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <!--标题栏布局容器-->
         <RelativeLayout
             android:layout_width="match_parent"
@@ -80,17 +77,19 @@
             android:id="@+id/slide"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#fff"
-            app:tl_indicator_corner_radius="1.5dp"
-            app:tl_indicator_height="3dp"
+            android:background="@color/light_gray"
+            app:tl_indicator_corner_radius="2dp"
+            app:tl_indicator_height="1.5dp"
             app:tl_indicator_color="@color/mainColor"
-            app:tl_divider_width="10dp"
             app:tl_textUnselectColor="@color/mainColor4"
-            app:tl_textSelectColor="@color/mainColor"/>
+            app:tl_textSelectColor="@color/mainColor"
+            android:textAlignment="center"
+            android:elevation="5dp" />
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="500dp" />
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
         <!--<android.support.v7.widget.RecyclerView-->
             <!--android:id="@+id/add_food_recycler"-->
             <!--android:layout_width="match_parent"-->
@@ -103,5 +102,4 @@
             <!--app:loading_color="@color/mainColor1"-->
             <!--app:loading_speed="8"-->
             <!--app:loading_width="2dp" />-->
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</LinearLayout>
