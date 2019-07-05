@@ -22,6 +22,7 @@ import com.example.foodcare.entity.AddFood;
 import com.victor.loading.rotate.RotateLoading;
 import com.wx.wheelview.widget.WheelViewDialog;
 
+import com.example.foodcare.Retrofit.A_entity.*;
 import java.util.ArrayList;
 
 

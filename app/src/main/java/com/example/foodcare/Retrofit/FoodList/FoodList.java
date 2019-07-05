@@ -3,8 +3,9 @@ package com.example.foodcare.Retrofit.FoodList;
 import android.os.Handler;
 import android.os.Message;
 
-import com.example.foodcare.Retrofit.Food;
+import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.IP;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class FoodList {
 
     public void request() {
         Retrofit retrofit  = new Retrofit.Builder()
-                .baseUrl("http://192.168.137.238:8080/foodcare/")//http://fanyi.youdao.com/")
+                .baseUrl(IP.ip)//http://fanyi.youdao.com/")
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

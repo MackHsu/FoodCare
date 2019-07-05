@@ -1,6 +1,7 @@
 package com.example.foodcare.model;
 
-import com.example.foodcare.entity.Diet;
+
+import com.example.foodcare.Retrofit.A_entity.Diet;
 
 import java.util.ArrayList;
 import java.util.List;

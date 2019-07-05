@@ -2,6 +2,7 @@ package com.example.foodcare.Retrofit.LabelFood;
 
 import com.example.foodcare.Retrofit.A_entity.Label;
 import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.IP;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LabelFoodTest {
     static public void request(int labelid) {//1 高蛋白 2 高酒精
         Retrofit retrofit  = new Retrofit.Builder()
-                .baseUrl("http://192.168.137.238:8080/foodcare/")//http://fanyi.youdao.com/")
+                .baseUrl(IP.ip)//http://fanyi.youdao.com/")
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
