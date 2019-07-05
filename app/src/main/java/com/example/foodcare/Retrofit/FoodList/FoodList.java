@@ -3,7 +3,7 @@ package com.example.foodcare.Retrofit.FoodList;
 import android.os.Handler;
 import android.os.Message;
 
-import com.example.foodcare.Retrofit.Food;
+import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
 
 import java.util.ArrayList;

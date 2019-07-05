@@ -1,6 +1,6 @@
 package com.example.foodcare.Retrofit.FoodTest;
 
-import com.example.foodcare.Retrofit.Food;
+import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
 
 import java.util.List;

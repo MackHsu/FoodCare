@@ -1,6 +1,7 @@
 package com.example.foodcare.Retrofit.FoodTest;
 
-import com.example.foodcare.Retrofit.Food;
+
+import com.example.foodcare.Retrofit.A_entity.Food;
 
 import java.util.List;
 

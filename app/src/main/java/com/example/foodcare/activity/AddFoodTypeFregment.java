@@ -18,7 +18,7 @@ import com.example.foodcare.Retrofit.FoodList.FoodList;
 import com.example.foodcare.adapter.AddFoodAdapter;
 import com.example.foodcare.entity.AddFood;
 import com.victor.loading.rotate.RotateLoading;
-
+import com.example.foodcare.Retrofit.A_entity.*;
 import java.util.ArrayList;
 
 
