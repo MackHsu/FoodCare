@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.example.foodcare.Retrofit.A_entity.Account;
 import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.IP;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,7 +18,7 @@ public class UserInformationTest {
     static Account account;
     static public void request(int id,final Context context) {
         Retrofit retrofit  = new Retrofit.Builder()
-                .baseUrl("http://192.168.137.238:8080/foodcare/")
+                .baseUrl(IP.ip)
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

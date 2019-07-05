@@ -2,6 +2,8 @@ package com.example.foodcare.Retrofit.Type;
 
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.IP;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -14,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TypeTest {
     static public void request(String type) {
         Retrofit retrofit  = new Retrofit.Builder()
-                .baseUrl("http://192.168.137.238:8080/foodcare/")//http://fanyi.youdao.com/")
+                .baseUrl(IP.ip)//http://fanyi.youdao.com/")
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

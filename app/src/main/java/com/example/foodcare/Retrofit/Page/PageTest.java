@@ -1,10 +1,15 @@
 package com.example.foodcare.Retrofit.Page;
 
 import com.example.foodcare.Retrofit.A_entity.Food;
+import com.example.foodcare.Retrofit.A_entity.FoodPage;
 import com.example.foodcare.Retrofit.A_entity.Page;
 import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.IP;
+import com.google.gson.internal.bind.ObjectTypeAdapter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,9 +18,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PageTest {
-    static public void request() {
+    private Page page;
+    int times = 2;
+    public PageTest() {
+        page = new Page();
+        page.setStart(0);
+    }
+
+    public void request() {
         Retrofit retrofit  = new Retrofit.Builder()
-                .baseUrl("http://192.168.137.238:8080/foodcare/")//http://fanyi.youdao.com/")
+                .baseUrl(IP.ip)//http://fanyi.youdao.com/")
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -23,23 +35,36 @@ public class PageTest {
 
         PageInterface post = retrofit.create(PageInterface.class);
         System.out.println("建立post对象");
-        Page page = new Page();
-        page.setStart(0);
-        Call<List<Food>> call = post.getCall(page);
+        Call<FoodPage> call = post.getCall(page);
         System.out.println("getcall");
-        call.enqueue(new Callback<List<Food>>() {
+        call.enqueue(new Callback<FoodPage>() {
             @Override
-            public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {
+            public void onResponse(Call<FoodPage> call, Response<FoodPage> response) {
                 System.out.println("请求成功");//此处对象为空？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？/
-
-                for(int i =0;i<response.body().size();i++)
+                if(response.body()==null)
                 {
-                    System.out.println(response.body().get(i).getName());
+                    System.out.println("对象为空！！！！！！！！！！！！！");
                 }
+                else
+                {
+                    System.out.println(page.getStart());
+                    for(int i =0;i<response.body().getFoods().size();i++)
+                    {
+                        System.out.println(response.body().getFoods().get(i).getName());
+                    }
+                    if(times>1){
+                        times--;
+                        page = response.body().getPage();
+                        System.out.println(page.getStart());
+                        request();
+                    }
+
+                }
+
             }
 
             @Override
-            public void onFailure(Call<List<Food>> call, Throwable t) {
+            public void onFailure(Call<FoodPage> call, Throwable t) {
                 System.out.println("请求失败");
                 System.out.println(t.toString());
                 t.printStackTrace();
