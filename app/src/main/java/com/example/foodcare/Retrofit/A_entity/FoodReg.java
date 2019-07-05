@@ -1,4 +1,4 @@
-package com.example.foodcare.entity;
+package com.example.foodcare.Retrofit.A_entity;
 
 public class FoodReg {
 

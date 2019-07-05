@@ -8,21 +8,24 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodcare.Interfaces.IdentifyFoodInterface;
 import com.example.foodcare.R;
+import com.example.foodcare.Retrofit.A_entity.FoodRank;
 import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
-import com.example.foodcare.entity.FoodRank;
 import com.example.foodcare.Retrofit.RetrofitTools.UriToPathTool;
 
 import java.io.File;
@@ -41,6 +44,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class IdentifyFoodActivity extends AppCompatActivity {
 
+    Handler handler;
+    public final int UPDATE_DATA =1;
+
     public static final int TAKE_PHOTO=1;
     public static final int CHOOSE_PHOTO=2;
     private String photodir = "/storage/emulated/0/FoodCarePhoto";
@@ -58,11 +64,12 @@ public class IdentifyFoodActivity extends AppCompatActivity {
     TextView path;
     IdentifyFoodActivity thisactivity;
     String filepath;
+    List<FoodRank> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload_picture_file_test);thisactivity = this;
+        setContentView(R.layout.activity_identify_food);thisactivity = this;
         imageView = (ImageView) findViewById(R.id.imageviewfilr);
         albumbutton = (Button) findViewById(R.id.albumfile);
         uploadbutton = (Button) findViewById(R.id.uploadbuttonfile);
@@ -158,6 +165,9 @@ public class IdentifyFoodActivity extends AppCompatActivity {
 
     }
 
+    public void setHandler(Handler handler){
+        this.handler = handler;
+    }
 
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -321,10 +331,20 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<List<FoodRank>> call, Response<List<FoodRank>> response) {
                     // 步骤7：处理返回的数据结果
+                    //data = response.body();
                     System.out.println("请求成功");
+                    String text = "";
+                  /*  Message message = new Message();
+                    message.what = UPDATE_DATA;
+                    handler.sendMessage(message);
+*/
                     for (FoodRank foodrank: response.body()) {
+                        text = foodrank.getFoodname()+foodrank.getProbability()+"/n";
                         System.out.println(foodrank.getFoodname()+foodrank.getProbability());
                     }
+                    Toast toast=Toast.makeText(IdentifyFoodActivity.this,text,Toast.LENGTH_SHORT    );
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
                 //请求失败时回调
                 @Override

@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.example.foodcare.R;
+import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.presenter.MainPresenter;
@@ -159,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
            }
         });
 
+        //日历跳转
         //日历界面跳转
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,7 +210,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     }
 
-    //设置首页头滑动动画
+    /*********************************************************************/
+    /**********************搜索框*****************************************/
+
     private void initHeadAnimation() {
         final float maxHeight = CommonUtil.dp2px(this, 180f);
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mainHeaderLayout.getLayoutParams();

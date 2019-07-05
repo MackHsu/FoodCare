@@ -1,7 +1,8 @@
 package com.example.foodcare.Interfaces;
 
-import com.example.foodcare.entity.FoodRank;
 
+
+import com.example.foodcare.Retrofit.A_entity.FoodRank;
 
 import java.util.List;
 

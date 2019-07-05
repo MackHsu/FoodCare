@@ -1,4 +1,4 @@
-package com.example.foodcare.entity;
+package com.example.foodcare.Retrofit.A_entity;
 
 public class FoodRank implements Comparable<FoodRank>{
 
@@ -34,4 +34,5 @@ public class FoodRank implements Comparable<FoodRank>{
     public int compareTo(FoodRank o) {
         return o.probability.compareTo(this.probability);
     }
+
 }
