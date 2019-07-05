@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.FoodList.FoodList;
 import com.example.foodcare.entity.AddFood;
+import com.flyco.tablayout.SlidingTabLayout;
 import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class AddFoodActivity extends AppCompatActivity {
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"肉类", "蔬菜", "水果"};
     private PageRecyclerAdapter mAdapter;
+    private SlidingTabLayout slide;
 
     public final int UPDATE_DATA = 1;
 
@@ -58,9 +60,11 @@ public class AddFoodActivity extends AppCompatActivity {
         }
 
         View decorView = getWindow().getDecorView();
-        ViewPager pager = (ViewPager) findViewById(R.id.view_pager);
+        ViewPager pager = (ViewPager) decorView.findViewById(R.id.view_pager);
         mAdapter = new PageRecyclerAdapter(getSupportFragmentManager());
         pager.setAdapter(mAdapter);
+        slide = decorView.findViewById(R.id.slide);
+        slide.setViewPager(pager);
 
 //        dbFoodData = new FoodList();
 //        Handler handler = new Handler() {
@@ -107,7 +111,6 @@ public class AddFoodActivity extends AppCompatActivity {
             return mFragments.size();
         }
 
-        @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
             return mTitles[position];

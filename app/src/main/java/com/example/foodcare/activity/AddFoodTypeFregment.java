@@ -1,5 +1,6 @@
 package com.example.foodcare.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.FoodList.FoodList;
@@ -45,9 +47,14 @@ public class AddFoodTypeFregment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.add_food_type_fregment, null);
         loading = (RotateLoading) view.findViewById(R.id.loading);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        TextView titleText = (TextView) view.findViewById(R.id.title);
+        titleText.setText(title);
+        recyclerView = (RecyclerView) view.findViewById(R.id.add_food_recycler);
         foodList = new ArrayList<>();
+        final Activity activity = this.getActivity();
+        final int UPDATE_DATA = 1;
 
+        loading.start();
         dbFoodData = new FoodList();
         Handler handler = new Handler() {
             @Override
@@ -59,7 +66,7 @@ public class AddFoodTypeFregment extends Fragment {
                         }
                         loading.stop();
                         //显示列表数据
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
                         recyclerView.setLayoutManager(layoutManager);
                         AddFoodAdapter adapter = new AddFoodAdapter(foodList);
                         recyclerView.setAdapter(adapter);
