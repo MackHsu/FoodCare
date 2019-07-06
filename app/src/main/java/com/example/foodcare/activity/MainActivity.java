@@ -45,6 +45,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements IMainView {
 
+    //测试用数据
+    private int userId = 17;
+
     ImageButton menuButton;
     DrawerLayout mainDrawerLayout;
     Button calendarButton;
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         calendarButton = (Button) findViewById(R.id.calendar) ;
         UserInformation = (CircleTextImageView) findViewById(R.id.avatar);
         mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
-        cameraButton = (ImageButton)findViewById(R.id.main_camera_button);
+        //cameraButton = (ImageButton)findViewById(R.id.main_camera_button);
         addButton = (FloatingActionButton) findViewById(R.id.floating_button_add);
         analysisButton = (FloatingActionButton) findViewById(R.id.floating_button_analysis);
         searchButton = (FloatingActionButton) findViewById(R.id.floating_button_search);
@@ -152,13 +155,13 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         });
 
         //点击相机图片进入照相界面
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, UploadPictureActivity.class);
-                startActivity(intent);
-           }
-        });
+//        cameraButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, UploadPictureActivity.class);
+//                startActivity(intent);
+//           }
+//        });
 
         //日历跳转
         //日历界面跳转
