@@ -1,20 +1,21 @@
 package com.example.foodcare.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
@@ -22,11 +23,13 @@ import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.FoodList.FoodList;
 import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.ToolClass.IP;
-import com.example.foodcare.adapter.AddFoodAdapter;
 import com.example.foodcare.adapter.AddFoodAdapter2;
 import com.example.foodcare.entity.AddFood;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.orhanobut.dialogplus.DialogPlus;
 import com.victor.loading.rotate.RotateLoading;
+
+import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,8 +82,7 @@ public class AddFoodActivity extends AppCompatActivity {
 //        slide.setViewPager(pager);
 
         loading.start();
-        final ArrayList<AddFood> newFoodList = new ArrayList<>();
-        final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, newFoodList);
+        final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
         final PageTest dataFetcher = new PageTest();
         final Handler handler = new Handler() {
             @Override
@@ -88,7 +90,7 @@ public class AddFoodActivity extends AppCompatActivity {
                 switch (msg.what) {
                     case UPDATE_DATA:
                         for (Food food: dataFetcher.getfoods()) {
-                            adapter.addData(new AddFood(IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
+                            adapter.addData(new AddFood(food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
                         }
                         loading.stop();
                         adapter.loadMoreComplete();
@@ -105,6 +107,44 @@ public class AddFoodActivity extends AppCompatActivity {
             }
         };
         dataFetcher.setHandler(handler);
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if(view.getId() == R.id.item_layout) {
+                    //弹窗
+                    final DialogPlus dialog = DialogPlus.newDialog(AddFoodActivity.this)
+                            .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.bottomsheet))
+                            .create();
+                    //下拉框
+                    NiceSpinner spinner = (NiceSpinner) dialog.findViewById(R.id.spinner);
+                    ArrayList<String> meals = new ArrayList<>();
+                    meals.add("早餐"); meals.add("午餐"); meals.add("晚餐");
+                    spinner.attachDataSource(meals);
+                    //文本和图像
+                    TextView nameTextDialog = (TextView) dialog.findViewById(R.id.food_name);
+                    TextView energyTextDialog = (TextView) dialog.findViewById(R.id.food_energy);
+                    ImageView foodImageDialog = (ImageView) dialog.findViewById(R.id.image);
+                    nameTextDialog.setText(((TextView) view.findViewById(R.id.food_name_text)).getText());
+                    energyTextDialog.setText(((TextView) view.findViewById(R.id.food_energy_text)).getText());
+                    foodImageDialog.setImageDrawable(((ImageView) view.findViewById(R.id.food_image)).getDrawable());
+
+                    dialog.show();
+
+                    //取消
+                    Button cancelButton = (Button) dialog.findViewById(R.id.cancel);
+                    cancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                } else {
+                    Intent intent = new Intent(AddFoodActivity.this, FoodInfoActivity.class);
+                    intent.putExtra("foodId", foodList.get(position).getFoodId());
+                    startActivity(intent);
+                }
+            }
+        });
         dataFetcher.request(AddFoodActivity.this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -150,12 +190,12 @@ public class AddFoodActivity extends AppCompatActivity {
 
     //前端测试用
     private void initFoods() {
-        foodList.add(new AddFood("", "米饭", 150));
-        foodList.add(new AddFood("", "鸡腿", 400));
-        foodList.add(new AddFood("", "豆浆", 50));
-        foodList.add(new AddFood("", "煮鸡蛋", 100));
+        foodList.add(new AddFood(0, "", "米饭", 150));
+        foodList.add(new AddFood(1, "", "鸡腿", 400));
+        foodList.add(new AddFood(2, "", "豆浆", 50));
+        foodList.add(new AddFood(3, "", "煮鸡蛋", 100));
         for(int i = 0; i < 30; i++) {
-            foodList.add(new AddFood("", i + "", i));
+            foodList.add(new AddFood(i, "", i + "", i));
         }
     }
 

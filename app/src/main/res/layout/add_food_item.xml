@@ -55,10 +55,10 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="20dp"/>
         <!--分割-->
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="10dp"
-            android:layout_below="@id/item_layout"/>
+        <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="10dp"-->
+            <!--android:layout_below="@id/item_layout"/>-->
     </LinearLayout>
     <View
         android:layout_width="match_parent"

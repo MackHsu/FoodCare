@@ -1,6 +1,8 @@
 package com.example.foodcare.Retrofit.A_entity;
 
-public class Food {
+import java.io.Serializable;
+
+public class Food implements Serializable {
 
     private int id;
     //食物组别（0-菜品 or 1-食品）
