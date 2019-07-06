@@ -12,14 +12,14 @@ import android.content.Context;
 
 public class SaveFile {
 
-    public static boolean save(Context context, String name, String pass,String land) {
+    public static boolean save(Context context, String name, String pass,String land,int id) {
         try {
             //File f=new File("/data/data/com/csdn/www/info.txt");
             File f = new File(context.getFilesDir(), "info.txt");
             //context.getFilesDir();//返回一个目录  /data/data/包名/files
             FileOutputStream fos = new FileOutputStream(f);
             /**这里呢，使用land标识登录状态，其中yes代表登陆，no代表没，注意全是小写n*/
-            fos.write((name + "==" + pass+"is"+land).getBytes());
+            fos.write((name + "==" + pass+"is"+land+"key"+id).getBytes());
             fos.close();
             return true;
         } catch (Exception e) {
@@ -45,10 +45,12 @@ public class SaveFile {
             String str = br.readLine();
             String[] infos = str.split("==");
             String[] _land=infos[1].split("is");
+            String[] _key=_land[1].split("key");
             Map<String, String> map = new HashMap<String, String>();
             map.put("username", infos[0]);
             map.put("userpass", _land[0]);
-            map.put("landing_status",_land[1]);
+            map.put("landing_status",_key[0]);
+            map.put("id",_key[1]);
 
 
             return map;

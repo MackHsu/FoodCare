@@ -1,6 +1,7 @@
 package com.example.foodcare.Retrofit.User.UserExist;
 
 import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.IP;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -11,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class UserExistTest {
     static public void request(String type) {
         Retrofit retrofit  = new Retrofit.Builder()
-                .baseUrl("http://192.168.137.238:8080/foodcare/")
+                .baseUrl(IP.ip)
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

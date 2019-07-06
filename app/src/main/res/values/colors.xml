@@ -21,5 +21,7 @@
     <color name="radar_actual_fillcolor">#ff9800</color>
     <color name="radar_actual_textcolor">#f4511e</color>
     <color name="calendar_selected_color">#AD03A9F4</color>
+    <color name="exist_account">#FF0000</color>
+    <color name="only_account">#00FF00</color>
 
 </resources>

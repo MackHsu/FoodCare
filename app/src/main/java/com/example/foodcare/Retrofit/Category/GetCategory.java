@@ -1,7 +1,9 @@
 package com.example.foodcare.Retrofit.Category;
 
+import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.IP;
 
 import java.util.List;
 
@@ -15,8 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GetCategory {
     static public void request(String type){
         //步骤4:创建Retrofit对象
+
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.137.238:8080/foodcare/") // 设置 网络请求 Url
+                .baseUrl(IP.ip) // 设置 网络请求 Url
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
                 .build();
