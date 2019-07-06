@@ -7,7 +7,7 @@ import android.os.Message;
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.A_entity.FoodPage;
 import com.example.foodcare.Retrofit.A_entity.Page;
-import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
 import com.google.gson.internal.bind.ObjectTypeAdapter;

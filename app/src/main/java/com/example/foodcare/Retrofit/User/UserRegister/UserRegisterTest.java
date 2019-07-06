@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
 
 import retrofit2.Call;

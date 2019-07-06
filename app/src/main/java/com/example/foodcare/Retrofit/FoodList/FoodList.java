@@ -4,10 +4,9 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.example.foodcare.Retrofit.A_entity.Food;
-import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;

@@ -10,4 +10,7 @@ public class FoodReg {
         this.food = food;
         this.probability = probability;
     }
+
+    public Food getFood(){return food;}
+    public Double getProbability(){return probability;}
 }

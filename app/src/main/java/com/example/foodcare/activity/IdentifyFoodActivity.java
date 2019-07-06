@@ -15,19 +15,19 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.foodcare.Interfaces.IdentifyFoodInterface;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.FoodRank;
-import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
-import com.example.foodcare.Retrofit.RetrofitTools.UriToPathTool;
+import com.example.foodcare.Retrofit.A_entity.FoodReg;
+import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.UriToPathTool;
 import com.example.foodcare.ToolClass.IP;
+import com.example.foodcare.ToolClass.MyToast;
 
 import java.io.File;
 import java.io.IOException;
@@ -285,29 +285,8 @@ public class IdentifyFoodActivity extends AppCompatActivity {
 
 
     }
-    //将uri转换为在文件系统中的真实路径
-//    public String getRealFilePath(final Context context, final Uri uri) {
-//        if ( null == uri ) return null;
-//        final String scheme = uri.getScheme();
-//        String data = null;
-//        if ( scheme == null )
-//            data = uri.getPath();
-//        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
-//            data = uri.getPath();
-//        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
-//            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
-//            if ( null != cursor ) {
-//                if ( cursor.moveToFirst() ) {
-//                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
-//                    if ( index > -1 ) {
-//                        data = cursor.getString( index );
-//                    }
-//                }
-//                cursor.close();
-//            }
-//        }
-//        return data;
-//    }
+
+
     //新版本-----------------上传图像
     public void request(String url) {
 
@@ -325,33 +304,39 @@ public class IdentifyFoodActivity extends AppCompatActivity {
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"),file);
         //MultipartBody.Part body = MultipartBody.Part.createFormData("this is a image file","img.jpg",requestFile);
         MultipartBody.Part body = MultipartBody.Part.createFormData("img",file.getName(),requestFile);
-        Call<List<FoodRank>> call = request.getCall(body);
+        Call<List<FoodReg>> call = request.getCall(body);
         try{
-            call.enqueue(new Callback<List<FoodRank>>() {
+            call.enqueue(new Callback<List<FoodReg>>() {
                 //请求成功时回调
                 @Override
-                public void onResponse(Call<List<FoodRank>> call, Response<List<FoodRank>> response) {
+                public void onResponse(Call<List<FoodReg>> call, Response<List<FoodReg>> response) {
                     // 步骤7：处理返回的数据结果
                     //data = response.body();
                     System.out.println("请求成功");
                     String text = "";
                   /*  Message message = new Message();
                     message.what = UPDATE_DATA;
+
                     handler.sendMessage(message);
 */
-                    for (FoodRank foodrank: response.body()) {
-                        text = foodrank.getFoodname()+foodrank.getProbability()+"/n";
-                        System.out.println(foodrank.getFoodname()+foodrank.getProbability());
-                    }
-                    Toast toast=Toast.makeText(IdentifyFoodActivity.this,text,Toast.LENGTH_SHORT    );
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+                  if(response.body()==null)
+                      MyToast.mytoast("识别失败！(识别结果为空)",IdentifyFoodActivity.this);
+                  else{
+                      String str = "";
+                      for (FoodReg foodreg: response.body()) {
+                          text = foodreg.getFood().getName()+foodreg.getProbability()+"/n";
+                          System.out.println(foodreg.getFood().getName()+foodreg.getProbability());
+                      }
+                      MyToast.mytoast(text,IdentifyFoodActivity.this);
+                  }
+
                 }
                 //请求失败时回调
                 @Override
-                public void onFailure(Call<List<FoodRank>> call, Throwable throwable) {
+                public void onFailure(Call<List<FoodReg>> call, Throwable throwable) {
                     throwable.printStackTrace();
                     System.out.println("连接失败");
+                    MyToast.mytoast("上传失败，请检查网络情况！",IdentifyFoodActivity.this);
                 }
             });
         }catch(Exception e){
