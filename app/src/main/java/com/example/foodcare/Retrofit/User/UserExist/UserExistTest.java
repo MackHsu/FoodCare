@@ -1,6 +1,6 @@
 package com.example.foodcare.Retrofit.User.UserExist;
 
-import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
 
 import retrofit2.Call;

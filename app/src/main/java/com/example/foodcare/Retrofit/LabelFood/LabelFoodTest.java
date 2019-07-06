@@ -1,7 +1,7 @@
 package com.example.foodcare.Retrofit.LabelFood;
 
 import com.example.foodcare.Retrofit.A_entity.Label;
-import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class LabelFoodTest {
 
         LabelFoodInterface post = retrofit.create(LabelFoodInterface.class);
         System.out.println("建立post对象");
-        Call<List<Label>> call = post.getCall(1);
+        Call<List<Label>> call = post.getCall(labelid);
         System.out.println("getcall");
         call.enqueue(new Callback<List<Label>>() {
             @Override
