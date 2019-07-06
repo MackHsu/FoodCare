@@ -1,5 +1,6 @@
 package com.example.foodcare.Retrofit.GetFoodById;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
@@ -7,6 +8,7 @@ import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.A_entity.Label;
 import com.example.foodcare.Retrofit.LabelFood.LabelFoodInterface;
 import com.example.foodcare.ToolClass.IP;
+import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 
 import java.security.KeyStore;
@@ -26,10 +28,10 @@ public class GetFoodByIdTest {
     public Food getFood(){
         return food;
     }
-    public void setHandler(Handler hander){
+    public void setHandler(Handler handler){
         this.handler = handler;
     }
-    public void request(int foodid) {
+    public void request(int foodid,final Context context) {
         Retrofit retrofit  = new Retrofit.Builder()
                 .baseUrl(IP.ip)//http://fanyi.youdao.com/")
                 .addConverterFactory(new NullOnEmptyConverterFactory())
@@ -45,8 +47,10 @@ public class GetFoodByIdTest {
             @Override
             public void onResponse(Call<Food> call, Response<Food> response) {
                 System.out.println("请求成功");
+                food = response.body();
                 Message message = new Message();
                 message.what = GET_FOOD_DETAIL_SUCCESS;
+                MyToast.mytoast("请求成功！！！！！！",context);
                 handler.sendMessage(message);
             }
 

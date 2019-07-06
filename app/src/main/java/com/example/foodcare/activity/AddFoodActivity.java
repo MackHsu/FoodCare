@@ -184,7 +184,7 @@ public class AddFoodActivity extends AppCompatActivity {
 //        };
 //        dbFoodData.setHandler(handler);
 //        dbFoodData.request();
-        
+
     }
 
     //前端测试用

@@ -35,7 +35,7 @@ public class Food implements Serializable {
     private Double hehuang;
     private Double yansuan;
     //胆固醇
-    private int cholesterol;
+    private Integer cholesterol;
     private Double mei;
     private Double gai;
     private Double tie;
@@ -233,7 +233,7 @@ public class Food implements Serializable {
         this.yansuan = yansuan;
     }
 
-    public int getCholesterol() {
+    public Integer getCholesterol() {
         return cholesterol;
     }
 
