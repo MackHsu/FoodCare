@@ -100,6 +100,6 @@
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             app:loading_color="@color/mainColor1"
-            app:loading_speed="8"
+            app:loading_speed="11"
             app:loading_width="2dp" />
 </LinearLayout>

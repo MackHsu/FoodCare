@@ -18,7 +18,10 @@ import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
+import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.FoodList.FoodList;
+import com.example.foodcare.Retrofit.Page.PageTest;
+import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.AddFoodAdapter;
 import com.example.foodcare.adapter.AddFoodAdapter2;
 import com.example.foodcare.entity.AddFood;
@@ -42,6 +45,7 @@ public class AddFoodActivity extends AppCompatActivity {
     private SlidingTabLayout slide;
 
     public final int UPDATE_DATA = 1;
+    public final int UPDATE_FAILURE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,28 +78,47 @@ public class AddFoodActivity extends AppCompatActivity {
 //        slide = decorView.findViewById(R.id.slide);
 //        slide.setViewPager(pager);
 
-        //数据写死，用来测试
-
-        initFoods();
+        loading.start();
         final ArrayList<AddFood> newFoodList = new ArrayList<>();
-        int count = 0;
-        for(int i = 0; i < 10; i++){
-            newFoodList.add(foodList.get(i));
-        }
         final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, newFoodList);
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+        final PageTest dataFetcher = new PageTest();
+        final Handler handler = new Handler() {
             @Override
-            public void onLoadMoreRequested() {
-                if(newFoodList.size() >= foodList.size()) adapter.loadMoreEnd();
-                else {
-                    adapter.addData(foodList.get((newFoodList.size())));
-                    adapter.loadMoreComplete();
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case UPDATE_DATA:
+                        for (Food food: dataFetcher.getfoods()) {
+                            adapter.addData(new AddFood(IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
+                        }
+                        loading.stop();
+                        adapter.loadMoreComplete();
+                        if(dataFetcher.getEnd()){
+                            adapter.loadMoreEnd();
+                        }
+                        break;
+                    case UPDATE_FAILURE:
+                        loading.stop();
+                        adapter.loadMoreFail();
+                    default:
+                        break;
                 }
             }
-        }, recyclerView);
+        };
+        dataFetcher.setHandler(handler);
+        dataFetcher.request(AddFoodActivity.this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                System.out.println("请求一次");
+                dataFetcher.setHandler(handler);
+                dataFetcher.request(AddFoodActivity.this);
+                //判断是否请求到头
+            }
+        }, recyclerView);
+
 
         //无分类显示方式
 //        dbFoodData = new FoodList();
