@@ -7,7 +7,7 @@ import android.os.Message;
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.A_entity.FoodPage;
 import com.example.foodcare.Retrofit.A_entity.Page;
-import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
 import com.google.gson.internal.bind.ObjectTypeAdapter;
@@ -56,7 +56,7 @@ public class PageTest {
         call.enqueue(new Callback<FoodPage>() {
             @Override
             public void onResponse(Call<FoodPage> call, Response<FoodPage> response) {
-                System.out.println("请求成功");//此处对象为空？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？/
+                System.out.println("请求成功");
                 if(response.body()==null)
                 {
                     System.out.println("对象为空！！！！！！！！！！！！！");
@@ -66,21 +66,10 @@ public class PageTest {
                     Message message = new Message();
                     message.what = UPDATE_DATA;
                     handler.sendMessage(message);
-
                     System.out.println(page.getStart());
-                    /*for(int i =0;i<response.body().getFoods().size();i++)
-                    {
-                        System.out.println(response.body().getFoods().get(i).getName());
-                    }*/
                     foods = response.body().getFoods();
                     page = response.body().getPage();
                     System.out.println(page.getStart());
-                   /* if(times>1){
-                        times--;
-                        page = response.body().getPage();
-                        System.out.println(page.getStart());
-                        request();
-                    }*/
 
                 }
 

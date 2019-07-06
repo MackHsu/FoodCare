@@ -20,5 +20,7 @@ public class AddFoodAdapter2 extends BaseQuickAdapter<AddFood, BaseViewHolder> {
         Glide.with(mContext).load(item.getImageUrl()).crossFade().into((ImageView) helper.getView(R.id.food_image));
         helper.setText(R.id.food_name_text, item.getFoodName());
         helper.setText(R.id.food_energy_text, item.getEnergyPerHectogram() + "千卡/100克");
+        helper.addOnClickListener(R.id.item_layout);
+        helper.addOnClickListener(R.id.food_info_button);
     }
 }

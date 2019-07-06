@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.FoodList.FoodList;
+import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.AddFoodAdapter;
 import com.example.foodcare.entity.AddFood;
 import com.victor.loading.rotate.RotateLoading;
@@ -91,7 +92,7 @@ public class AddFoodTypeFregment extends Fragment {
                 switch (msg.what) {
                     case UPDATE_DATA:
                         for(int i = 0; i < 10; i++ ) {
-                            foodList.add(new AddFood("http://192.168.137.238:8080/foodcare" + dbFoodData.getData().get(i).getPicture_mid(), dbFoodData.getData().get(i).getName(), dbFoodData.getData().get(i).getFat()));
+                            foodList.add(new AddFood(dbFoodData.getData().get(i).getId(), IP.ip + dbFoodData.getData().get(i).getPicture_mid(), dbFoodData.getData().get(i).getName(), dbFoodData.getData().get(i).getFat()));
                         }
                         loading.stop();
                         //显示列表数据

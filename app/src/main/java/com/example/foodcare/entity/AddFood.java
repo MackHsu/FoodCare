@@ -3,14 +3,20 @@ package com.example.foodcare.entity;
 public class AddFood {
 
     //添加食物界面的数据结构，包括名称、每百克的热量
+    private int foodId;
     private String imageUrl;
     private String foodName;
     private double energyPerHectogram;
 
-    public AddFood(String imageUrl, String foodName, double energyPerHectogram) {
+    public AddFood(int foodId, String imageUrl, String foodName, double energyPerHectogram) {
+        this.foodId = foodId;
         this.imageUrl = imageUrl;
         this.foodName = foodName;
         this.energyPerHectogram = energyPerHectogram;
+    }
+
+    public int getFoodId() {
+        return foodId;
     }
 
     public String getFoodName() {

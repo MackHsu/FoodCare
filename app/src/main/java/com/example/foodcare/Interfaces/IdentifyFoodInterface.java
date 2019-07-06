@@ -3,6 +3,7 @@ package com.example.foodcare.Interfaces;
 
 
 import com.example.foodcare.Retrofit.A_entity.FoodRank;
+import com.example.foodcare.Retrofit.A_entity.FoodReg;
 
 import java.util.List;
 
@@ -14,7 +15,6 @@ import retrofit2.http.Part;
 
 public interface IdentifyFoodInterface {
     @Multipart
-    @POST("food/reggg")
-    Call<List<FoodRank>> getCall(//@Part("description") String string,
-                                 @Part MultipartBody.Part file);
+    @POST("food/reg")//gg")
+    Call<List<FoodReg>> getCall(@Part MultipartBody.Part file);
 }

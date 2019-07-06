@@ -1,7 +1,7 @@
 package com.example.foodcare.Retrofit.GetLabel;
 
 import com.example.foodcare.Retrofit.A_entity.Label;
-import com.example.foodcare.Retrofit.RetrofitTools.NullOnEmptyConverterFactory;
+import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.foodcare.Retrofit.RetrofitTools;
+package com.example.foodcare.ToolClass;
 
 import android.annotation.TargetApi;
 import android.content.ContentResolver;

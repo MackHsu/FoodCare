@@ -13,6 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.IdentifyLabelDetailActivity"></activity>
+
         <activity android:name=".activity.RegisterActivity"></activity>
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
@@ -28,7 +30,6 @@
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.UserInfoActivity" />
         <activity android:name=".RequestAndTransaction.UploadActivity" />
-
         <activity android:name=".RequestAndTransaction.PostRequestActivity" />
         <activity android:name=".RequestAndTransaction.GetRequestActivity" />
         <activity
@@ -68,7 +69,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -23,6 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodcare.R;
+import com.example.foodcare.Retrofit.User.UploadAvatar.UploadAvatarTest;
+import com.example.foodcare.ToolClass.MyToast;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.thinkcool.circletextimageview.CircleTextImageView;
@@ -40,7 +44,8 @@ public class UserInfoActivity extends AppCompatActivity {
     public static final int USER_WEIGHT=5;
     public static final int USER_HEIGHT=6;
     public static final int USER_FAT_RATE=7;
-
+    private final int UPLOAD_SUCCESS=0;
+    private final int UPLOAD_FAILE =1;
     private TextView name_account;
     private TextView age_account;
     private TextView weight_account;
@@ -48,7 +53,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private TextView fat_rate_account;
     private Uri imageUri;
     private CircleTextImageView imageView;
-
+    private int account_id = 5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +93,6 @@ public class UserInfoActivity extends AppCompatActivity {
                 myStartActivityForREsult("体脂率",USER_FAT_RATE);
             }
         });
-
 
 
         imageView=(CircleTextImageView)findViewById(R.id.profile_image);
@@ -148,7 +152,12 @@ public class UserInfoActivity extends AppCompatActivity {
                     }
                 });
 
+
+
+
+
                 dialog.show();
+
 
             }
         });
@@ -286,12 +295,30 @@ public class UserInfoActivity extends AppCompatActivity {
         return path;
     }
 
-    private void displayImage(String imagePath){
+    private void displayImage(final String imagePath){
         if(imagePath!=null){
-            Bitmap bitmap=BitmapFactory.decodeFile(imagePath);
-            imageView.setImageBitmap(bitmap);
+            //先上传头像到服务器，上传成功再显示头像
+            Handler handler = new Handler(){
+                @Override
+                public void handleMessage(Message msg){
+                    switch(msg.what)
+                    {
+                        case UPLOAD_SUCCESS:
+                            MyToast.mytoast("修改头像！",UserInfoActivity.this);
+                            Bitmap bitmap=BitmapFactory.decodeFile(imagePath);
+                            imageView.setImageBitmap(bitmap);
+                            break;
+                        case UPLOAD_FAILE:
+                            MyToast.mytoast("修改失败",UserInfoActivity.this);
+                    }
+                }
+            };
+
+            UploadAvatarTest uploadhere = new UploadAvatarTest();
+            uploadhere.setHandler(handler);
+            uploadhere.request(imagePath,account_id,UserInfoActivity.this);
         }else{
-            Toast.makeText(this,"faile to get image ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"faile to get image",Toast.LENGTH_SHORT).show();
         }
     }
     private void myStartActivityForREsult(String title,int code){

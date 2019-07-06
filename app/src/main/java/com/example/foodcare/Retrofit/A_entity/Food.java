@@ -1,6 +1,8 @@
 package com.example.foodcare.Retrofit.A_entity;
 
-public class Food {
+import java.io.Serializable;
+
+public class Food implements Serializable {
 
     private int id;
     //食物组别（0-菜品 or 1-食品）
@@ -33,7 +35,7 @@ public class Food {
     private Double hehuang;
     private Double yansuan;
     //胆固醇
-    private int cholesterol;
+    private Integer cholesterol;
     private Double mei;
     private Double gai;
     private Double tie;
@@ -231,7 +233,7 @@ public class Food {
         this.yansuan = yansuan;
     }
 
-    public int getCholesterol() {
+    public Integer getCholesterol() {
         return cholesterol;
     }
 
