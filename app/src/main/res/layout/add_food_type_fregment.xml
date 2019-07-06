@@ -6,11 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.AddFoodTypeFregment">
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/type_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="title"/>
+        android:layout_margin="15dp">
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="type"
+            android:textSize="18sp"
+            android:textColor="@color/mainColor4"
+            android:layout_gravity="center_vertical"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_pick"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/add_food_recycler"
         android:layout_width="match_parent"
@@ -21,6 +35,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         app:loading_color="@color/mainColor1"
-        app:loading_speed="8"
-        app:loading_width="2dp" />
+        app:loading_speed="11"
+        app:loading_width="2dp"
+        android:layout_margin="10dp"/>
 </LinearLayout>
