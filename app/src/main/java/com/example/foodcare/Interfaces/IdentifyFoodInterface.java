@@ -16,6 +16,5 @@ import retrofit2.http.Part;
 public interface IdentifyFoodInterface {
     @Multipart
     @POST("food/reg")//gg")
-    Call<List<FoodReg>> getCall(//@Part("description") String string,
-                                @Part MultipartBody.Part file);
+    Call<List<FoodReg>> getCall(@Part MultipartBody.Part file);
 }

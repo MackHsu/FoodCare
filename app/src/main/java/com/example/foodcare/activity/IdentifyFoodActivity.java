@@ -9,12 +9,14 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Message;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,6 +30,7 @@ import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.UriToPathTool;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
+import com.victor.loading.rotate.RotateLoading;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,6 +58,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
     private String realFilrPath;
     private Bitmap selectdBitmap;
     private  int MAX_SIZE = 769;
+
     IdentifyFoodActivity thisupload = this;
     Uri UriOnScreen;
     ImageView imageView;
@@ -76,6 +80,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
         uploadbutton = (Button) findViewById(R.id.uploadbuttonfile);
         textofpath= (TextView) findViewById(R.id.textofpath);
         path = (TextView) findViewById(R.id.path);
+
 
         //解决相机拍照问题!!!!!!
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -158,9 +163,10 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                 //realFilrPath = UriToPathTool.getRealFilePath(thisupload,UriOnScreen);
                 System.out.println(realFilrPath);
                 System.out.println(filepath);
-                //String url = getRealPathFromUri(thisupload,UriOnScreen);
-                //textofpath.setText(url);
-                request(filepath);
+                //request(filepath);
+                Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyResultActivity.class);
+                intent.putExtra("path",filepath);
+                startActivity(intent);
             }
         });
 
@@ -281,9 +287,6 @@ public class IdentifyFoodActivity extends AppCompatActivity {
             default:
                 break;
         }
-
-
-
     }
 
 
@@ -316,19 +319,14 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                     String text = "";
                   /*  Message message = new Message();
                     message.what = UPDATE_DATA;
+                    handler.sendMessage(message);*/
+                     if(response.body()==null)
+                       MyToast.mytoast("识别失败！(识别结果为空)",IdentifyFoodActivity.this);
+                     else{
+                          MyToast.mytoast("识别成功！",IdentifyFoodActivity.this);
+                          Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyResultActivity.class);
 
-                    handler.sendMessage(message);
-*/
-                  if(response.body()==null)
-                      MyToast.mytoast("识别失败！(识别结果为空)",IdentifyFoodActivity.this);
-                  else{
-                      String str = "";
-                      for (FoodReg foodreg: response.body()) {
-                          text = foodreg.getFood().getName()+foodreg.getProbability()+"/n";
-                          System.out.println(foodreg.getFood().getName()+foodreg.getProbability());
                       }
-                      MyToast.mytoast(text,IdentifyFoodActivity.this);
-                  }
 
                 }
                 //请求失败时回调
