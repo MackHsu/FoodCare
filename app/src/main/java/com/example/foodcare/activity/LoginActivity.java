@@ -30,7 +30,7 @@ import com.example.foodcare.tools.SaveFile;
 import java.io.InputStream;
 import java.util.Map;
 
-import pl.droidsonroids.gif.GifTextView;
+//import pl.droidsonroids.gif.GifTextView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userpass;
     private CheckBox checkBox;
     public Account account;
-    private GifTextView login;
+    private Button login;
     private TextView reginster;
 
     @Override
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
             userpass.setText(_userpass);
         }
 
-        login=(GifTextView)findViewById(R.id.login_login);
+        login=(Button)findViewById(R.id.login_login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
