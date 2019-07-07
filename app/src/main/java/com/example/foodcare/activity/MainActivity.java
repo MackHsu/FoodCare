@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
 import android.transition.TransitionInflater;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.example.foodcare.R;
@@ -34,6 +36,7 @@ import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.presenter.MainPresenter;
+import com.example.foodcare.tools.SaveFile;
 import com.example.foodcare.util.CommonUtil;
 import com.example.foodcare.view.HeaderAnimatedScrollView;
 import com.example.foodcare.view.IMainView;
@@ -45,12 +48,12 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements IMainView {
 
-    //测试用数据
-    private int userId = 17;
+    private long exit_time;
 
     ImageButton menuButton;
     DrawerLayout mainDrawerLayout;
     Button calendarButton;
+    Button Cancellation_main;
     ImageButton cameraButton;
     CircleTextImageView UserInformation;
     RecyclerView mainRecycler;
@@ -84,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         menuButton = (ImageButton) findViewById(R.id.main_menu_button);
         mainDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         calendarButton = (Button) findViewById(R.id.calendar) ;
+        Cancellation_main=(Button)findViewById(R.id.Cancellation_main);
         UserInformation = (CircleTextImageView) findViewById(R.id.avatar);
         mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
         //cameraButton = (ImageButton)findViewById(R.id.main_camera_button);
@@ -191,7 +195,15 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
         /*PageTest pagetest = new PageTest();
         pagetest.request();*/
-
+        Cancellation_main.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                boolean flag= SaveFile.save(getApplicationContext(), "","","no",-1);
+                Intent intent=new Intent();
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+        });
 
     }
 
@@ -272,5 +284,24 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 consumptionText.setTextSize(android.util.TypedValue.COMPLEX_UNIT_PX, newSize);
             }
         });
+    }
+
+
+    //按两次back键退出
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //获取按键并比较两次按back的时间大于2s不退出，否则退出
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (System.currentTimeMillis() - exit_time > 2000) {
+                Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                exit_time = System.currentTimeMillis();
+            } else {
+                Intent intent=new Intent();
+                setResult(RESULT_CANCELED,intent);
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

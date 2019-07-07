@@ -97,21 +97,21 @@ public class UploadPictureActivity extends AppCompatActivity {
         try{ //步骤6:发送网络请求(异步)
             call.enqueue(new Callback<ReturnInfo>() {
                 //请求成功时回调
-                @Override
-                public void onResponse(Call<ReturnInfo> call, Response<ReturnInfo> response) {
-                    // 步骤7：处理返回的数据结果
-                    //response.body().show();
-                    System.out.println("请求成功");
-                    //setTxetOfResult(response.body().show());
-                }
+                    @Override
+                    public void onResponse(Call<ReturnInfo> call, Response<ReturnInfo> response) {
+                        // 步骤7：处理返回的数据结果
+                        //response.body().show();
+                        System.out.println("请求成功");
+                        //setTxetOfResult(response.body().show());
+                    }
 
-                //请求失败时回调
-                @Override
-                public void onFailure(Call<ReturnInfo> call, Throwable throwable) {
+                    //请求失败时回调
+                    @Override
+                    public void onFailure(Call<ReturnInfo> call, Throwable throwable) {
 
 
-                    System.out.println("连接失败");
-                    System.out.println(throwable.toString());
+                        System.out.println("连接失败");
+                        System.out.println(throwable.toString());
                 }
             });
         }
