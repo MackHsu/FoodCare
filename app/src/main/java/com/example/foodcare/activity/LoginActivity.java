@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-        /**跳去登陆界面*/
+        /**跳去注册界面*/
         reginster=(TextView) findViewById(R.id.register_login);
         reginster.setOnClickListener(new View.OnClickListener() {
             @Override

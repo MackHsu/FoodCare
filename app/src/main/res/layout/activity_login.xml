@@ -85,12 +85,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="70dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="52dp"
             android:background="#FFFFFFFF"
             android:text="点击注册"
             android:textColor="#0000CD"
-            android:textSize="10dp" />
+            android:textSize="15dp" />
 
         <CheckBox
             android:id="@+id/checkBox_login"

@@ -46,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView exist_or_only;
     private TextView password_length;
     private boolean is_pwd_useable;
+    private boolean is_account_useable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         exist_or_only=(TextView)findViewById(R.id.exist_register);
         password_length=(TextView)findViewById(R.id.password_length_register);
         is_pwd_useable=false;
+        is_account_useable=false;
         back.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -73,6 +75,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(!notNull()){
+                    return;
+                }
+                if(!is_account_useable){
+                    MyToast.mytoast("账号不符合规则",getApplicationContext());
                     return;
                 }
                 if(!is_pwd_useable){
@@ -157,7 +163,12 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-
+        account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyToast.mytoastUpper("账号必须是5-10位的纯数字",getApplicationContext());
+            }
+        });
         account.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -171,7 +182,32 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                Exist_or_only(s.toString());
+                String _account=s.toString();
+                boolean _all_digit=true;
+                for(int i=0;i<_account.length();i++){
+                    if (!Character.isDigit(_account.charAt(i))) {
+                        _all_digit=false;
+                        break;
+                    }
+                }
+                if(!_all_digit){
+                    Message message=new Message();
+                    message.what=ACCOUNT_EXIST;
+                    handler.sendMessage(message);
+                    MyToast.mytoastUpper("账号必须是5-10位的纯数字",getApplicationContext());
+                    return;
+                }
+
+                if((_account.length()<5)||(_account.length()>10)){
+                    Message message=new Message();
+                    message.what=ACCOUNT_EXIST;
+                    handler.sendMessage(message);
+                    return;
+                }
+
+                Exist_or_only(_account);
+
+
             }
         });
     }
@@ -235,11 +271,13 @@ public class RegisterActivity extends AppCompatActivity {
                     exist_or_only.setText("用户已存在");
                     exist_or_only.setTextColor(getResources().getColor(R.color.exist_account));
                     exist_or_only.setVisibility(View.VISIBLE);
+                    is_account_useable=false;
                     break;
                 case ACCOUNT_ONLY:
                     exist_or_only.setText("账号可注册");
                     exist_or_only.setTextColor(getResources().getColor(R.color.only_account));
                     exist_or_only.setVisibility(View.VISIBLE);
+                    is_account_useable=true;
                     default:
             }
         }
