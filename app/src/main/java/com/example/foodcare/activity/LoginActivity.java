@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userpass;
     private CheckBox checkBox;
     public Account account;
+    //private GifTextView login;
     private Button login;
     private TextView reginster;
 
@@ -89,8 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     // 登陆
 
-                        // 登陆发送消息到服务器，服务器验证是否正确
-                        LoginRight(un,up);
+                    // 登陆发送消息到服务器，服务器验证是否正确
+                    LoginRight(un,up);
                         /*Toast.makeText(getApplicationContext(), "登陆成功",
                                 Toast.LENGTH_SHORT).show();
                         Login(un,up,"yes");*/
@@ -130,8 +132,8 @@ public class LoginActivity extends AppCompatActivity {
                     if(flag){
                         Toast.makeText(getApplicationContext(), "清空信息成功", Toast.LENGTH_SHORT).show();
                     }
-                    default:
-                        break;
+                default:
+                    break;
             }
         }
     };
@@ -218,7 +220,7 @@ public class LoginActivity extends AppCompatActivity {
                 else if(resultCode==RESULT_CANCELED){
                     finish();
                 }
-                default:
+            default:
         }
     }
 

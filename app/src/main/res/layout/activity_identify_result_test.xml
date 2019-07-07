@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.IdentifyResultActivity">
+    tools:context=".activity.IdentifyResultTestActivity">
     <LinearLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageButton
-                    android:id="@+id/back_button"
+                    android:id="@+id/testback_button"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -29,13 +29,13 @@
                     android:padding="10dp"/>
 
                 <TextView
-                    android:id="@+id/today_detail_date"
+                    android:id="@+id/testtoday_detail_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:background="#00000000"
                     android:padding="10dp"
-                    android:text="标签"
+                    android:text="test识别结果"
                     android:textColor="#ffffff"
                     android:textSize="22dp"
                     android:textStyle="bold" />
@@ -47,13 +47,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/identifyrecycler"
+                android:id="@+id/testidentifyrecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
         <com.victor.loading.rotate.RotateLoading
-            android:id="@+id/identifyloading"
+            android:id="@+id/testidentifyloading"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"

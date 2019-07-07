@@ -20,8 +20,8 @@ public class IdentifyLabelDetailAdapter extends BaseQuickAdapter<Food, BaseViewH
         Glide.with(mContext).load(item.getPicture_mid()).crossFade().into((ImageView) helper.getView(R.id.identifylabelimage));//食品图片
         helper.setText(R.id.identifylabelname, item.getName());//食物名
         helper.setText(R.id.identifylabelenergy, item.getHeat()+"");//能量
-        helper.addOnClickListener(R.id.identifylayout);
-        helper.addOnClickListener(R.id.identifybutton);
+        helper.addOnClickListener(R.id.identifylabellayout);
+        helper.addOnClickListener(R.id.identifylabelbutton);
     }
 }
 

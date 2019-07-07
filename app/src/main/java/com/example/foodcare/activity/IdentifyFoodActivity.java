@@ -167,6 +167,9 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                 Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyResultActivity.class);
                 intent.putExtra("path",filepath);
                 startActivity(intent);
+//                Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyResultTestActivity.class);
+//                intent.putExtra("path",filepath);
+//                startActivity(intent);
             }
         });
 
