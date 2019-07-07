@@ -72,14 +72,14 @@ public class IdentifyResultActivity extends AppCompatActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if(view.getId() == R.id.identifybutton) {
-                    Intent intent = new Intent(IdentifyResultActivity.this, FoodInfoActivity.class);
+                    Intent intent = new Intent(IdentifyResultActivity.this, IdentifyLabelDetailActivity.class);
                     Gson gson=new Gson();
                     String jsonData=gson.toJson(foodRegList.get(position));
                     intent.putExtra("FoodReg",jsonData);
-                    MyToast.mytoast("成功进入食物详情界面",IdentifyResultActivity.this);
+                    MyToast.mytoast("成功进入标签详情界面",IdentifyResultActivity.this);
                     startActivity(intent);
                 } else {
-                  MyToast.mytoast("请点击按钮进入食物详情界面！",IdentifyResultActivity.this);
+                  MyToast.mytoast("请点击按钮进入标签详情界面！",IdentifyResultActivity.this);
                 }
             }
         });
@@ -103,13 +103,6 @@ public class IdentifyResultActivity extends AppCompatActivity {
                         break;
                     case UPLOAD_FAILED:
                         loading.stop();
-                        MyToast.mytoast("进入handler",IdentifyResultActivity.this);
-                        for(int i = 0;i<10;i++){
-                            FoodReg f = new FoodReg();
-                            f.setLabel(i+"");
-                            f.setProbability(0.88f);
-                            adapter.addData(f);
-                        }
                        break;
                 }
             }
@@ -167,6 +160,9 @@ public class IdentifyResultActivity extends AppCompatActivity {
                     throwable.printStackTrace();
                     System.out.println("连接失败");
                     MyToast.mytoast("上传失败，请检查网络情况！",IdentifyResultActivity.this);
+                    Message message = new Message();
+                    message.what = UPLOAD_FAILED;
+                    handler.sendMessage(message);
                 }
             });
         }catch(Exception e){

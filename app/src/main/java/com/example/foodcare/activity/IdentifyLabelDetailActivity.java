@@ -37,6 +37,7 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final IdentifyLabelDetailAdapter adapter = new IdentifyLabelDetailAdapter(R.layout.identify_label_detail_item, foodReg.getFoods());
         recyclerView.setAdapter(adapter);
+
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -53,6 +54,13 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
 
         for (Food food: foodReg.getFoods()) {
             adapter.addData(food);
+        }
+        if(foodReg.getFoods()==null)
+        {
+            MyToast.mytoast("标签搜索结果为空",IdentifyLabelDetailActivity.this);
+        }
+        else if(foodReg.getFoods().size()==0){
+            MyToast.mytoast("标签搜索结果为0",IdentifyLabelDetailActivity.this);
         }
 
     }
