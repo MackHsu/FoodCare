@@ -4,6 +4,7 @@
 package com.example.foodcare.activity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -58,6 +60,7 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
 
@@ -84,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     TextView dateText;
     Date date;
 
+    ImageView lastday;
+    ImageView nextday;
     RelativeLayout mainHeaderLayout;
     HeaderAnimatedScrollView scrollView;
     RelativeLayout centerLayout;
@@ -105,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     private final int DATA_NULL = 0;
     private final int DATA_UPDATED = 1;
     private final int FAILED = 2;
+    SimpleDateFormat simpleDateFormat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,27 +148,19 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         consumptionLabel = (TextView) findViewById(R.id.consumption_today_label);
         mainBgLayout = (LinearLayout) findViewById(R.id.main_bg);
         uploadPictureButton = (ImageButton) findViewById(R.id.main_camera_button);
+        lastday = (ImageView) findViewById(R.id.last_day);
+        nextday = (ImageView )findViewById(R.id.next_day);
+
         initHeadAnimation();
 
         //mainPresenter = new MainPresenter(this);
         getTodayData();
 
+        //获取今日日期
+        simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
         date = new Date(System.currentTimeMillis());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");// HH:mm:ss
-        //获取当前时间
-        Intent intent = getIntent();
-        String datestring = intent.getStringExtra("date");
-        if (datestring == null){
-            dateText.setText(simpleDateFormat.format(date));
-        }
-        else{
-            dateText.setText(datestring);
-            try{
-                date = simpleDateFormat.parse(datestring);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
+        //更新今日日期
+        refreshDate();
 
 
         //标题栏
@@ -244,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TodayAnalyseActivity.class);
+                intent.putExtra("date",simpleDateFormat.format(date));//日期
                 startActivity(intent);
             }
         });
@@ -277,9 +277,53 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             }
         });
 
+        lastday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                calendar.add(Calendar.DATE,-1);
+                date=calendar.getTime();
+                refreshDate();
+                //TODO : 将界面中的diet根据更新后的日期进行更新
+            }
+        });
+
+        nextday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                System.out.println(date.toString());
+                calendar.add(Calendar.DATE,1);
+                date=calendar.getTime();
+                System.out.println(date.toString());
+                refreshDate();
+
+                //TODO : 将界面中的diet根据更新后的日期进行更新
+            }
+        });
+
     }
 
 
+    private void refreshDate() {
+        Intent intent = getIntent();
+        String datestring = intent.getStringExtra("date");
+        if (datestring == null){
+            System.out.println("intent中参数为空");
+            dateText.setText(simpleDateFormat.format(date));
+        }
+        else{
+            System.out.println(datestring);
+            dateText.setText(datestring);
+            try{
+                date = simpleDateFormat.parse(datestring);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public void refresh(ArrayList<MainGroup> groupList, double recommendedIntake, double intake, double consumption) {

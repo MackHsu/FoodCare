@@ -73,8 +73,8 @@ public class IdentifyResultActivity extends AppCompatActivity {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if(view.getId() == R.id.identifybutton) {
                     Intent intent = new Intent(IdentifyResultActivity.this, IdentifyLabelDetailActivity.class);
-                    Gson gson=new Gson();
 
+                    Gson gson=new Gson();
                     String jsonData=gson.toJson(foodRegList.get(position));
                     //String jsonData = gson.toJson(easyFoods);
                     intent.putExtra("FoodReg",jsonData);
