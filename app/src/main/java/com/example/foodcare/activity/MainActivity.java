@@ -5,35 +5,45 @@ package com.example.foodcare.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Px;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
-import android.transition.TransitionInflater;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.example.foodcare.R;
+import com.example.foodcare.Retrofit.A_entity.Account;
+import com.example.foodcare.Retrofit.A_entity.FoodRank;
 import com.example.foodcare.Retrofit.Page.PageTest;
+import com.example.foodcare.Retrofit.User.UpdateUserInfo.UpdateUserInfoTest;
+import com.example.foodcare.Retrofit.User.UserInformation.UserInformationTest;
+import com.example.foodcare.ToolClass.MyToast;
+import com.example.foodcare.Retrofit.A_entity.Diet;
+import com.example.foodcare.Retrofit.A_entity.DietDetail;
+import com.example.foodcare.Retrofit.A_entity.Food;
+import com.example.foodcare.Retrofit.Diet.TodayDiet.TodayDietTest;
+import com.example.foodcare.Retrofit.DietDetailList.DietDetailListTest;
+import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
+import com.example.foodcare.entity.AccountID;
+import com.example.foodcare.entity.AccountID;
+import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.presenter.MainPresenter;
 import com.example.foodcare.tools.SaveFile;
@@ -44,7 +54,12 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.thinkcool.circletextimageview.CircleTextImageView;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements IMainView {
 
@@ -66,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     TextView restText;
     Toolbar toolbar;
     private Uri imageUri;
+    TextView dateText;
+    Date date;
 
     RelativeLayout mainHeaderLayout;
     HeaderAnimatedScrollView scrollView;
@@ -77,6 +94,17 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     LinearLayout mainBgLayout;
     ImageButton uploadPictureButton;
     MainPresenter mainPresenter;
+    CircleTextImageView avatar;
+    TextView username;
+    TextView accounttext;
+    TextView passageText;
+    private final int GET_USERINFO_SUCCESS = 1;
+
+    ArrayList<MainGroup> groupList;
+
+    private final int DATA_NULL = 0;
+    private final int DATA_UPDATED = 1;
+    private final int FAILED = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         Cancellation_main=(Button)findViewById(R.id.Cancellation_main);
         UserInformation = (CircleTextImageView) findViewById(R.id.avatar);
         mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
-        //cameraButton = (ImageButton)findViewById(R.id.main_camera_button);
         addButton = (FloatingActionButton) findViewById(R.id.floating_button_add);
         analysisButton = (FloatingActionButton) findViewById(R.id.floating_button_analysis);
         searchButton = (FloatingActionButton) findViewById(R.id.floating_button_search);
@@ -99,6 +126,11 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         consumptionText = (TextView) findViewById(R.id.consumption_today);
         restText = (TextView) findViewById(R.id.rest_today_text);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        passageText = (TextView) findViewById(R.id.Passage_main);
+        username = (TextView) findViewById(R.id.username);
+        accounttext = (TextView) findViewById(R.id.accounttext);
+
+        dateText = (TextView) findViewById(R.id.date);
 
         mainHeaderLayout = (RelativeLayout) findViewById(R.id.main_header_layout);
         scrollView = (HeaderAnimatedScrollView) findViewById(R.id.scroll_view);
@@ -111,8 +143,26 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         uploadPictureButton = (ImageButton) findViewById(R.id.main_camera_button);
         initHeadAnimation();
 
-        mainPresenter = new MainPresenter(this);
-        mainPresenter.refreshTodayMealListAndEnergy();
+        //mainPresenter = new MainPresenter(this);
+        getTodayData();
+
+        date = new Date(System.currentTimeMillis());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");// HH:mm:ss
+        //获取当前时间
+        Intent intent = getIntent();
+        String datestring = intent.getStringExtra("date");
+        if (datestring == null){
+            dateText.setText(simpleDateFormat.format(date));
+        }
+        else{
+            dateText.setText(datestring);
+            try{
+                date = simpleDateFormat.parse(datestring);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
 
         //标题栏
         setSupportActionBar(toolbar);
@@ -121,6 +171,28 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.menu_button);
         }
+
+
+//        final UserInformationTest info = new UserInformationTest();
+//        info.request(AccountID.getId(),MainActivity.this);
+//
+//        Handler handlerhere = new Handler(){
+//            @Override
+//            public void handleMessage(Message msg){
+//                switch(msg.what)
+//                {
+//                    case GET_USERINFO_SUCCESS:
+//                        Account account = info.getAccount();
+//                        UserInformation.setImageDrawable(null);
+//                        username.setText(account.getName());
+//                        accounttext.setText(account.getId());
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        };
+//        info.setHandler(handlerhere);
 
         //点击左上方的按钮左侧菜单栏滑出
         menuButton.setOnClickListener(new View.OnClickListener() {
@@ -158,15 +230,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             }
         });
 
-        //点击相机图片进入照相界面
-//        cameraButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, UploadPictureActivity.class);
-//                startActivity(intent);
-//           }
-//        });
-
         //日历跳转
         //日历界面跳转
         calendarButton.setOnClickListener(new View.OnClickListener() {
@@ -202,6 +265,15 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 Intent intent=new Intent();
                 setResult(RESULT_OK,intent);
                 finish();
+            }
+        });
+
+        //点击跳转到健康快讯界面
+        passageText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PassageActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -304,4 +376,95 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    private void getTodayData() {
+        final TodayDietTest dataFetcher = new TodayDietTest();
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch(msg.what) {
+                    case DATA_NULL:
+                        Toast.makeText(MainActivity.this, "用户今日Diet数据为空", Toast.LENGTH_SHORT).show();
+                        break;
+                    case DATA_UPDATED:
+                        List<Diet> diets = dataFetcher.getDiets();
+                        refreshDiets(diets);
+                        break;
+                    case FAILED:
+                        Toast.makeText(MainActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        dataFetcher.setHandler(handler);
+        int id = AccountID.getId();
+        dataFetcher.request(id, this);
+    }
+
+    private void refreshDiets(List<Diet> diets) {
+        //测试：写定每餐推荐量
+        //TODO: 获取今日推荐量、每餐推荐量
+        //TODO: 获取group、dietDetail
+        groupList = new ArrayList<>();
+//        groupList.add(new MainGroup("早餐", 1000, new ArrayList<MainFood>())) ;
+//        groupList.add(new MainGroup("午餐", 1000, new ArrayList<MainFood>()));
+//        groupList.add(new MainGroup("晚餐", 1000, new ArrayList<MainFood>()));
+        for (Diet diet: diets) {
+            String mealName = "";
+            switch(diet.getGroup()) {
+                case 0:
+                    mealName = "早餐";
+                    break;
+                case 1:
+                    mealName = "午餐";
+                    break;
+                case 2:
+                    mealName = "晚餐";
+                    break;
+                default:
+                    break;
+            }
+            MainGroup group = new MainGroup(mealName, diet.getGroup() * 100, new ArrayList<MainFood>());
+            List<DietDetail> details = diet.getDetailList();
+            for (DietDetail detail: details) {
+                Food food = detail.getFood();
+                group.getFoodsThisMeal().add(new MainFood(IP.ip + detail.getFood().getPicture_mid(), detail.getFood().getName(), detail.getQuantity(), detail.getFood().getHeat()));
+            }
+            groupList.add(group);
+//            refreshDetails(diet.getId(), diet.getGroup());
+        }
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        mainRecycler.setLayoutManager(manager);
+        MainRecyclerAdapter adapter = new MainRecyclerAdapter(this, groupList);
+        mainRecycler.setAdapter(adapter);
+    }
+
+//    private void refreshDetails(int dietId, final int group) {
+//        final DietDetailListTest dataFetcher = new DietDetailListTest();
+//        Handler handler = new Handler() {
+//            @Override
+//            public void handleMessage(Message msg) {
+//                switch (msg.what) {
+//                    case DATA_NULL:
+//                        break;
+//                    case DATA_UPDATED:
+//                        List<DietDetail> details = dataFetcher.getDetails();
+//                        for (DietDetail detail: details) {
+//                            groupList.get(group).getFoodsThisMeal()
+//                                    .add(new MainFood(detail.getFood().getName(),
+//                                            detail.getQuantity(),
+//                                            detail.getFood().getHeat()));
+//                        }
+//
+//                        break;
+//                    case FAILED:
+//                        break;
+//                }
+//            }
+//        };
+//        dataFetcher.setHandler(handler);
+//        dataFetcher.request(dietId, this);
+//    }
 }

@@ -46,7 +46,7 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                    if(view.getId() == R.id.identifylabelbutton) {
                        Intent intent = new Intent(IdentifyLabelDetailActivity.this, FoodInfoActivity.class);
-                       intent.putExtra("foodId",foodReg.getFoods().get(position));
+                       intent.putExtra("foodId",foodReg.getFoods().get(position).getId());
                        MyToast.mytoast("成功进入食物详情界面",IdentifyLabelDetailActivity.this);
                        startActivity(intent);
                    } else {
@@ -67,12 +67,13 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
            {
                System.out.println("*****************************************");
                System.out.println("*****************************************");
-               System.out.println("*****************************************");
                for(Food food :foodReg.getFoods())
                {
                    System.out.println(food.getName());
-                   adapter.addData(food);
+                   System.out.println(food.getPicture_mid());
+                   //adapter.addData(food);
                }
+
               /*try{
                    for(int i =0;i<foodReg.getFoods().size();i++)
                    {

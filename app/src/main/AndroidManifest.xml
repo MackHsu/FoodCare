@@ -53,7 +53,8 @@
             android:theme="@style/FoodCareStatusBarTheme" />
         <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/FoodCareStatusBarTheme">
+            android:theme="@style/FoodCareStatusBarTheme"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
