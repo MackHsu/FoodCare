@@ -46,6 +46,7 @@ public class AddFoodActivity extends AppCompatActivity {
     private String[] mTitles = {"常见", "食材", "菜品"};
     private PageRecyclerAdapter mAdapter;
     private SlidingTabLayout slide;
+    private ImageButton camera;
 
     public final int UPDATE_DATA = 1;
     public final int UPDATE_FAILURE = 2;
@@ -59,6 +60,7 @@ public class AddFoodActivity extends AppCompatActivity {
         backButton = (ImageButton) findViewById(R.id.back_button);
         recyclerView = (RecyclerView) findViewById(R.id.add_food_recycler);
         loading = (RotateLoading) findViewById(R.id.loading);
+        camera = (ImageButton) findViewById(R.id.camera_add);
 //        loading.start();
         //返回
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -159,31 +161,14 @@ public class AddFoodActivity extends AppCompatActivity {
             }
         }, recyclerView);
 
-
-        //无分类显示方式
-//        dbFoodData = new FoodList();
-//        Handler handler = new Handler() {
-//            @Override
-//            public void handleMessage(Message msg) {
-//                switch (msg.what) {
-//                    case UPDATE_DATA:
-//                        for(int i = 0; i < 10; i++ ) {
-//                            foodList.add(new AddFood("http://192.168.137.238:8080/foodcare/" + dbFoodData.getData().get(i).getPicture_mid(), dbFoodData.getData().get(i).getName(), dbFoodData.getData().get(i).getFat()));
-//                        }
-//                        loading.stop();
-//                        //显示列表数据
-//                        LinearLayoutManager layoutManager = new LinearLayoutManager(AddFoodActivity.this);
-//                        recyclerView.setLayoutManager(layoutManager);
-//                        AddFoodAdapter adapter = new AddFoodAdapter(foodList);
-//                        recyclerView.setAdapter(adapter);
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//        };
-//        dbFoodData.setHandler(handler);
-//        dbFoodData.request();
+//点击相机按钮跳转进入牌照识别
+    camera.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(AddFoodActivity.this, IdentifyFoodActivity.class);
+            startActivity(intent);
+        }
+    });
 
     }
 

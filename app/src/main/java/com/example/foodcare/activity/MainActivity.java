@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     CircleTextImageView avatar;
     TextView username;
     TextView accounttext;
+    TextView passageText;
     private final int GET_USERINFO_SUCCESS = 1;
 
     @Override
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         consumptionText = (TextView) findViewById(R.id.consumption_today);
         restText = (TextView) findViewById(R.id.rest_today_text);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        passageText = (TextView) findViewById(R.id.Passage_main);
         username = (TextView) findViewById(R.id.username);
         accounttext = (TextView) findViewById(R.id.accounttext);
 
@@ -152,7 +154,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 e.printStackTrace();
             }
         }
-        
+
+
         //标题栏
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -160,7 +163,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.menu_button);
         }
-//
+
+
 //        final UserInformationTest info = new UserInformationTest();
 //        info.request(AccountID.getId(),MainActivity.this);
 //
@@ -253,6 +257,15 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 Intent intent=new Intent();
                 setResult(RESULT_OK,intent);
                 finish();
+            }
+        });
+
+        //点击跳转到健康快讯界面
+        passageText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PassageActivity.class);
+                startActivity(intent);
             }
         });
 

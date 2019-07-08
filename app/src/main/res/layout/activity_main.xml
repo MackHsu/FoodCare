@@ -333,6 +333,18 @@
                     android:textColor="@color/mainColor"
                     android:textSize="23sp"
                     android:layout_gravity="center_horizontal"/>
+
+                <!--注销登陆-->
+                <Button
+                    android:id="@+id/Passage_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="健康快讯"
+                    android:background="#00000000"
+                    android:textColor="@color/mainColor"
+                    android:textSize="23sp"
+                    android:layout_gravity="center_horizontal"/>
                 <!--注销登陆-->
                 <Button
                     android:id="@+id/Cancellation_main"
@@ -344,6 +356,7 @@
                     android:textColor="@color/mainColor"
                     android:textSize="23sp"
                     android:layout_gravity="center_horizontal"/>
+
 
         </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
