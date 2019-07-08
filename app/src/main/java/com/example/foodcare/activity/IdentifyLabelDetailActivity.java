@@ -67,13 +67,13 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
            {
                System.out.println("*****************************************");
                System.out.println("*****************************************");
-               System.out.println("*****************************************");
                for(Food food :foodReg.getFoods())
                {
                    System.out.println(food.getName());
                    System.out.println(food.getPicture_mid());
-                   adapter.addData(food);
+                   //adapter.addData(food);
                }
+
               /*try{
                    for(int i =0;i<foodReg.getFoods().size();i++)
                    {
