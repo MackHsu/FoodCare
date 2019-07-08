@@ -2,6 +2,7 @@
 //***********创建者：曾志昊**************
 package com.example.foodcare.activity;
 
+import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TodayAnalyseActivity extends AppCompatActivity {
+
     //饼状图
     PieChart pieChart;
     //柱状图
@@ -37,6 +39,18 @@ public class TodayAnalyseActivity extends AppCompatActivity {
     int TodayIntake;
     int TodaySport;
     int TodayLeft;
+    int BreakFastEnergy;
+    int LunchEnergy;
+    int DinnerEnergy;
+    int AdditionEnergy;
+    int ProteinPercentage;
+    int ProteinAmount;
+    int SugarPercentage;
+    int SugarAmount;
+    int FatPercentage;
+    int FatAmount;
+    int SodiumPercentage;
+    int SodiumAmount;
    // DayDetail today;
     TextView viewTodayRecommended;
     TextView viewTodayIntake;
@@ -129,6 +143,8 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         //Y值是否显示在图标上
         yAxis.setDrawLabels(false);
         List<RadarEntry> yvalues = new ArrayList<>();//数据
+        List<String> label = new ArrayList<>();
+        label.add("能量");label.add("蛋白");label.add("碳水");label.add("脂肪");label.add("钠");
         for(int i =1;i<=5;i++)
         {
             yvalues.add(new RadarEntry(i,0.8f+0.1f*i));
@@ -153,10 +169,23 @@ public class TodayAnalyseActivity extends AppCompatActivity {
     }
     //获取所有的数据
     private void getNumber() {
-        TodayRecommended = 2000;
-        TodayIntake = 1500;
-        TodaySport = 200;
-        TodayLeft = TodayRecommended - TodayIntake;
+        Intent intent = getIntent();
+        TodayRecommended = intent.getIntExtra("TodayRecommended",-1);
+        TodayIntake = intent.getIntExtra("TodayIntake",-1);
+        TodaySport = intent.getIntExtra("TodaySport",-1);
+        TodayLeft = intent.getIntExtra("TodayLeft",-1);
+        BreakFastEnergy = intent.getIntExtra("TodayLeft",-1);
+        LunchEnergy = intent.getIntExtra("LunchEnergy",-1);
+        DinnerEnergy = intent.getIntExtra("DinnerEnergy",-1);
+        AdditionEnergy = intent.getIntExtra("AdditionEnergy",-1);
+        ProteinPercentage = intent.getIntExtra("ProteinPercentage",-1);
+        ProteinAmount = intent.getIntExtra("ProteinAmount",-1);
+        SugarPercentage = intent.getIntExtra("SugarPercentage",-1);
+        SugarAmount = intent.getIntExtra("SugarAmount",-1);
+        FatPercentage = intent.getIntExtra("FatPercentage",-1);
+        FatAmount = intent.getIntExtra("FatAmount",-1);
+        SodiumPercentage = intent.getIntExtra("SodiumPercentage",-1);
+        SodiumAmount = intent.getIntExtra("SodiumAmount",-1);
 
     }
 

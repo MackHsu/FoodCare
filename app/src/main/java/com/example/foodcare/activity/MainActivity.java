@@ -5,6 +5,8 @@ package com.example.foodcare.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Px;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -32,8 +34,14 @@ import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.example.foodcare.R;
+import com.example.foodcare.Retrofit.A_entity.Account;
+import com.example.foodcare.Retrofit.A_entity.FoodRank;
 import com.example.foodcare.Retrofit.Page.PageTest;
+import com.example.foodcare.Retrofit.User.UpdateUserInfo.UpdateUserInfoTest;
+import com.example.foodcare.Retrofit.User.UserInformation.UserInformationTest;
+import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
+import com.example.foodcare.entity.AccountID;
 import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.presenter.MainPresenter;
 import com.example.foodcare.tools.SaveFile;
@@ -44,7 +52,11 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.thinkcool.circletextimageview.CircleTextImageView;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements IMainView {
 
@@ -66,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     TextView restText;
     Toolbar toolbar;
     private Uri imageUri;
+    TextView dateText;
+    Date date;
 
     RelativeLayout mainHeaderLayout;
     HeaderAnimatedScrollView scrollView;
@@ -77,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     LinearLayout mainBgLayout;
     ImageButton uploadPictureButton;
     MainPresenter mainPresenter;
+    CircleTextImageView avatar;
+    TextView username;
+    TextView accounttext;
+    private final int GET_USERINFO_SUCCESS = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         Cancellation_main=(Button)findViewById(R.id.Cancellation_main);
         UserInformation = (CircleTextImageView) findViewById(R.id.avatar);
         mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
-        //cameraButton = (ImageButton)findViewById(R.id.main_camera_button);
         addButton = (FloatingActionButton) findViewById(R.id.floating_button_add);
         analysisButton = (FloatingActionButton) findViewById(R.id.floating_button_analysis);
         searchButton = (FloatingActionButton) findViewById(R.id.floating_button_search);
@@ -99,6 +116,11 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         consumptionText = (TextView) findViewById(R.id.consumption_today);
         restText = (TextView) findViewById(R.id.rest_today_text);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        username = (TextView) findViewById(R.id.username);
+        accounttext = (TextView) findViewById(R.id.accounttext);
+
+        dateText = (TextView) findViewById(R.id.date);
 
         mainHeaderLayout = (RelativeLayout) findViewById(R.id.main_header_layout);
         scrollView = (HeaderAnimatedScrollView) findViewById(R.id.scroll_view);
@@ -114,6 +136,23 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         mainPresenter = new MainPresenter(this);
         mainPresenter.refreshTodayMealListAndEnergy();
 
+        date = new Date(System.currentTimeMillis());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");// HH:mm:ss
+        //获取当前时间
+        Intent intent = getIntent();
+        String datestring = intent.getStringExtra("date");
+        if (datestring == null){
+            dateText.setText(simpleDateFormat.format(date));
+        }
+        else{
+            dateText.setText(datestring);
+            try{
+                date = simpleDateFormat.parse(datestring);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        
         //标题栏
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -121,6 +160,27 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.menu_button);
         }
+//
+//        final UserInformationTest info = new UserInformationTest();
+//        info.request(AccountID.getId(),MainActivity.this);
+//
+//        Handler handlerhere = new Handler(){
+//            @Override
+//            public void handleMessage(Message msg){
+//                switch(msg.what)
+//                {
+//                    case GET_USERINFO_SUCCESS:
+//                        Account account = info.getAccount();
+//                        UserInformation.setImageDrawable(null);
+//                        username.setText(account.getName());
+//                        accounttext.setText(account.getId());
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        };
+//        info.setHandler(handlerhere);
 
         //点击左上方的按钮左侧菜单栏滑出
         menuButton.setOnClickListener(new View.OnClickListener() {
@@ -157,15 +217,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 startActivity(intent);
             }
         });
-
-        //点击相机图片进入照相界面
-//        cameraButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, UploadPictureActivity.class);
-//                startActivity(intent);
-//           }
-//        });
 
         //日历跳转
         //日历界面跳转

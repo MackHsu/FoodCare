@@ -152,16 +152,13 @@ public class UserInfoActivity extends AppCompatActivity {
                     }
                 });
 
-
-
-
-
                 dialog.show();
 
 
             }
         });
     }
+
     private void openAlbum(){
         Intent intent=new Intent("android.intent.action.GET_CONTENT");
         intent.setType("image/*");
@@ -251,7 +248,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 break;
         }
     }
-
+//相册选择相关
     @TargetApi(19)
     private void handleImageOnKitKat(Intent data){
         String imagePath=null;
@@ -276,7 +273,7 @@ public class UserInfoActivity extends AppCompatActivity {
         }
         displayImage(imagePath);
     }
-
+//相册选择相关
     private void handleImageBeforeKitKat(Intent data){
         Uri uri=data.getData();
         String imagePath=getImagePath(uri,null);

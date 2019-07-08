@@ -47,7 +47,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="2019 年 7 月 2 日"
                             android:textColor="#fff"
                             android:textSize="18sp" />
 
@@ -296,7 +295,7 @@
                             android:layout_alignTop="@id/avatar"/>
                         <!--帐号-->
                         <TextView
-                            android:id="@+id/account"
+                            android:id="@+id/accounttext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/username"

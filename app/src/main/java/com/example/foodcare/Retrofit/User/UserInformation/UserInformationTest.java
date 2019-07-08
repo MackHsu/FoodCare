@@ -1,10 +1,13 @@
 package com.example.foodcare.Retrofit.User.UserInformation;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.widget.Toast;
 
 import com.example.foodcare.Retrofit.A_entity.Account;
+import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
 
@@ -15,8 +18,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserInformationTest {
-    static Account account;
-    static public void request(int id,final Context context) {
+    private Account account;
+    private Handler handler;
+    private final int GET_USERINFO_SUCCESS = 1;
+    public void setHandler(Handler handler ){
+        this.handler = handler;
+    }
+    public Account getAccount(){return this.account;}
+    public void request(int id,final Context context) {
         Retrofit retrofit  = new Retrofit.Builder()
                 .baseUrl(IP.ip)
                 .addConverterFactory(new NullOnEmptyConverterFactory())
@@ -34,11 +43,10 @@ public class UserInformationTest {
                 System.out.println("请求成功");
                 account = response.body();
                 System.out.println(account.getName());
-                String text = "";
-                text = account.getName()+"/n";
-                Toast toast=Toast.makeText(context,text,Toast.LENGTH_SHORT    );
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
+                Message message = new Message();
+                message.what = GET_USERINFO_SUCCESS;
+                handler.sendMessage(message);
+                MyToast.mytoast("请求用户信息成功！",context);
             }
 
             @Override

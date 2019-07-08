@@ -34,7 +34,7 @@ public class UpdateUserInfoTest {
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                System.out.println("请求成功");//此处对象为空？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？/
+                System.out.println("请求成功");
                 if(response.body())
                 {
                     System.out.println("信息上传更新成功");
