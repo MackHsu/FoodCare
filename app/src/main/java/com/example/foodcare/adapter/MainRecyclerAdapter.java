@@ -2,9 +2,13 @@
 package com.example.foodcare.adapter;
 
 import android.content.Context;
+import android.media.Image;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
 import com.donkingliang.groupedadapter.holder.BaseViewHolder;
+import com.example.foodcare.activity.MainActivity;
 import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.R;
@@ -72,6 +76,7 @@ public class MainRecyclerAdapter extends GroupedRecyclerViewAdapter {
     @Override
     public void onBindChildViewHolder(BaseViewHolder holder, int groupPosition, int childPosition) {
         MainFood mainFood = mainGroups.get(groupPosition).getFoodsThisMeal().get(childPosition);
+        Glide.with(mContext).load(mainFood.getImageUrl()).into((ImageView) holder.get(R.id.food_image));
         holder.setText(R.id.food_name_text, mainFood.getFoodName());
         holder.setText(R.id.food_weight_text, mainFood.getFoodWeight() + "克");
         holder.setText(R.id.total_energy_text, mainFood.getTotalEnergy() + "千卡");

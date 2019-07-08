@@ -3,6 +3,7 @@ package com.example.foodcare.Retrofit.A_entity;
 //import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 public class Diet {
 
@@ -12,7 +13,7 @@ public class Diet {
 
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
-
+    private List<DietDetail> detailList;
     private Account account;
 
     public Diet() {
@@ -59,4 +60,13 @@ public class Diet {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    public List<DietDetail> getDetailList() {
+        return detailList;
+    }
+
+    public void setDetailList(List<DietDetail> detailList) {
+        this.detailList = detailList;
+    }
+
 }

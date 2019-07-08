@@ -17,23 +17,16 @@ import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
-import android.transition.TransitionInflater;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Account;
 import com.example.foodcare.Retrofit.A_entity.FoodRank;
@@ -41,8 +34,16 @@ import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.Retrofit.User.UpdateUserInfo.UpdateUserInfoTest;
 import com.example.foodcare.Retrofit.User.UserInformation.UserInformationTest;
 import com.example.foodcare.ToolClass.MyToast;
+import com.example.foodcare.Retrofit.A_entity.Diet;
+import com.example.foodcare.Retrofit.A_entity.DietDetail;
+import com.example.foodcare.Retrofit.A_entity.Food;
+import com.example.foodcare.Retrofit.Diet.TodayDiet.TodayDietTest;
+import com.example.foodcare.Retrofit.DietDetailList.DietDetailListTest;
+import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.entity.AccountID;
+import com.example.foodcare.entity.AccountID;
+import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.presenter.MainPresenter;
 import com.example.foodcare.tools.SaveFile;
@@ -57,6 +58,7 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements IMainView {
@@ -98,6 +100,12 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     TextView passageText;
     private final int GET_USERINFO_SUCCESS = 1;
 
+    ArrayList<MainGroup> groupList;
+
+    private final int DATA_NULL = 0;
+    private final int DATA_UPDATED = 1;
+    private final int FAILED = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,8 +143,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         uploadPictureButton = (ImageButton) findViewById(R.id.main_camera_button);
         initHeadAnimation();
 
-        mainPresenter = new MainPresenter(this);
-        mainPresenter.refreshTodayMealListAndEnergy();
+        //mainPresenter = new MainPresenter(this);
+        getTodayData();
 
         date = new Date(System.currentTimeMillis());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");// HH:mm:ss
@@ -368,4 +376,95 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    private void getTodayData() {
+        final TodayDietTest dataFetcher = new TodayDietTest();
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch(msg.what) {
+                    case DATA_NULL:
+                        Toast.makeText(MainActivity.this, "用户今日Diet数据为空", Toast.LENGTH_SHORT).show();
+                        break;
+                    case DATA_UPDATED:
+                        List<Diet> diets = dataFetcher.getDiets();
+                        refreshDiets(diets);
+                        break;
+                    case FAILED:
+                        Toast.makeText(MainActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        dataFetcher.setHandler(handler);
+        int id = AccountID.getId();
+        dataFetcher.request(id, this);
+    }
+
+    private void refreshDiets(List<Diet> diets) {
+        //测试：写定每餐推荐量
+        //TODO: 获取今日推荐量、每餐推荐量
+        //TODO: 获取group、dietDetail
+        groupList = new ArrayList<>();
+//        groupList.add(new MainGroup("早餐", 1000, new ArrayList<MainFood>())) ;
+//        groupList.add(new MainGroup("午餐", 1000, new ArrayList<MainFood>()));
+//        groupList.add(new MainGroup("晚餐", 1000, new ArrayList<MainFood>()));
+        for (Diet diet: diets) {
+            String mealName = "";
+            switch(diet.getGroup()) {
+                case 0:
+                    mealName = "早餐";
+                    break;
+                case 1:
+                    mealName = "午餐";
+                    break;
+                case 2:
+                    mealName = "晚餐";
+                    break;
+                default:
+                    break;
+            }
+            MainGroup group = new MainGroup(mealName, diet.getGroup() * 100, new ArrayList<MainFood>());
+            List<DietDetail> details = diet.getDetailList();
+            for (DietDetail detail: details) {
+                Food food = detail.getFood();
+                group.getFoodsThisMeal().add(new MainFood(IP.ip + detail.getFood().getPicture_mid(), detail.getFood().getName(), detail.getQuantity(), detail.getFood().getHeat()));
+            }
+            groupList.add(group);
+//            refreshDetails(diet.getId(), diet.getGroup());
+        }
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        mainRecycler.setLayoutManager(manager);
+        MainRecyclerAdapter adapter = new MainRecyclerAdapter(this, groupList);
+        mainRecycler.setAdapter(adapter);
+    }
+
+//    private void refreshDetails(int dietId, final int group) {
+//        final DietDetailListTest dataFetcher = new DietDetailListTest();
+//        Handler handler = new Handler() {
+//            @Override
+//            public void handleMessage(Message msg) {
+//                switch (msg.what) {
+//                    case DATA_NULL:
+//                        break;
+//                    case DATA_UPDATED:
+//                        List<DietDetail> details = dataFetcher.getDetails();
+//                        for (DietDetail detail: details) {
+//                            groupList.get(group).getFoodsThisMeal()
+//                                    .add(new MainFood(detail.getFood().getName(),
+//                                            detail.getQuantity(),
+//                                            detail.getFood().getHeat()));
+//                        }
+//
+//                        break;
+//                    case FAILED:
+//                        break;
+//                }
+//            }
+//        };
+//        dataFetcher.setHandler(handler);
+//        dataFetcher.request(dietId, this);
+//    }
 }

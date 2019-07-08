@@ -50,18 +50,18 @@ public class MainModel implements IMainModel {
         ArrayList<MainFood> foodList = new ArrayList<>();
 
         //早餐
-        MainFood mainFood = new MainFood("煮鸡蛋", 50, 100);
+        MainFood mainFood = new MainFood("", "煮鸡蛋", 50, 100);
         foodList.add(mainFood);
-        mainFood = new MainFood("豆浆", 200, 50);
+        mainFood = new MainFood("", "豆浆", 200, 50);
         foodList.add(mainFood);
         MainGroup mainGroup = new MainGroup("早餐", 155, foodList);
         groupList.add(mainGroup);
 
         //午餐
         foodList = new ArrayList<>();
-        mainFood = new MainFood("米饭", 200, 150);
+        mainFood = new MainFood("", "米饭", 200, 150);
         foodList.add(mainFood);
-        mainFood = new MainFood("鸡腿", 50, 400);
+        mainFood = new MainFood("", "鸡腿", 50, 400);
         foodList.add(mainFood);
         mainGroup = new MainGroup("午餐", 450, foodList);
         groupList.add(mainGroup);

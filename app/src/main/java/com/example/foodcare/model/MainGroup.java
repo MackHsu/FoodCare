@@ -1,6 +1,7 @@
 //许朗铭 2017302580224
 package com.example.foodcare.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class MainGroup {
@@ -31,7 +32,14 @@ public class MainGroup {
         return expectedEnergyThisMeal;
     }
 
+    //计算总热量
     public double getTotalEnergyThisMeal() {
+        double totalEnergyThisMeal = 0;
+        for (MainFood mainFood: foodsThisMeal) {
+            totalEnergyThisMeal += mainFood.getTotalEnergy();
+        }
+        BigDecimal bg = new BigDecimal(totalEnergyThisMeal);
+        totalEnergyThisMeal = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         return totalEnergyThisMeal;
     }
 
