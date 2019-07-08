@@ -216,6 +216,12 @@
                                             android:id="@+id/main_recycler"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"/>
+                                        <!--加载提示-->
+                                        <com.victor.loading.rotate.RotateLoading
+                                            android:id="@+id/loading"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_gravity="center_horizontal"/>
                                 </LinearLayout>
                         </com.example.foodcare.view.HeaderAnimatedScrollView>
                         <com.getbase.floatingactionbutton.FloatingActionsMenu

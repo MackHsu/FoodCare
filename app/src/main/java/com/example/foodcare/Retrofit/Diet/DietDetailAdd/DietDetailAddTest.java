@@ -1,6 +1,8 @@
 package com.example.foodcare.Retrofit.Diet.DietDetailAdd;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
@@ -13,7 +15,17 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DietDetailAddTest {
-    static public void request(int food_id, int quantity, int account_id, int group, final Context context) {//1 高蛋白 2 高酒精
+    private Handler handler;
+    private final int NO_RETURN = 0;
+    private final int UPDATE_SUCCEEDED = 1;
+    private final int UPDATE_FAILED = 2;
+    private final int REQUEST_FAILED = 3;
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
+    public void request(int food_id, int quantity, int account_id, int group, final Context context) {//1 高蛋白 2 高酒精
         Retrofit retrofit  = new Retrofit.Builder()
                 .baseUrl(IP.ip)//http://fanyi.youdao.com/")
                 .addConverterFactory(new NullOnEmptyConverterFactory())
@@ -31,13 +43,23 @@ public class DietDetailAddTest {
                 System.out.println("请求成功");
                 if (response.body() == null){
                     System.out.println("返回值为空");
+                    Message message = new Message();
+                    message.what = NO_RETURN;
+                    handler.sendMessage(message);
                     return;
                 }
                 if(response.body())
                 {
                     MyToast.mytoast("成功添加！！",context);
+                    Message message = new Message();
+                    message.what = UPDATE_SUCCEEDED;
+                    handler.sendMessage(message);
+
                 }else{
                     MyToast.mytoast("添加失败",context);
+                    Message message = new Message();
+                    message.what = UPDATE_FAILED;
+                    handler.sendMessage(message);
                 }
             }
 
@@ -45,6 +67,9 @@ public class DietDetailAddTest {
             public void onFailure(Call<Boolean> call, Throwable t) {
                 System.out.println("请求失败");
                 System.out.println(t.toString());
+                Message message = new Message();
+                message.what = REQUEST_FAILED;
+                handler.sendMessage(message);
                 t.printStackTrace();
             }
         });
