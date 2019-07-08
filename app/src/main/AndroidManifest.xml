@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.IdentifyResultTestActivity"></activity>
+        <activity android:name=".activity.IdentifyResultTestActivity" />
         <activity android:name=".activity.IdentifyLabelDetailActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity">
