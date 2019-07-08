@@ -31,7 +31,12 @@ public class MainGroup {
         return expectedEnergyThisMeal;
     }
 
+    //计算总热量
     public double getTotalEnergyThisMeal() {
+        double totalEnergyThisMeal = 0;
+        for (MainFood mainFood: foodsThisMeal) {
+            totalEnergyThisMeal += mainFood.getTotalEnergy();
+        }
         return totalEnergyThisMeal;
     }
 
