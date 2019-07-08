@@ -74,11 +74,15 @@ public class CalendarActivity extends AppCompatActivity {
                 //跳转到当日的饮食情况  ************************************
                 // 将当前选择的日期装入bundles中作为参数随着intent传入将进入的界面
                 Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
-                Bundle bundles = new Bundle();
+                /*Bundle bundles = new Bundle();
                 bundles.putInt("selectedYear",currentDate.getYear());
                 bundles.putInt("selectedMonth",currentDate.getMonth());
                 bundles.putInt("selectedDay",currentDate.getDay());
-                intent.putExtras(bundles);
+
+                intent.putExtras(bundles);*/
+                String datepicked = currentDate.getYear()+"年"+currentDate.getMonth()+"月"+currentDate.getDay()+"日";
+                //获取当前时间
+                intent.putExtra("date",datepicked);
                 startActivity(intent);
             }
         });

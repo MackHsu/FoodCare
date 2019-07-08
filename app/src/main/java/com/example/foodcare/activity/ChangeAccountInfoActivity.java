@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodcare.R;
+import com.example.foodcare.ToolClass.MyToast;
 
 public class ChangeAccountInfoActivity extends AppCompatActivity {
     public String resultInfo="未确定";
@@ -21,6 +22,7 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
     private TextView changeTitle;
     private EditText changeInfo;
     private Button changeSubmit;
+    private String title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,7 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
         Intent getIntent=getIntent();
         String getData=getIntent.getStringExtra("change_title");
         changeTitle.setText(getData);
+        title=getData;
         changeInfo=(EditText) findViewById(R.id.change_account_info_activity_text);
         changeSubmit=(Button)findViewById(R.id.change_account_info_activity_submit);
         toolbar.setTitle("< 更改个人信息");
@@ -51,6 +54,9 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
                     return;
                 }
                 resultInfo=changeInfo.getText().toString();
+                if(!checkInfo(resultInfo)){
+                    return;
+                }
                 backTo();
                 finish();
             }
@@ -60,5 +66,103 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
     public void backTo(){
         resultIntent.putExtra("info",resultInfo);
         setResult(RESULT_OK,resultIntent);
+    }
+    private boolean checkInfo(String info){
+        switch (title){
+            case "用户名/昵称":
+                if(info.length()>10){
+                    MyToast.mytoast("您的昵称过长,请少于10个汉字或字母",getApplicationContext());
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            case "年龄":
+                return checkAge(info);
+            case "体重":
+                return checkWeight(info);
+            case "身高":
+                return checkHeight(info);
+            case "体脂率":
+                return checkFlat(info);
+                default:
+                    break;
+        }
+        return false;
+    }
+    private boolean checkAge(String info){
+        try{
+            int age=Integer.valueOf(info);
+            if(age>120){
+                MyToast.mytoast("您输入的年龄过大",getApplicationContext());
+                return false;
+            }
+            if(age<1){
+                MyToast.mytoast("您输入的年龄过小",getApplicationContext());
+                return false;
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            MyToast.mytoast("您输入的不是整数",getApplicationContext());
+            return false;
+        }
+    }
+
+    private boolean checkWeight(String info){
+        try{
+            double weight=Double.valueOf(info);
+            if(weight>200.0){
+                MyToast.mytoast("您输入的体重过大",getApplicationContext());
+                return false;
+            }
+            if(weight<5.0){
+                MyToast.mytoast("您输入的体重过小",getApplicationContext());
+                return false;
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            MyToast.mytoast("您输入的不是数字",getApplicationContext());
+            return false;
+        }
+    }
+
+    private boolean checkHeight(String info){
+        try{
+            double height=Double.valueOf(info);
+            if(height>250.0){
+                MyToast.mytoast("您输入的身高过高",getApplicationContext());
+                return false;
+            }
+            if(height<40.0){
+                MyToast.mytoast("您输入的身高过矮",getApplicationContext());
+                return false;
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            MyToast.mytoast("您输入的不是数字",getApplicationContext());
+            return false;
+        }
+    }
+
+    private boolean checkFlat(String info){
+        try{
+            double flat=Double.valueOf(info);
+            if(flat>99.0){
+                MyToast.mytoast("您输入的体脂率过高",getApplicationContext());
+                return false;
+            }
+            if(flat<0.0){
+                MyToast.mytoast("您输入的体脂率过低",getApplicationContext());
+                return false;
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            MyToast.mytoast("您输入的不是0-100的数字",getApplicationContext());
+            return false;
+        }
     }
 }

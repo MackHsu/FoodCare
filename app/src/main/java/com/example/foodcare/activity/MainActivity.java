@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Px;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +28,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodcare.R;
+import com.example.foodcare.Retrofit.A_entity.Account;
+import com.example.foodcare.Retrofit.A_entity.FoodRank;
+import com.example.foodcare.Retrofit.Page.PageTest;
+import com.example.foodcare.Retrofit.User.UpdateUserInfo.UpdateUserInfoTest;
+import com.example.foodcare.Retrofit.User.UserInformation.UserInformationTest;
+import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.Retrofit.A_entity.Diet;
 import com.example.foodcare.Retrofit.A_entity.DietDetail;
 import com.example.foodcare.Retrofit.A_entity.Food;
@@ -33,6 +41,7 @@ import com.example.foodcare.Retrofit.Diet.TodayDiet.TodayDietTest;
 import com.example.foodcare.Retrofit.DietDetailList.DietDetailListTest;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
+import com.example.foodcare.entity.AccountID;
 import com.example.foodcare.entity.AccountID;
 import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
@@ -42,11 +51,16 @@ import com.example.foodcare.util.CommonUtil;
 import com.example.foodcare.view.HeaderAnimatedScrollView;
 import com.example.foodcare.view.IMainView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.thinkcool.circletextimageview.CircleTextImageView;
 import com.victor.loading.rotate.RotateLoading;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements IMainView {
 
@@ -68,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     TextView restText;
     Toolbar toolbar;
     private Uri imageUri;
+    TextView dateText;
+    Date date;
 
     RelativeLayout mainHeaderLayout;
     HeaderAnimatedScrollView scrollView;
@@ -80,6 +96,11 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     ImageButton uploadPictureButton;
     RotateLoading loading;
     MainPresenter mainPresenter;
+    CircleTextImageView avatar;
+    TextView username;
+    TextView accounttext;
+    TextView passageText;
+    private final int GET_USERINFO_SUCCESS = 1;
 
     ArrayList<MainGroup> groupList;
     List<Diet> diets;
@@ -100,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         Cancellation_main=(Button)findViewById(R.id.Cancellation_main);
         UserInformation = (CircleTextImageView) findViewById(R.id.avatar);
         mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
-        //cameraButton = (ImageButton)findViewById(R.id.main_camera_button);
         addButton = (FloatingActionButton) findViewById(R.id.floating_button_add);
         analysisButton = (FloatingActionButton) findViewById(R.id.floating_button_analysis);
         searchButton = (FloatingActionButton) findViewById(R.id.floating_button_search);
@@ -110,6 +130,11 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         restText = (TextView) findViewById(R.id.rest_today_text);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         loading = (RotateLoading) findViewById(R.id.loading);
+        passageText = (TextView) findViewById(R.id.Passage_main);
+        username = (TextView) findViewById(R.id.username);
+        accounttext = (TextView) findViewById(R.id.accounttext);
+
+        dateText = (TextView) findViewById(R.id.date);
 
         mainHeaderLayout = (RelativeLayout) findViewById(R.id.main_header_layout);
         scrollView = (HeaderAnimatedScrollView) findViewById(R.id.scroll_view);
@@ -126,6 +151,24 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         loading.start();
         getTodayData();
 
+        date = new Date(System.currentTimeMillis());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");// HH:mm:ss
+        //获取当前时间
+        Intent intent = getIntent();
+        String datestring = intent.getStringExtra("date");
+        if (datestring == null){
+            dateText.setText(simpleDateFormat.format(date));
+        }
+        else{
+            dateText.setText(datestring);
+            try{
+                date = simpleDateFormat.parse(datestring);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
+
         //标题栏
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -133,6 +176,28 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.menu_button);
         }
+
+
+//        final UserInformationTest info = new UserInformationTest();
+//        info.request(AccountID.getId(),MainActivity.this);
+//
+//        Handler handlerhere = new Handler(){
+//            @Override
+//            public void handleMessage(Message msg){
+//                switch(msg.what)
+//                {
+//                    case GET_USERINFO_SUCCESS:
+//                        Account account = info.getAccount();
+//                        UserInformation.setImageDrawable(null);
+//                        username.setText(account.getName());
+//                        accounttext.setText(account.getId());
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        };
+//        info.setHandler(handlerhere);
 
         //点击左上方的按钮左侧菜单栏滑出
         menuButton.setOnClickListener(new View.OnClickListener() {
@@ -170,15 +235,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             }
         });
 
-        //点击相机图片进入照相界面
-//        cameraButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, UploadPictureActivity.class);
-//                startActivity(intent);
-//           }
-//        });
-
         //日历跳转
         //日历界面跳转
         calendarButton.setOnClickListener(new View.OnClickListener() {
@@ -214,6 +270,15 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 Intent intent=new Intent();
                 setResult(RESULT_OK,intent);
                 finish();
+            }
+        });
+
+        //点击跳转到健康快讯界面
+        passageText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PassageActivity.class);
+                startActivity(intent);
             }
         });
 
