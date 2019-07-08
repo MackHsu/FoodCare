@@ -321,7 +321,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                     System.out.println("请求成功");
                     String text = "";
                   /*  Message message = new Message();
-                    message.what = UPDATE_DATA;
+                    message.what = GET_DATA_SUCCEEDED;
                     handler.sendMessage(message);*/
                      if(response.body()==null)
                        MyToast.mytoast("识别失败！(识别结果为空)",IdentifyFoodActivity.this);

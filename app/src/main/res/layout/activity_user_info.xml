@@ -224,5 +224,53 @@
             android:textSize="20dp"
             android:gravity="center_vertical"
             android:layout_toLeftOf="@+id/J6"/>
+
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/L7"
+        android:layout_below="@+id/L6"
+        android:paddingRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/my_goal_account_l"
+            android:text="我的目标"
+            android:textSize="25dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/J7"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=" >"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:textSize="25dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/my_goal_account_r"
+            android:text="请填写"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:layout_toLeftOf="@+id/J7"/>
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/submit_info"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="确定修改"
+        android:background="@drawable/shape_corner"
+        android:layout_below="@id/L7"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginTop="@dimen/dp_40"
+        android:visibility="invisible"
+        />
 </RelativeLayout>
