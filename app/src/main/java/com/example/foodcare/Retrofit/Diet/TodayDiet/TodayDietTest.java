@@ -1,6 +1,8 @@
 package com.example.foodcare.Retrofit.Diet.TodayDiet;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 
 import com.example.foodcare.Retrofit.A_entity.Diet;
 import com.example.foodcare.ToolClass.IP;
@@ -25,9 +27,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TodayDietTest {
     private List<Diet> Diets;
+    private final int DATA_NULL = 0;
+    private final int DATA_UPDATED = 1;
+    private final int FAILED = 2;
+    private Handler handler;
 
     public List<Diet> getDiets() {
         return Diets;
+    }
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
     }
 
     public void request(int account_id, final Context context){
@@ -64,11 +74,17 @@ public class TodayDietTest {
                     String text = "请求成功！！";
                     if(response.body()==null){
                         text = text+"/n查询结果为空！！！";
+                        Message message = new Message();
+                        message.what = DATA_NULL;
+                        handler.sendMessage(message);
                         MyToast.mytoast(text,context);
                     }
                     else{
                         MyToast.mytoast(text,context);
                         Diets = response.body();
+                        Message message = new Message();
+                        message.what = DATA_UPDATED;
+                        handler.sendMessage(message);
                     }
                 }
 
@@ -76,6 +92,9 @@ public class TodayDietTest {
                 @Override
                 public void onFailure(Call<List<Diet>> call, Throwable throwable) {
                     System.out.println("连接失败");
+                    Message message = new Message();
+                    message.what = FAILED;
+                    handler.sendMessage(message);
                     MyToast.mytoast("请求失败！！",context);
                     throwable.printStackTrace();
                 }

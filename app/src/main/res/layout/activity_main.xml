@@ -85,7 +85,7 @@
                                             android:id="@+id/main_bg"
                                             android:orientation="vertical"
                                             android:layout_width="match_parent"
-                                            android:layout_height="180dp"
+                                            android:layout_height="200dp"
                                             android:background="@color/mainColor3">
                                                 <!--摄入、剩余、运动 布局容器-->
                                                 <LinearLayout
@@ -207,6 +207,9 @@
                                                                     android:paddingBottom="50dp"/>
                                                         </RelativeLayout>
                                                 </LinearLayout>
+                                                <View
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="20dp"/>
                                         </LinearLayout>
                                         <!--按餐分组的分组食物列表-->
                                         <android.support.v7.widget.RecyclerView
