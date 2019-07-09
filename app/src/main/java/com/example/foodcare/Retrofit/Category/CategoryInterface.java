@@ -13,6 +13,6 @@ import retrofit2.http.POST;
 public interface CategoryInterface {
     @POST("food/meal/category")
     @FormUrlEncoded
-    Call<List<Food>> getCall(@Field("category") String type);
+    Call<List<Food>> getCall(@Field("category") String category);
     //肉类 菜类
 }

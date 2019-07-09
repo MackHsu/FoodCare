@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.FoodList.FoodList;
+import com.example.foodcare.Retrofit.Page.FrequentPageTest;
 import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.AddFoodAdapter;
@@ -33,7 +34,6 @@ import java.util.ArrayList;
 
 
 public class AddFoodTypeFregment extends Fragment {
-    private final int UPDATE_DATA = 1;
     private String title;
     private ArrayList<AddFood> foodList;
     private Context mContext;
@@ -43,8 +43,8 @@ public class AddFoodTypeFregment extends Fragment {
     RotateLoading loading;
     RecyclerView recyclerView;
 
-    public final int GET_DATA_SUCCEEDED = 1;
-    public final int GET_DATA_FAILED = 2;
+    private final int UPDATE_DATA = 1;
+    private final int UPDATE_FAILURE = 2;
 
     public static AddFoodTypeFregment getInstant(Context context, String title) {
         AddFoodTypeFregment fregment = new AddFoodTypeFregment();
@@ -91,6 +91,10 @@ public class AddFoodTypeFregment extends Fragment {
             }
         });
 
+        return getFrequentFood(view);
+    }
+
+    private View getFrequentFood(View view) {
         loading.start();
         final PageTest dataFetcher = new PageTest();
         final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
@@ -113,7 +117,7 @@ public class AddFoodTypeFregment extends Fragment {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
-                    case GET_DATA_SUCCEEDED:
+                    case UPDATE_DATA:
                         for (Food food: dataFetcher.getfoods()) {
                             adapter.addData(new AddFood(food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
                         }
@@ -123,7 +127,7 @@ public class AddFoodTypeFregment extends Fragment {
                             adapter.loadMoreEnd();
                         }
                         break;
-                    case GET_DATA_FAILED:
+                    case UPDATE_FAILURE:
                         loading.stop();
                         adapter.loadMoreFail();
                         break;

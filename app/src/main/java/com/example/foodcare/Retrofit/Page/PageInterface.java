@@ -16,16 +16,16 @@ import retrofit2.http.Path;
 
 public interface PageInterface {
 
-    Call<FoodPage> getCall(Page page,int type);
-
     @POST("food/list/limit")
     Call<FoodPage> getFoodListCall(@Body Page page);
 
     @POST("food/dishes/type/limit ")
-    Call<FoodPage> getDishTypeCall(@Body Page page);
+    @FormUrlEncoded
+    Call<FoodPage> getDishTypeCall(@Body Page page,@Field("type") String type);
 
     @POST("food/meal/category/limit")
-    Call<FoodPage> getMalCategoryCall(@Body Page page);
+    @FormUrlEncoded
+    Call<FoodPage> getMalCategoryCall(@Body Page page,@Field("catogory") String type);
 
     @POST("food/frequent/limit ")
     Call<FoodPage> getFrequentCall(@Body Page page);
