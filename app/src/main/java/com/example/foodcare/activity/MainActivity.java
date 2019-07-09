@@ -53,6 +53,7 @@ import com.example.foodcare.view.IMainView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.thinkcool.circletextimageview.CircleTextImageView;
+import com.victor.loading.rotate.RotateLoading;
 
 import org.w3c.dom.Text;
 
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     TextView consumptionLabel;
     LinearLayout mainBgLayout;
     ImageButton uploadPictureButton;
+    RotateLoading loading;
     MainPresenter mainPresenter;
     CircleTextImageView avatar;
     TextView username;
@@ -101,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     private final int GET_USERINFO_SUCCESS = 1;
 
     ArrayList<MainGroup> groupList;
+    List<Diet> diets;
 
     private final int DATA_NULL = 0;
     private final int DATA_UPDATED = 1;
@@ -126,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         consumptionText = (TextView) findViewById(R.id.consumption_today);
         restText = (TextView) findViewById(R.id.rest_today_text);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        loading = (RotateLoading) findViewById(R.id.loading);
         passageText = (TextView) findViewById(R.id.Passage_main);
         username = (TextView) findViewById(R.id.username);
         accounttext = (TextView) findViewById(R.id.accounttext);
@@ -144,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         initHeadAnimation();
 
         //mainPresenter = new MainPresenter(this);
+        loading.start();
         getTodayData();
 
         date = new Date(System.currentTimeMillis());
@@ -279,7 +284,11 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getTodayData();
+    }
 
     @Override
     public void refresh(ArrayList<MainGroup> groupList, double recommendedIntake, double intake, double consumption) {
@@ -407,6 +416,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         //测试：写定每餐推荐量
         //TODO: 获取今日推荐量、每餐推荐量
         //TODO: 获取group、dietDetail
+        this.diets = diets;
         groupList = new ArrayList<>();
 //        groupList.add(new MainGroup("早餐", 1000, new ArrayList<MainFood>())) ;
 //        groupList.add(new MainGroup("午餐", 1000, new ArrayList<MainFood>()));
@@ -439,6 +449,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         mainRecycler.setLayoutManager(manager);
         MainRecyclerAdapter adapter = new MainRecyclerAdapter(this, groupList);
         mainRecycler.setAdapter(adapter);
+        loading.stop();
     }
 
 //    private void refreshDetails(int dietId, final int group) {

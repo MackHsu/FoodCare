@@ -13,17 +13,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Food;
+import com.example.foodcare.Retrofit.Diet.DietDetailAdd.DietDetailAddTest;
 import com.example.foodcare.Retrofit.FoodList.FoodList;
 import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.AddFoodAdapter2;
+import com.example.foodcare.entity.AccountID;
 import com.example.foodcare.entity.AddFood;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.orhanobut.dialogplus.DialogPlus;
@@ -46,10 +50,14 @@ public class AddFoodActivity extends AppCompatActivity {
     private String[] mTitles = {"常见", "食材", "菜品"};
     private PageRecyclerAdapter mAdapter;
     private SlidingTabLayout slide;
+    private final int NO_RETURN = 0;
+    private final int UPDATE_SUCCEEDED = 1;
+    private final int UPDATE_FAILED = 2;
+    private final int REQUEST_FAILED = 3;
     private ImageButton camera;
 
-    public final int UPDATE_DATA = 1;
-    public final int UPDATE_FAILURE = 2;
+    public final int GET_DATA_SUCCEEDED = 1;
+    public final int GET_DATA_FAILED = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +99,7 @@ public class AddFoodActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
-                    case UPDATE_DATA:
+                    case GET_DATA_SUCCEEDED:
                         for (Food food: dataFetcher.getfoods()) {
                             adapter.addData(new AddFood(food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
                         }
@@ -101,7 +109,7 @@ public class AddFoodActivity extends AppCompatActivity {
                             adapter.loadMoreEnd();
                         }
                         break;
-                    case UPDATE_FAILURE:
+                    case GET_DATA_FAILED:
                         loading.stop();
                         adapter.loadMoreFail();
                     default:
@@ -112,14 +120,14 @@ public class AddFoodActivity extends AppCompatActivity {
         dataFetcher.setHandler(handler);
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 if(view.getId() == R.id.item_layout) {
                     //弹窗
                     final DialogPlus dialog = DialogPlus.newDialog(AddFoodActivity.this)
                             .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.bottomsheet))
                             .create();
                     //下拉框
-                    NiceSpinner spinner = (NiceSpinner) dialog.findViewById(R.id.spinner);
+                    final NiceSpinner spinner = (NiceSpinner) dialog.findViewById(R.id.spinner);
                     ArrayList<String> meals = new ArrayList<>();
                     meals.add("早餐"); meals.add("午餐"); meals.add("晚餐");
                     spinner.attachDataSource(meals);
@@ -139,6 +147,44 @@ public class AddFoodActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             dialog.dismiss();
+                        }
+                    });
+
+                    //确定
+                    final EditText editText = (EditText) dialog.findViewById(R.id.weight_edit_text);
+                    Button addButton = (Button) dialog.findViewById(R.id.add);
+                    addButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            DietDetailAddTest dataManager = new DietDetailAddTest();
+                            Handler handler = new Handler() {
+                                @Override
+                                public void handleMessage(Message msg) {
+                                    switch (msg.what) {
+                                        case NO_RETURN:
+                                            Toast.makeText(AddFoodActivity.this, "没有返回值", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        case UPDATE_SUCCEEDED:
+                                            Toast.makeText(AddFoodActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
+                                            dialog.dismiss();
+                                            break;
+                                        case UPDATE_FAILED:
+                                            Toast.makeText(AddFoodActivity.this, "添加失败", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        case REQUEST_FAILED:
+                                            Toast.makeText(AddFoodActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            };
+                            dataManager.setHandler(handler);
+                            dataManager.request(foodList.get(position).getFoodId(),
+                                    Integer.parseInt(editText.getText().toString()),
+                                    AccountID.getId(),
+                                    spinner.getSelectedIndex(),
+                                    AddFoodActivity.this);
                         }
                     });
                 } else {
