@@ -60,10 +60,10 @@ public class FrequentPageTest {
                     Message message = new Message();
                     message.what = UPDATE_DATA;
                     handler.sendMessage(message);
-                    System.out.println(page.getStart());
+                    System.out.println("old"+page.getStart());
                     foods = response.body().getFoods();
                     page = response.body().getPage();
-                    System.out.println(page.getStart());
+                    System.out.println("new"+page.getStart());
                 }
             }
 

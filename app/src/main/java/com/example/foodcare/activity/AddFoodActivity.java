@@ -96,21 +96,21 @@ public class AddFoodActivity extends AppCompatActivity {
 
         loading.start();
         final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
-       // final PageTest dataFetcher = new PageTest();
-        final CategoryPageTest dataFetcher = new CategoryPageTest("category");//按类查询食材
-        //final DishPageTest dataFetcher = new DishPageTest("type");//按照菜系查询
-       // final FrequentPageTest dataFetcher = new FrequentPageTest();//查询常见菜
+//       final PageTest dataFetcher = new PageTest();
+//        final CategoryPageTest dataFetcher = new CategoryPageTest("category");//按类查询食材
+         final DishPageTest dataFetcher = new DishPageTest("广东菜");//按照菜系查询
+        // final FrequentPageTest dataFetcher = new FrequentPageTest();//查询常见菜
         final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case GET_DATA_SUCCEEDED:
-                        for (Food food: dataFetcher.getfoods()) {
+                        for (Food food : dataFetcher.getfoods()) {
                             adapter.addData(new AddFood(food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
                         }
                         loading.stop();
                         adapter.loadMoreComplete();
-                        if(dataFetcher.getEnd()){
+                        if (dataFetcher.getEnd()) {
                             adapter.loadMoreEnd();
                         }
                         break;
@@ -126,7 +126,7 @@ public class AddFoodActivity extends AppCompatActivity {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
-                if(view.getId() == R.id.item_layout) {
+                if (view.getId() == R.id.item_layout) {
                     //弹窗
                     final DialogPlus dialog = DialogPlus.newDialog(AddFoodActivity.this)
                             .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.bottomsheet))
@@ -134,7 +134,9 @@ public class AddFoodActivity extends AppCompatActivity {
                     //下拉框
                     final NiceSpinner spinner = (NiceSpinner) dialog.findViewById(R.id.spinner);
                     ArrayList<String> meals = new ArrayList<>();
-                    meals.add("早餐"); meals.add("午餐"); meals.add("晚餐");
+                    meals.add("早餐");
+                    meals.add("午餐");
+                    meals.add("晚餐");
                     spinner.attachDataSource(meals);
                     //文本和图像
                     TextView nameTextDialog = (TextView) dialog.findViewById(R.id.food_name);
@@ -199,6 +201,8 @@ public class AddFoodActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //请求---------------------------------------
         dataFetcher.request(AddFoodActivity.this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -207,20 +211,20 @@ public class AddFoodActivity extends AppCompatActivity {
             @Override
             public void onLoadMoreRequested() {
                 System.out.println("请求一次");
-                dataFetcher.setHandler(handler);
+//                dataFetcher.setHandler(handler);
                 dataFetcher.request(AddFoodActivity.this);
                 //判断是否请求到头
             }
         }, recyclerView);
 
-//点击相机按钮跳转进入牌照识别
-    camera.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(AddFoodActivity.this, IdentifyFoodActivity.class);
-            startActivity(intent);
-        }
-    });
+//点击相机按钮跳转进入识别
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddFoodActivity.this, IdentifyFoodActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -230,7 +234,7 @@ public class AddFoodActivity extends AppCompatActivity {
         foodList.add(new AddFood(1, "", "鸡腿", 400));
         foodList.add(new AddFood(2, "", "豆浆", 50));
         foodList.add(new AddFood(3, "", "煮鸡蛋", 100));
-        for(int i = 0; i < 30; i++) {
+        for (int i = 0; i < 30; i++) {
             foodList.add(new AddFood(i, "", i + "", i));
         }
     }

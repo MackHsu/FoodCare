@@ -11,6 +11,7 @@ import com.example.foodcare.Retrofit.Page.PageInterface;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
+import com.example.foodcare.entity.AddFood;
 
 import java.util.List;
 
@@ -25,9 +26,10 @@ public class DishPageTest {
     private String type;
     private Page page;
     private Handler handler;
-    private int UPDATE_DATA = 1;
+    private Handler selfHandler;
+    private final int UPDATE_DATA = 1;
     private int UPDATE_FAILURE = 2;
-
+    public int getPage(){return this.page.getStart();}
     public DishPageTest(String type) {
         this.type = type;
         page = new Page();
@@ -49,9 +51,25 @@ public class DishPageTest {
                 .build();
         System.out.println("建立retrofit对象");
 
+//        final Handler handler = new Handler() {
+//            @Override
+//            public void handleMessage(Message msg) {
+//                switch (msg.what) {
+//                    case UPDATE_DATA:
+//                        page = this.
+//                        break;
+//
+//                    default:
+//                        break;
+//                }
+//            }
+//        };
+
         PageInterface post = retrofit.create(PageInterface.class);
         System.out.println("建立post对象");
+        System.out.println(page.getStart()+"---------------------");
         Call<FoodPage> call = post.getDishTypeCall(page,type);
+        System.out.println(page.getStart()+"---------------------");
         System.out.println("getcall");
         call.enqueue(new Callback<FoodPage>() {
             @Override
@@ -63,9 +81,11 @@ public class DishPageTest {
                     Message message = new Message();
                     message.what = UPDATE_DATA;
                     handler.sendMessage(message);
+
                     System.out.println(page.getStart());
                     foods = response.body().getFoods();
-                    page = response.body().getPage();
+                    //page = response.body().getPage();
+                    page.setStart(page.getStart()+10);
                     System.out.println(page.getStart());
                 }
             }
@@ -85,6 +105,9 @@ public class DishPageTest {
 
     public void setHandler(Handler handler) {
         this.handler = handler;
+    }
+    public void setSelfHandler(Handler handler){
+        this.selfHandler= handler;
     }
 
 }
