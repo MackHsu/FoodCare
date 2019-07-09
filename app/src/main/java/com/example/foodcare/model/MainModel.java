@@ -50,29 +50,29 @@ public class MainModel implements IMainModel {
         ArrayList<MainFood> foodList = new ArrayList<>();
 
         //早餐
-        MainFood mainFood = new MainFood("", "煮鸡蛋", 50, 100);
+        MainFood mainFood = new MainFood(0, "", "煮鸡蛋", 50, 100);
         foodList.add(mainFood);
-        mainFood = new MainFood("", "豆浆", 200, 50);
+        mainFood = new MainFood(0, "", "豆浆", 200, 50);
         foodList.add(mainFood);
-        MainGroup mainGroup = new MainGroup("早餐", 155, foodList);
+        MainGroup mainGroup = new MainGroup(0, 0, 155, foodList);
         groupList.add(mainGroup);
 
         //午餐
         foodList = new ArrayList<>();
-        mainFood = new MainFood("", "米饭", 200, 150);
+        mainFood = new MainFood(0, "", "米饭", 200, 150);
         foodList.add(mainFood);
-        mainFood = new MainFood("", "鸡腿", 50, 400);
+        mainFood = new MainFood(0, "", "鸡腿", 50, 400);
         foodList.add(mainFood);
-        mainGroup = new MainGroup("午餐", 450, foodList);
+        mainGroup = new MainGroup(0, 1, 450, foodList);
         groupList.add(mainGroup);
     }
 
     //查询数据库并整理数据适配adapter，按3:4:3分配三餐热量
     @Override
     public void initGroupList(List<Diet> dietList) {
-        groupList.add(new MainGroup("早餐", recommendedIntakeToday * 0.3, new ArrayList<MainFood>()));
-        groupList.add(new MainGroup("午餐", recommendedIntakeToday * 0.4, new ArrayList<MainFood>()));
-        groupList.add(new MainGroup("晚餐", recommendedIntakeToday * 0.3, new ArrayList<MainFood>()));
+        groupList.add(new MainGroup(0, 0, recommendedIntakeToday * 0.3, new ArrayList<MainFood>()));
+        groupList.add(new MainGroup(0, 1, recommendedIntakeToday * 0.4, new ArrayList<MainFood>()));
+        groupList.add(new MainGroup(0, 2, recommendedIntakeToday * 0.3, new ArrayList<MainFood>()));
         for (Diet diet: dietList)
         {
             //TODO: 完成这一段代码，获取食物相关数据并整理数据

@@ -4,16 +4,22 @@ package com.example.foodcare.model;
 public class MainFood {
 
     //主界面每一个列表格（食物）的数据结构，包括名称、分量和每百克热量
+    private int foodId;
     private String imageUrl;
     private String foodName;
-    private double foodWeight;
-    private double energyPerHectogram;
+    private int foodWeight;
+    private int energyPerHectogram;
 
-    public MainFood(String imageUrl, String foodName, double foodWeight, double energyPerHectogram) {
+    public MainFood(int foodId, String imageUrl, String foodName, int foodWeight, int energyPerHectogram) {
+        this.foodId = foodId;
         this.imageUrl = imageUrl;
         this.foodName = foodName;
         this.foodWeight = foodWeight;
         this.energyPerHectogram = energyPerHectogram;
+    }
+
+    public int getFoodId() {
+        return foodId;
     }
 
     public String getImageUrl() {
@@ -24,15 +30,19 @@ public class MainFood {
         return foodName;
     }
 
-    public double getFoodWeight() {
+    public int getFoodWeight() {
         return foodWeight;
     }
 
-    public double getEnergyPerHectogram() {
+    public int getEnergyPerHectogram() {
         return energyPerHectogram;
     }
 
     public double getTotalEnergy() {
         return energyPerHectogram * foodWeight / 100;
+    }
+
+    public void setFoodWeight(int foodWeight) {
+        this.foodWeight = foodWeight;
     }
 }

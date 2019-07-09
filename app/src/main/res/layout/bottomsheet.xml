@@ -87,7 +87,7 @@
         android:singleLine="true"
         android:layout_marginBottom="30dp"
         android:maxLines="1"
-        android:inputType="text" />
+        android:inputType="number" />
     <!--文本标签 克-->
     <TextView
         android:layout_width="wrap_content"

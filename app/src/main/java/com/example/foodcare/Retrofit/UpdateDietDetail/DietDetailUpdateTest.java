@@ -1,13 +1,12 @@
-package com.example.foodcare.Retrofit.Diet.DietDetailDelete;
+package com.example.foodcare.Retrofit.UpdateDietDetail;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.graphics.PathParser;
 
+import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
-import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,29 +14,28 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DietDetailDeleteTest {
-    private Handler handler;
-
-    private final int DATA_NULL = 0;
-    private final int DATA_UPDATED = 1;
-    private final int FAILED = 2;
+public class DietDetailUpdateTest {
+    Handler handler;
+    private final int NO_RETURN = 0;
+    private final int UPDATE_SUCCEEDED = 1;
+    private final int UPDATE_FAILED = 2;
     private final int REQUEST_FAILED = 3;
 
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
 
-    public void request(int food_id, int diet_id, final Context context) {
+    public void request(int diet_id, int food_id, int quantity, final Context context) {//1 高蛋白 2 高酒精
         Retrofit retrofit  = new Retrofit.Builder()
-                .baseUrl(IP.ip)
+                .baseUrl(IP.ip)//http://fanyi.youdao.com/")
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         System.out.println("建立retrofit对象");
 
-        DietDetailDeleteInterface post = retrofit.create(DietDetailDeleteInterface.class);
+        DietDetailUpdateInterface post = retrofit.create(DietDetailUpdateInterface.class);
         System.out.println("建立post对象");
-        Call<Boolean> call = post.getCall(food_id,diet_id);
+        Call<Boolean> call = post.getCall(diet_id,food_id,quantity);
         System.out.println("getcall");
         call.enqueue(new Callback<Boolean>() {
             @Override
@@ -46,20 +44,20 @@ public class DietDetailDeleteTest {
                 if (response.body() == null){
                     System.out.println("返回值为空");
                     Message message = new Message();
-                    message.what = DATA_NULL;
+                    message.what = NO_RETURN;
                     handler.sendMessage(message);
                     return;
                 }
                 if(response.body())
                 {
-                    MyToast.mytoast("成功删除！！",context);
+                    MyToast.mytoast("成功添加！！",context);
                     Message message = new Message();
-                    message.what = DATA_UPDATED;
+                    message.what = UPDATE_SUCCEEDED;
                     handler.sendMessage(message);
                 }else{
-                    MyToast.mytoast("删除失败",context);
+                    MyToast.mytoast("添加失败",context);
                     Message message = new Message();
-                    message.what = FAILED;
+                    message.what = UPDATE_FAILED;
                     handler.sendMessage(message);
                 }
             }

@@ -63,6 +63,8 @@ import org.w3c.dom.Text;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Date;
 
@@ -249,22 +251,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TodayAnalyseActivity.class);
-//                intent.putExtra("date",simpleDateFormat.format(date));//日期
-//                intent.putExtra("TodayRecommended",TodayRecommended);
-//                intent.putExtra("TodayIntake",TodayIntake);
-//                intent.putExtra("TodaySport",TodaySport);
-//                intent.putExtra("TodayLeft",TodayLeft);
-//                intent.putExtra("BreakFastEnergy",BreakFastEnergy);
-//                intent.putExtra("LunchEnergy",LunchEnergy);
-//                intent.putExtra("DinnerEnergy",DinnerEnergy);
-//                intent.putExtra("ProteinAmount",ProteinAmount);
-//                intent.putExtra("SugarAmount",SugarAmount);
-//                intent.putExtra("FatAmount",FatAmount);
-//                intent.putExtra("SodiumAmount",SodiumAmount);
-
-//                Gson gson = new Gson();
-//                String jsonData = gson.toJson(diets);
-//                intent.putExtra("diets",jsonData);
                 startActivity(intent);
             }
         });
@@ -447,7 +433,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         return super.onKeyDown(keyCode, event);
     }
 
-    private void getTodayData() {
+    public void getTodayData() {
+        loading.start();
         final TodayDietTest dataFetcher = new TodayDietTest();
         Handler handler = new Handler() {
             @Override
@@ -458,6 +445,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         break;
                     case DATA_UPDATED:
                         List<Diet> diets = dataFetcher.getDiets();
+                        loading.stop();
                         refreshDiets(diets);
                         break;
                     case FAILED:
@@ -483,29 +471,16 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 //        groupList.add(new MainGroup("午餐", 1000, new ArrayList<MainFood>()));
 //        groupList.add(new MainGroup("晚餐", 1000, new ArrayList<MainFood>()));
         for (Diet diet: diets) {
-            String mealName = "";
-            switch(diet.getGroup()) {
-                case 0:
-                    mealName = "早餐";
-                    break;
-                case 1:
-                    mealName = "午餐";
-                    break;
-                case 2:
-                    mealName = "晚餐";
-                    break;
-                default:
-                    break;
-            }
-            MainGroup group = new MainGroup(mealName, diet.getGroup() * 100, new ArrayList<MainFood>());
+            MainGroup group = new MainGroup(diet.getId(), diet.getGroup(), diet.getGroup() * 100, new ArrayList<MainFood>());
             List<DietDetail> details = diet.getDetailList();
             for (DietDetail detail: details) {
                 Food food = detail.getFood();
-                group.getFoodsThisMeal().add(new MainFood(IP.ip + detail.getFood().getPicture_mid(), detail.getFood().getName(), detail.getQuantity(), detail.getFood().getHeat()));
+                group.getFoodsThisMeal().add(new MainFood(detail.getFood().getId(), IP.ip + detail.getFood().getPicture_mid(), detail.getFood().getName(), detail.getQuantity(), detail.getFood().getHeat()));
             }
             groupList.add(group);
 //            refreshDetails(diet.getId(), diet.getGroup());
         }
+        Collections.sort(groupList);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mainRecycler.setLayoutManager(manager);
         MainRecyclerAdapter adapter = new MainRecyclerAdapter(this, groupList);
