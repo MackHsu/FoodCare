@@ -54,6 +54,7 @@ import com.example.foodcare.view.HeaderAnimatedScrollView;
 import com.example.foodcare.view.IMainView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.gson.Gson;
 import com.thinkcool.circletextimageview.CircleTextImageView;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -248,7 +249,22 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TodayAnalyseActivity.class);
-                intent.putExtra("date",simpleDateFormat.format(date));//日期
+//                intent.putExtra("date",simpleDateFormat.format(date));//日期
+//                intent.putExtra("TodayRecommended",TodayRecommended);
+//                intent.putExtra("TodayIntake",TodayIntake);
+//                intent.putExtra("TodaySport",TodaySport);
+//                intent.putExtra("TodayLeft",TodayLeft);
+//                intent.putExtra("BreakFastEnergy",BreakFastEnergy);
+//                intent.putExtra("LunchEnergy",LunchEnergy);
+//                intent.putExtra("DinnerEnergy",DinnerEnergy);
+//                intent.putExtra("ProteinAmount",ProteinAmount);
+//                intent.putExtra("SugarAmount",SugarAmount);
+//                intent.putExtra("FatAmount",FatAmount);
+//                intent.putExtra("SodiumAmount",SodiumAmount);
+
+//                Gson gson = new Gson();
+//                String jsonData = gson.toJson(diets);
+//                intent.putExtra("diets",jsonData);
                 startActivity(intent);
             }
         });

@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class UserInformationTest {
     public Account account;
     public final int ACCOUNT_GET_SUCCESS=8;
-    public  final int ACCOUNT_GET_FAILE=9;
+    public final int ACCOUNT_GET_FAILE=9;
     public Handler handler;
     public void setHandler(Handler handler){this.handler = handler;}
     public void request(int id,final Context context) {

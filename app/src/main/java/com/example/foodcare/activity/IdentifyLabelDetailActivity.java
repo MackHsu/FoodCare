@@ -36,7 +36,6 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
            foodReg =gson.fromJson(data,FoodReg.class);
 
            recyclerView = (RecyclerView) findViewById(R.id.identifylabeldetailrecycler);
-
            recyclerView.setLayoutManager(new LinearLayoutManager(this));
            final IdentifyLabelDetailAdapter adapter = new IdentifyLabelDetailAdapter(R.layout.identify_label_detail_item, foodReg.getFoods());
            recyclerView.setAdapter(adapter);
