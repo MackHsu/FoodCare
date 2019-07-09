@@ -19,7 +19,7 @@ public interface PageInterface {
     @POST("food/list/limit")
     Call<FoodPage> getFoodListCall(@Body Page page);
 
-    @POST("food/dishes/type/limit ")
+    @POST("food/dishes/type/limit")
     @FormUrlEncoded
     Call<FoodPage> getDishTypeCall(@Body Page page,@Field("type") String type);
 
@@ -27,7 +27,7 @@ public interface PageInterface {
     @FormUrlEncoded
     Call<FoodPage> getMalCategoryCall(@Body Page page,@Field("catogory") String type);
 
-    @POST("food/frequent/limit ")
+    @POST("food/list/frequent/limit")
     Call<FoodPage> getFrequentCall(@Body Page page);
 
 }

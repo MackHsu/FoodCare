@@ -1,6 +1,5 @@
 package com.example.foodcare.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,24 +12,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
-import com.example.foodcare.Retrofit.FoodList.FoodList;
 import com.example.foodcare.Retrofit.Page.FrequentPageTest;
-import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.ToolClass.IP;
-import com.example.foodcare.adapter.AddFoodAdapter;
 import com.example.foodcare.adapter.AddFoodAdapter2;
-import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.entity.AddFood;
 import com.victor.loading.rotate.RotateLoading;
 import com.wx.wheelview.widget.WheelViewDialog;
 
 import com.example.foodcare.Retrofit.A_entity.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class AddFoodTypeFregment extends Fragment {
@@ -45,6 +41,7 @@ public class AddFoodTypeFregment extends Fragment {
 
     private final int UPDATE_DATA = 1;
     private final int UPDATE_FAILURE = 2;
+    private final int RETURN_NULL = 0;
 
     public static AddFoodTypeFregment getInstant(Context context, String title) {
         AddFoodTypeFregment fregment = new AddFoodTypeFregment();
@@ -96,7 +93,7 @@ public class AddFoodTypeFregment extends Fragment {
 
     private View getFrequentFood(View view) {
         loading.start();
-        final PageTest dataFetcher = new PageTest();
+        final FrequentPageTest dataFetcher = new FrequentPageTest();
         final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
@@ -117,7 +114,11 @@ public class AddFoodTypeFregment extends Fragment {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
+                    case RETURN_NULL:
+                        Toast.makeText(mContext, "返回对象为空", Toast.LENGTH_SHORT).show();
+                        break;
                     case UPDATE_DATA:
+                        List<Food> foods = dataFetcher.getfoods();
                         for (Food food: dataFetcher.getfoods()) {
                             adapter.addData(new AddFood(food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
                         }
