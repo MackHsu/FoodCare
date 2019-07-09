@@ -37,8 +37,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
-        mContent=getApplicationContext();
+        mContent=getApplicationContext();//
 
         mSearchView = (SearchView) findViewById(R.id.searchView);
         lListView = (ListView) findViewById(R.id.listView);

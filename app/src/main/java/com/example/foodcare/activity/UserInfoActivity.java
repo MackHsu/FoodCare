@@ -535,15 +535,43 @@ public class UserInfoActivity extends AppCompatActivity {
     private void UpdataInfo(){
         Account account=new Account();
         account.setId(AccountID.getId());
-        String[] _age=age_account.getText().toString().trim().split("岁");
-        account.setAge(Integer.valueOf(_age[0]));
+        String info=age_account.getText().toString().trim();
+        if(info.equals("未填写")){
+            account.setAge(0);
+        }
+        else{
+            String[] _age=info.split("岁");
+            account.setAge(Integer.valueOf(_age[0]));
+        }
+
         account.setName(name_account.getText().toString().trim());
-        String[] _weight=weight_account.getText().toString().trim().split("kg");
-        account.setWeight(Double.valueOf(_weight[0]));
-        String[] _height=height_account.getText().toString().trim().split("cm");
-        account.setHeight(Double.valueOf(_height[0]));
-        String[] _fat_rate=fat_rate_account.getText().toString().trim().split("%");
-        account.setFatRate(Double.valueOf(_fat_rate[0]));
+
+        info=weight_account.getText().toString().trim();
+        if(info.equals("未填写")){
+            account.setWeight(0.0);
+        }else{
+            String[] _weight=info.split("kg");
+            account.setWeight(Double.valueOf(_weight[0]));
+        }
+
+        info=height_account.getText().toString().trim();
+        if(info.equals("未填写")){
+            account.setHeight(0.0);
+        }
+        else{
+            String[] _height=info.split("cm");
+            account.setHeight(Double.valueOf(_height[0]));
+        }
+
+        info=fat_rate_account.getText().toString().trim();
+        if(info.equals("未填写")){
+            account.setFatRate(1.0);
+        }
+        else{
+            String[] _fat_rate=info.split("%");
+            account.setFatRate(Double.valueOf(_fat_rate[0]));
+        }
+
         String _goal=my_goal_account.getText().toString().trim();
         int goal=-1;
         switch (_goal){

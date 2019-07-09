@@ -57,10 +57,9 @@ public class PageTest {
             @Override
             public void onResponse(Call<FoodPage> call, Response<FoodPage> response) {
                 System.out.println("请求成功");
-                if(response.body()==null)
-                {
+                if(response.body()==null) {
                     System.out.println("对象为空！！！！！！！！！！！！！");
-            }
+                }
                 else
                 {
                     Message message = new Message();

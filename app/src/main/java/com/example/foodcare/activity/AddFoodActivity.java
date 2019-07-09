@@ -84,6 +84,7 @@ public class AddFoodActivity extends AppCompatActivity {
 //        slide.setViewPager(pager);
 
         loading.start();
+
         final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
         final PageTest dataFetcher = new PageTest();
         final Handler handler = new Handler() {
