@@ -24,6 +24,7 @@ public class CategoryPageTest {
     private String category;
     private Page page;
     private Handler handler;
+    private int RETURN_NULL = 0;
     private int UPDATE_DATA = 1;
     private int UPDATE_FAILURE = 2;
 

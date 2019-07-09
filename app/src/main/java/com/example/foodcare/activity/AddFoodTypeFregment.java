@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
+import com.example.foodcare.Retrofit.Page.CategoryPageTest;
 import com.example.foodcare.Retrofit.Page.FrequentPageTest;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.AddFoodAdapter2;
@@ -88,7 +89,12 @@ public class AddFoodTypeFregment extends Fragment {
             }
         });
 
-        return getFrequentFood(view);
+        if(title == "常见") {
+            return getFrequentFood(view);
+        }
+        else {
+            return getFoodByCategory(view, typeText.getText().toString());
+        }
     }
 
     private View getFrequentFood(View view) {
@@ -150,6 +156,65 @@ public class AddFoodTypeFregment extends Fragment {
         return view;
     }
 
+
+    private View getFoodByCategory(View view, String category) {
+        loading.start();
+        final CategoryPageTest dataFetcher = new CategoryPageTest(category);
+        final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if(view.getId() == R.id.food_info_button) {
+                    Intent intent = new Intent(mContext, FoodInfoActivity.class);
+                    intent.putExtra("foodId", foodList.get(position).getFoodId());
+                    startActivity(intent);
+                }
+                else {
+                }
+            }
+        });
+        final Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case RETURN_NULL:
+                        Toast.makeText(mContext, "返回对象为空", Toast.LENGTH_SHORT).show();
+                        break;
+                    case UPDATE_DATA:
+                        List<Food> foods = dataFetcher.getfoods();
+                        for (Food food: dataFetcher.getfoods()) {
+                            adapter.addData(new AddFood(food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
+                        }
+                        loading.stop();
+                        adapter.loadMoreComplete();
+                        if(dataFetcher.getEnd()){
+                            adapter.loadMoreEnd();
+                        }
+                        break;
+                    case UPDATE_FAILURE:
+                        loading.stop();
+                        adapter.loadMoreFail();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        dataFetcher.setHandler(handler);
+        dataFetcher.request(mContext);
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                System.out.println("请求一次");
+                dataFetcher.setHandler(handler);
+                dataFetcher.request(mContext);
+            }
+        }, recyclerView);
+        return view;
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
