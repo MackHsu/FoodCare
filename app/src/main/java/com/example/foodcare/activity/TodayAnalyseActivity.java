@@ -170,22 +170,22 @@ public class TodayAnalyseActivity extends AppCompatActivity {
     //获取所有的数据
     private void getNumber() {
         Intent intent = getIntent();
-        TodayRecommended = intent.getIntExtra("TodayRecommended",-1);
-        TodayIntake = intent.getIntExtra("TodayIntake",-1);
-        TodaySport = intent.getIntExtra("TodaySport",-1);
-        TodayLeft = intent.getIntExtra("TodayLeft",-1);
-        BreakFastEnergy = intent.getIntExtra("TodayLeft",-1);
-        LunchEnergy = intent.getIntExtra("LunchEnergy",-1);
-        DinnerEnergy = intent.getIntExtra("DinnerEnergy",-1);
-        AdditionEnergy = intent.getIntExtra("AdditionEnergy",-1);
-        ProteinPercentage = intent.getIntExtra("ProteinPercentage",-1);
-        ProteinAmount = intent.getIntExtra("ProteinAmount",-1);
-        SugarPercentage = intent.getIntExtra("SugarPercentage",-1);
-        SugarAmount = intent.getIntExtra("SugarAmount",-1);
-        FatPercentage = intent.getIntExtra("FatPercentage",-1);
-        FatAmount = intent.getIntExtra("FatAmount",-1);
-        SodiumPercentage = intent.getIntExtra("SodiumPercentage",-1);
-        SodiumAmount = intent.getIntExtra("SodiumAmount",-1);
+
+//        TodayRecommended = intent.getIntExtra("TodayRecommended",-1);
+//        TodayIntake = intent.getIntExtra("TodayIntake",-1);
+//        TodaySport = intent.getIntExtra("TodaySport",-1);
+//        TodayLeft = intent.getIntExtra("TodayLeft",-1);
+//        BreakFastEnergy = intent.getIntExtra("BreakFastEnergy",-1);
+//        LunchEnergy = intent.getIntExtra("LunchEnergy",-1);
+//        DinnerEnergy = intent.getIntExtra("DinnerEnergy",-1);
+//        ProteinPercentage = intent.getIntExtra("ProteinPercentage",-1);
+//        ProteinAmount = intent.getIntExtra("ProteinAmount",-1);
+//        SugarPercentage = intent.getIntExtra("SugarPercentage",-1);
+//        SugarAmount = intent.getIntExtra("SugarAmount",-1);
+//        FatPercentage = intent.getIntExtra("FatPercentage",-1);
+//        FatAmount = intent.getIntExtra("FatAmount",-1);
+//        SodiumPercentage = intent.getIntExtra("SodiumPercentage",-1);
+//        SodiumAmount = intent.getIntExtra("SodiumAmount",-1);
 
     }
 

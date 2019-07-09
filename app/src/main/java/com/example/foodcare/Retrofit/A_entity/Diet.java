@@ -9,6 +9,7 @@ public class Diet {
 
     private int id;
     //组别（早餐，午餐，晚餐）
+    //       0     1    2
     private int group;
 
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")

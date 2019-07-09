@@ -23,17 +23,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PageTest {
+    private int type;//0 1 2 3
     private List<Food> foods;
     private Page page;
     private Handler handler;
     private int UPDATE_DATA = 1;
     private int UPDATE_FAILURE = 2;
-   // int times = 2;
 
-    public PageTest() {
+    public PageTest(int type) {
         page = new Page();
         page.setStart(0);
     }
+
     public boolean getEnd(){
         return page.isEnd();
     }
@@ -51,18 +52,33 @@ public class PageTest {
 
         PageInterface post = retrofit.create(PageInterface.class);
         System.out.println("建立post对象");
-        Call<FoodPage> call = post.getCall(page);
+        Call<FoodPage> call = post.getFoodListCall(page);
+        switch(type)
+        {
+            case 0 :
+                break;
+            case 1 :
+                call = post.getDishTypeCall(page);
+                break;
+            case 2 :
+                call = post.getMalCategoryCall(page);
+                break;
+            case 3 :
+                call = post.getFrequentCall(page);
+                break;
+            default:
+                MyToast.mytoast("page请求类型错误",context);
+                break;
+        }
+
         System.out.println("getcall");
         call.enqueue(new Callback<FoodPage>() {
             @Override
             public void onResponse(Call<FoodPage> call, Response<FoodPage> response) {
                 System.out.println("请求成功");
-                if(response.body()==null)
-                {
+                if(response.body()==null) {
                     System.out.println("对象为空！！！！！！！！！！！！！");
-            }
-                else
-                {
+                } else {
                     Message message = new Message();
                     message.what = UPDATE_DATA;
                     handler.sendMessage(message);
@@ -70,9 +86,7 @@ public class PageTest {
                     foods = response.body().getFoods();
                     page = response.body().getPage();
                     System.out.println(page.getStart());
-
                 }
-
             }
 
             @Override
@@ -91,4 +105,6 @@ public class PageTest {
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
+
+
 }

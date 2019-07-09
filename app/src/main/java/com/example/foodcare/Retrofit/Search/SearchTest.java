@@ -1,5 +1,8 @@
 package com.example.foodcare.Retrofit.Search;
 
+import android.os.Handler;
+import android.os.Message;
+
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
@@ -14,14 +17,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchTest {
 //模糊搜索OKOKOKOKOKOKOKOKOKOK
-    static public void request(String searchname) {
+    private Handler handler;
+    private List<Food> foods;
+    private final int SEARCH_CONN_ERR = 2;
+    private final int SEARCH_SUCCESS = 1;
+    private final int SEARCH_FAILED = 0;
+
+    public List<Food> getFoods(){
+        return this.foods;
+    }
+    public void setHandler(Handler handler){
+        this.handler = handler;
+    }
+    public void request(String searchname) {
         Retrofit retrofit  = new Retrofit.Builder()
                 .baseUrl(IP.ip)//http://fanyi.youdao.com/")
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         System.out.println("建立retrofit对象");
-
         SearchInterface post = retrofit.create(SearchInterface.class);
         System.out.println("建立post对象");
         Call<List<Food>> call = post.getCall(searchname);
@@ -30,17 +44,19 @@ public class SearchTest {
             @Override
             public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {
                 System.out.println("请求成功");
-                for(int i =0;i<10;i++)
-                {
-                    System.out.println(response.body().get(i).getName());
-                }
 
+                Message message = new Message();
+                message.what = SEARCH_SUCCESS;
+                handler.sendMessage(message);
             }
 
             @Override
             public void onFailure(Call<List<Food>> call, Throwable t) {
                 System.out.println("请求失败");
-                System.out.println(t.toString());
+                Message message = new Message();
+                message.what = SEARCH_CONN_ERR;
+                handler.sendMessage(message);
+
                 t.printStackTrace();
             }
         });
