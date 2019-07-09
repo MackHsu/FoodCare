@@ -50,8 +50,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:orientation="horizontal"
-
-                android:background="@color/mainColor3">
+                android:background="#00FF00"
+                android:paddingTop="-50dp"
+                >
 
                 <LinearLayout
                     android:layout_width="200dp"
@@ -125,26 +126,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="250dp">
-                <!--com.haibin.calendarview.CalendarLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:orientation="vertical"
-                    app:default_status="shrink"
-                    app:calendar_show_mode="only_month_view">
-                    <com.haibin.calendarview.CalendarView
-                        android:id="@+id/calendarView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#fff"
-                        app:calendar_height="50dp"
-                        app:current_month_text_color="#333333"
-                        app:min_year="2004"
-                        app:month_view="com.haibin.calendarviewproject.simple.SimpleMonthView"
-                        app:week_view="com.haibin.calendarviewproject.simple.SimpleWeekView"
-                        app:week_bar_view="com.haibin.calendarviewproject.EnglishWeekBar"
-                        />
-
-                </com.haibin.calendarview.CalendarLayout-->
             </RelativeLayout>
 
         </LinearLayout>
@@ -152,3 +133,23 @@
     </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>
+    <!--com.haibin.calendarview.CalendarLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="350dp"
+                       android:orientation="vertical"
+                       app:default_status="shrink"
+                       app:calendar_show_mode="only_month_view">
+                       <com.haibin.calendarview.CalendarView
+                           android:id="@+id/calendarView"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:background="#fff"
+                           app:calendar_height="50dp"
+                           app:current_month_text_color="#333333"
+                           app:min_year="2004"
+                           app:month_view="com.haibin.calendarviewproject.simple.SimpleMonthView"
+                           app:week_view="com.haibin.calendarviewproject.simple.SimpleWeekView"
+                           app:week_bar_view="com.haibin.calendarviewproject.EnglishWeekBar"
+                           />
+
+                   </com.haibin.calendarview.CalendarLayout-->

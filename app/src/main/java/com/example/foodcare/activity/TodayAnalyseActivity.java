@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.foodcare.R;
+import com.example.foodcare.Retrofit.A_entity.Account;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -26,37 +27,38 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TodayAnalyseActivity extends AppCompatActivity {
-
     //饼状图
     PieChart pieChart;
     //柱状图
     RadarChart radarChart;
-    int TodayRecommended;
-    int TodayIntake;
-    int TodaySport;
-    int TodayLeft;
-    int BreakFastEnergy;
-    int LunchEnergy;
-    int DinnerEnergy;
-    int AdditionEnergy;
-    int ProteinPercentage;
-    int ProteinAmount;
-    int SugarPercentage;
-    int SugarAmount;
-    int FatPercentage;
-    int FatAmount;
-    int SodiumPercentage;
-    int SodiumAmount;
+    int TodayRecommended;     //推荐摄入总量
+    int TodayIntake;          //今日摄入能量
+    int TodaySport;           //今日运动消耗
+    int TodayLeft;             //今日剩余可摄入
+    int BreakFastEnergy;        //早餐摄入量
+    int LunchEnergy;            //午餐摄入量
+    int DinnerEnergy;           //晚餐摄入量
+    int AdditionEnergy;         //加餐的量
+    int ProteinPercentage;      //蛋白质百分比
+    int ProteinAmount;          //蛋白质数量
+    int SugarPercentage;        //苏糖百分比
+    int SugarAmount;            //苏糖数量
+    int FatPercentage;          //脂肪百分比
+    int FatAmount;              //脂肪数量
+    int SodiumPercentage;       //钠百分比
+    int SodiumAmount;           //钠数量
    // DayDetail today;
     TextView viewTodayRecommended;
     TextView viewTodayIntake;
     TextView viewTodaySport;
     TextView viewTodayLeft;
-
+    TextView today_detail_date;
     ImageButton backButton;
 
     @Override
@@ -81,6 +83,10 @@ public class TodayAnalyseActivity extends AppCompatActivity {
                 finish();
             }
         });
+        today_detail_date=(TextView)findViewById(R.id.today_detail_date);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        today_detail_date.setText(df.format(new Date()));
+
 
         //查询数据
         getNumber();
@@ -103,10 +109,10 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         pieChart.animateXY(3000,3000);
         //表项
         List<PieEntry> entries = new ArrayList<PieEntry>();
-        entries.add(new PieEntry(40,"午餐"));
-        entries.add(new PieEntry(20,"早餐"));
-        entries.add(new PieEntry(30,"晚餐"));
-        entries.add(new PieEntry(10,"加餐"));
+        entries.add(new PieEntry(LunchEnergy,"午餐"));
+        entries.add(new PieEntry(BreakFastEnergy,"早餐"));
+        entries.add(new PieEntry(DinnerEnergy,"晚餐"));
+        entries.add(new PieEntry(AdditionEnergy,"加餐"));
         PieDataSet dataset = new PieDataSet(entries,"label1");
         //颜色
         List<Integer> colors = new ArrayList<Integer>();
@@ -129,7 +135,6 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         pieChart.setData(data);
         pieChart.invalidate();
     }
-
     private void drawRadarChart(){
         radarChart = (RadarChart)findViewById(R.id.RadarChart);
         //X轴
@@ -187,19 +192,6 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         SodiumPercentage = intent.getIntExtra("SodiumPercentage",-1);
         SodiumAmount = intent.getIntExtra("SodiumAmount",-1);
 
-    }
-
-    public void setTodayIntake(int todayIntake){
-        TodayIntake = todayIntake;
-    }
-    public void setTodayRecommended(int todayrRcommended){
-        TodayRecommended = todayrRcommended;
-    }
-    public void setTodaySport(int todaySport){
-        TodaySport = todaySport;
-    }
-    public void setTodayLeft(int todayLeft){
-        TodayLeft = todayLeft;
     }
 
 }
