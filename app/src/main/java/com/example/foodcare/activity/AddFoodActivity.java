@@ -24,6 +24,9 @@ import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.Diet.DietDetailAdd.DietDetailAddTest;
 import com.example.foodcare.Retrofit.FoodList.FoodList;
+import com.example.foodcare.Retrofit.Page.CategoryPageTest;
+import com.example.foodcare.Retrofit.Page.DishPageTest;
+import com.example.foodcare.Retrofit.Page.FrequentPageTest;
 import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.AddFoodAdapter2;
@@ -93,7 +96,10 @@ public class AddFoodActivity extends AppCompatActivity {
 
         loading.start();
         final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
-        final PageTest dataFetcher = new PageTest(0);
+       // final PageTest dataFetcher = new PageTest();
+        final CategoryPageTest dataFetcher = new CategoryPageTest("category");//按类查询食材
+        //final DishPageTest dataFetcher = new DishPageTest("type");//按照菜系查询
+       // final FrequentPageTest dataFetcher = new FrequentPageTest();//查询常见菜
         final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
