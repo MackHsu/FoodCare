@@ -214,14 +214,14 @@ public class AddFoodActivity extends AppCompatActivity {
 //            }
 //        }, recyclerView);
 
-//点击相机按钮跳转进入牌照识别
-    camera.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(AddFoodActivity.this, IdentifyFoodActivity.class);
-            startActivity(intent);
-        }
-    });
+//点击相机按钮跳转进入识别
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddFoodActivity.this, IdentifyFoodActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -231,7 +231,7 @@ public class AddFoodActivity extends AppCompatActivity {
         foodList.add(new AddFood(1, "", "鸡腿", 400));
         foodList.add(new AddFood(2, "", "豆浆", 50));
         foodList.add(new AddFood(3, "", "煮鸡蛋", 100));
-        for(int i = 0; i < 30; i++) {
+        for (int i = 0; i < 30; i++) {
             foodList.add(new AddFood(i, "", i + "", i));
         }
     }
