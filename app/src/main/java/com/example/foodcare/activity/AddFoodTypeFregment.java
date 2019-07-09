@@ -2,6 +2,7 @@ package com.example.foodcare.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,10 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.FoodList.FoodList;
+import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.AddFoodAdapter;
+import com.example.foodcare.adapter.AddFoodAdapter2;
+import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.entity.AddFood;
 import com.victor.loading.rotate.RotateLoading;
 import com.wx.wheelview.widget.WheelViewDialog;
@@ -30,7 +35,6 @@ import java.util.ArrayList;
 public class AddFoodTypeFregment extends Fragment {
     private final int UPDATE_DATA = 1;
     private String title;
-    private FoodList dbFoodData;
     private ArrayList<AddFood> foodList;
     private Context mContext;
     LinearLayout typeLayout;
@@ -38,6 +42,9 @@ public class AddFoodTypeFregment extends Fragment {
 
     RotateLoading loading;
     RecyclerView recyclerView;
+
+    public final int GET_DATA_SUCCEEDED = 1;
+    public final int GET_DATA_FAILED = 2;
 
     public static AddFoodTypeFregment getInstant(Context context, String title) {
         AddFoodTypeFregment fregment = new AddFoodTypeFregment();
@@ -85,29 +92,56 @@ public class AddFoodTypeFregment extends Fragment {
         });
 
         loading.start();
-        dbFoodData = new FoodList();
-        Handler handler = new Handler() {
+        final PageTest dataFetcher = new PageTest();
+        final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if(view.getId() == R.id.food_info_button) {
+                    Intent intent = new Intent(mContext, FoodInfoActivity.class);
+                    intent.putExtra("foodId", foodList.get(position).getFoodId());
+                    startActivity(intent);
+                }
+                else {
+                }
+            }
+        });
+        final Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
-                    case UPDATE_DATA:
-                        for(int i = 0; i < 10; i++ ) {
-                            foodList.add(new AddFood(dbFoodData.getData().get(i).getId(), IP.ip + dbFoodData.getData().get(i).getPicture_mid(), dbFoodData.getData().get(i).getName(), dbFoodData.getData().get(i).getFat()));
+                    case GET_DATA_SUCCEEDED:
+                        for (Food food: dataFetcher.getfoods()) {
+                            adapter.addData(new AddFood(food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
                         }
                         loading.stop();
-                        //显示列表数据
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-                        recyclerView.setLayoutManager(layoutManager);
-                        AddFoodAdapter adapter = new AddFoodAdapter(foodList);
-                        recyclerView.setAdapter(adapter);
+                        adapter.loadMoreComplete();
+                        if(dataFetcher.getEnd()){
+                            adapter.loadMoreEnd();
+                        }
+                        break;
+                    case GET_DATA_FAILED:
+                        loading.stop();
+                        adapter.loadMoreFail();
                         break;
                     default:
                         break;
                 }
             }
         };
-        dbFoodData.setHandler(handler);
-        dbFoodData.request();
+        dataFetcher.setHandler(handler);
+        dataFetcher.request(mContext);
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                System.out.println("请求一次");
+                dataFetcher.setHandler(handler);
+                dataFetcher.request(mContext);
+            }
+        }, recyclerView);
         return view;
     }
 
