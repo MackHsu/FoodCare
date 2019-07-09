@@ -35,7 +35,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:background="@color/light_gray"
+            android:elevation="2dp">
             <!--搜索栏-->
             <EditText
                 android:id="@+id/search_bar"
@@ -84,7 +86,7 @@
             app:tl_textUnselectColor="@color/mainColor4"
             app:tl_textSelectColor="@color/mainColor"
             android:textAlignment="center"
-            android:elevation="5dp" />
+            android:elevation="2dp" />
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
