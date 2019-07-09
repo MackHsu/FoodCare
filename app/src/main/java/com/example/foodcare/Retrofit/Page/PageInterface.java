@@ -16,7 +16,18 @@ import retrofit2.http.Path;
 
 public interface PageInterface {
 
+    Call<FoodPage> getCall(Page page,int type);
+
     @POST("food/list/limit")
-    Call<FoodPage> getCall(@Body Page page);
+    Call<FoodPage> getFoodListCall(@Body Page page);
+
+    @POST("food/dishes/type/limit ")
+    Call<FoodPage> getDishTypeCall(@Body Page page);
+
+    @POST("food/meal/category/limit")
+    Call<FoodPage> getMalCategoryCall(@Body Page page);
+
+    @POST("food/frequent/limit ")
+    Call<FoodPage> getFrequentCall(@Body Page page);
 
 }

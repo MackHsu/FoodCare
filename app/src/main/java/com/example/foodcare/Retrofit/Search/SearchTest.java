@@ -18,7 +18,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchTest {
 //模糊搜索OKOKOKOKOKOKOKOKOKOK
     private Handler handler;
+    private List<Food> foods;
+    private final int SEARCH_CONN_ERR = 2;
     private final int SEARCH_SUCCESS = 1;
+    private final int SEARCH_FAILED = 0;
+
+    public List<Food> getFoods(){
+        return this.foods;
+    }
     public void setHandler(Handler handler){
         this.handler = handler;
     }
@@ -37,6 +44,7 @@ public class SearchTest {
             @Override
             public void onResponse(Call<List<Food>> call, Response<List<Food>> response) {
                 System.out.println("请求成功");
+
                 Message message = new Message();
                 message.what = SEARCH_SUCCESS;
                 handler.sendMessage(message);
@@ -45,7 +53,10 @@ public class SearchTest {
             @Override
             public void onFailure(Call<List<Food>> call, Throwable t) {
                 System.out.println("请求失败");
-                System.out.println(t.toString());
+                Message message = new Message();
+                message.what = SEARCH_CONN_ERR;
+                handler.sendMessage(message);
+
                 t.printStackTrace();
             }
         });
