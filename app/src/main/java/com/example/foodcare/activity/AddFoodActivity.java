@@ -206,7 +206,7 @@ public class AddFoodActivity extends AppCompatActivity {
 //                        }
 //                    });
 //                } else {
-//                    Intent intent = new Intent(AddFoodActivity.this, FoodInfoActivity.class);
+//                    Intent intent = new Intent(AddFoodActivity.this, MoreInfoActivity.class);
 //                    intent.putExtra("foodId", foodList.get(position).getFoodId());
 //                    startActivity(intent);
 //                }

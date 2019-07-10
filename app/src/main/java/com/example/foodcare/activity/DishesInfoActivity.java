@@ -25,8 +25,6 @@ import com.example.foodcare.adapter.SpaceItemDecoration;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +46,7 @@ public class DishesInfoActivity extends AppCompatActivity {
     TextView tanshuiText;
     TextView fatText;
     TextView proteinText;
+    TextView moreText;
 
     CardView ingredientCard;
     ExpandableLayout ingredientExpandable;
@@ -123,6 +122,15 @@ public class DishesInfoActivity extends AppCompatActivity {
         tanshuiText = (TextView) findViewById(R.id.tanshui_text);
         fatText = (TextView) findViewById(R.id.fat_text);
         proteinText = (TextView) findViewById(R.id.protein_text);
+        moreText = (TextView) findViewById(R.id.more);
+        moreText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DishesInfoActivity.this, MoreInfoActivity.class);
+                intent.putExtra("foodId", foodId);
+                startActivity(intent);
+            }
+        });
 
         ingredientExpandable = (ExpandableLayout) findViewById(R.id.ingredient_expandable);
         expandables.add(ingredientExpandable);
