@@ -7,25 +7,20 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import com.example.foodcare.R;
-import com.example.foodcare.activity.MainActivity;
-import com.example.foodcare.tools.BackGroundSpan;
-import com.example.foodcare.tools.EventDecorator;
+import com.example.foodcare.ToolClass.Day;
+import com.example.foodcare.ToolClass.EventDecorator;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 
 public class CalendarActivity extends AppCompatActivity {
     MaterialCalendarView calendarView;
@@ -43,17 +38,29 @@ public class CalendarActivity extends AppCompatActivity {
 
         //添加标注的日期
         Collection<CalendarDay> dates=new ArrayList<>();
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
         try {
-            dates.add(new CalendarDay(dateFormat.parse("2019-6-2")));
-            dates.add(new CalendarDay(dateFormat.parse("2019-6-1")));
-            dates.add(new CalendarDay(dateFormat.parse("2019-6-3")));
-            dates.add(new CalendarDay(dateFormat.parse("2019-6-5")));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dateFormat.parse("2019-06-2"));
+            CalendarDay calendarhere = new CalendarDay(calendar);
+            System.out.println(calendarhere);
+            dates.add(new CalendarDay(calendar));
+
+//            dates.add(new CalendarDay(dateFormat.parse("2019-06-2")));
+            dates.add(new CalendarDay(dateFormat.parse("2019-06-1")));
+            dates.add(new CalendarDay(dateFormat.parse("2019-06-3")));
+            dates.add(new CalendarDay(dateFormat.parse("2019-06-5")));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         // dates.add(new CalendarDay(new Date(str2long("2017-8-5","yyyy-MM-dd"))));
-        calendarView.addDecorators(new com.example.foodcare.tools.EventDecorator(Color.YELLOW,dates));
+        System.out.println("********************************");
+        for(CalendarDay day:dates)
+        {
+            System.out.println(dates.toString());
+        }
+        calendarView.addDecorators(new EventDecorator(Color.YELLOW,dates));
         //  calendarView.addDecorators(new BackGroundSpan(dates));
 
         //************
@@ -70,32 +77,30 @@ public class CalendarActivity extends AppCompatActivity {
             public void onDateSelected(@NonNull MaterialCalendarView widget,
                                        @NonNull CalendarDay date,
                                        boolean selected) {
-                currentDate = date;
                 //跳转到当日的饮食情况  ************************************
                 // 将当前选择的日期装入bundles中作为参数随着intent传入将进入的界面
                 Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
-                /*Bundle bundles = new Bundle();
-                bundles.putInt("selectedYear",currentDate.getYear());
-                bundles.putInt("selectedMonth",currentDate.getMonth());
-                bundles.putInt("selectedDay",currentDate.getDay());
+                int monthint =  date.getMonth()+1;
+                String year = date.getYear()+"";
+                String month = monthint+"";
+                String day = date.getDay()+"";
+                if(monthint<10)
+                {
+                    month = "0"+month;
+                }
+                if(date.getDay()<10) {
+                    day = "0" + day;
+                }
+                String datepicked = year+"-"+month+"-"+day;
 
-                intent.putExtras(bundles);*/
-                String datepicked = currentDate.getYear()+"-"+currentDate.getMonth()+"-"+currentDate.getDay();
-                //获取当前时间
-                intent.putExtra("date",datepicked);
+                System.out.println("日历修改前"+Day.getDateString());
+                System.out.println("日历  年"+date.getYear());
+                System.out.println("日历  月"+date.getMonth());
+                System.out.println("日历"+datepicked);
+                Day.setDateString(datepicked);
                 startActivity(intent);
             }
         });
     }
-    //可以在某处显示当前选择的日期是多少
-    public void getTime(View view) {
-        if (currentDate != null) {
-            int year = currentDate.getYear();
-            int month = currentDate.getMonth() + 1; //月份跟系统一样是从0开始的，实际获取时要加1
-            int day = currentDate.getDay();
-            Toast.makeText(this, currentDate.toString() + "你选中的是：" + year + "-" + month + "-" + day, Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "请选择时间", Toast.LENGTH_LONG).show();
-        }
-    }
+
 }

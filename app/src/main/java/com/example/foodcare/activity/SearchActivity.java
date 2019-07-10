@@ -24,8 +24,6 @@ import com.example.foodcare.Retrofit.Page.SearchPageTest;
 import com.example.foodcare.Retrofit.Search.SearchTest;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.adapter.SearchAdapter;
-import com.example.foodcare.tools.FruitAdapter;
-import com.example.foodcare.tools.StaticVariable;
 import com.google.gson.Gson;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -48,6 +46,10 @@ public class SearchActivity extends AppCompatActivity {
     private final int SEARCH_CONN_ERR = 2;
     private final int SEARCH_SUCCESS = 1;
     private final int SEARCH_FAILED = 0;
+
+    public void jumpHere(){
+        loading.start();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,8 @@ public class SearchActivity extends AppCompatActivity {
         mContent=getApplicationContext();
 
         SearchPageTest dataFetcher;
+
+
 
         mSearchView = (SearchView) findViewById(R.id.searchView);
         backButton = (ImageButton) findViewById(R.id.search_back_button);
@@ -96,23 +100,22 @@ public class SearchActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 //TODO 清除所有的搜索结果
                 foods.clear();
-//                if (!TextUtils.isEmpty(newText)) {
-//
-//
-////                    lListView.setFilterText(newText);
-//                } else {
-////                    lListView.clearTextFilter();
-//                }
                 return false;
             }
         });
+        Intent intent = getIntent();
+        String SearchStr = intent.getStringExtra("SearchStr");
+        if(SearchStr != null){
 
+            loading.start();
+            searchFood(SearchStr);
+        }
 
     }
 
 
 
-    private void searchFood(String query)
+    public void searchFood(String query)
     {
 
         final SearchPageTest dataFetcher = new SearchPageTest(query);

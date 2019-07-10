@@ -1,11 +1,9 @@
 //许朗铭 2017302580224
 package com.example.foodcare.adapter;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
@@ -19,12 +17,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
 import com.donkingliang.groupedadapter.holder.BaseViewHolder;
-import com.example.foodcare.Retrofit.Diet.DietDetailAdd.DietDetailAddTest;
-import com.example.foodcare.Retrofit.Diet.DietDetailDelete.DietDetailDeleteTest;
-import com.example.foodcare.Retrofit.UpdateDietDetail.DietDetailUpdateTest;
-import com.example.foodcare.activity.AddFoodActivity;
-import com.example.foodcare.activity.MainActivity;
-import com.example.foodcare.entity.AccountID;
+import com.example.foodcare.Retrofit.DietPackage.Diet.DietDetailDelete.DietDetailDeleteTest;
+import com.example.foodcare.Retrofit.DietPackage.UpdateDietDetail.DietDetailUpdateTest;
 import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.R;
@@ -107,47 +101,47 @@ public class MainRecyclerAdapter extends GroupedRecyclerViewAdapter {
         holder.setText(R.id.total_energy_text, mainFood.getTotalEnergy() + "千卡");
 
         //删除
-        holder.get(R.id.delete_food_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-                dialog.setTitle("提示");
-                dialog.setMessage("将要删除" + ((TextView) holder.get(R.id.food_name_text)).getText().toString() + "，是否确定？");
-                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        DietDetailDeleteTest dataManager = new DietDetailDeleteTest();
-                        Handler handler = new Handler() {
-                            @Override
-                            public void handleMessage(Message msg) {
-                                switch (msg.what) {
-                                    case NO_RETURN:
-                                        break;
-                                    case UPDATE_SUCCEEDED:
-                                        mainGroups.get(groupPosition).getFoodsThisMeal().remove(childPosition);
-                                        MainRecyclerAdapter.this.notifyChildRemoved(groupPosition, childPosition);
-                                        break;
-                                    case UPDATE_FAILED:
-                                        break;
-                                    case REQUEST_FAILED:
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                        };
-                        dataManager.setHandler(handler);
-                        dataManager.request(mainFood.getFoodId(), mainGroups.get(groupPosition).getDietId(), mContext);
-                    }
-                });
-                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                dialog.show();
-            }
-        });
+//        holder.get(R.id.delete_food_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+//                dialog.setTitle("提示");
+//                dialog.setMessage("将要删除" + ((TextView) holder.get(R.id.food_name_text)).getText().toString() + "，是否确定？");
+//                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        DietDetailDeleteTest dataManager = new DietDetailDeleteTest();
+//                        Handler handler = new Handler() {
+//                            @Override
+//                            public void handleMessage(Message msg) {
+//                                switch (msg.what) {
+//                                    case NO_RETURN:
+//                                        break;
+//                                    case UPDATE_SUCCEEDED:
+//                                        mainGroups.get(groupPosition).getFoodsThisMeal().remove(childPosition);
+//                                        MainRecyclerAdapter.this.notifyChildRemoved(groupPosition, childPosition);
+//                                        break;
+//                                    case UPDATE_FAILED:
+//                                        break;
+//                                    case REQUEST_FAILED:
+//                                        break;
+//                                    default:
+//                                        break;
+//                                }
+//                            }
+//                        };
+//                        dataManager.setHandler(handler);
+//                        dataManager.request(mainFood.getFoodId(), mainGroups.get(groupPosition).getDietId(), mContext);
+//                    }
+//                });
+//                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                    }
+//                });
+//                dialog.show();
+//            }
+//        });
 
         //长按删除
         holder.get(R.id.item_layout).setOnLongClickListener(new View.OnLongClickListener() {

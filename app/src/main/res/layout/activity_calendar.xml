@@ -18,7 +18,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/mainColor1">
+        android:background="@color/mainColor4">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

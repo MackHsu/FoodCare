@@ -2,42 +2,22 @@ package com.example.foodcare.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.SearchView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
-import com.example.foodcare.Retrofit.A_entity.Food;
-import com.example.foodcare.Retrofit.Diet.DietDetailAdd.DietDetailAddTest;
-import com.example.foodcare.Retrofit.FoodList.FoodList;
-import com.example.foodcare.Retrofit.Page.CategoryPageTest;
-import com.example.foodcare.Retrofit.Page.DishPageTest;
-import com.example.foodcare.Retrofit.Page.FrequentPageTest;
-import com.example.foodcare.Retrofit.Page.PageTest;
-import com.example.foodcare.ToolClass.IP;
-import com.example.foodcare.adapter.AddFoodAdapter2;
-import com.example.foodcare.entity.AccountID;
+import com.example.foodcare.Retrofit.FoodPackage.FoodList.FoodList;
 import com.example.foodcare.entity.AddFood;
 import com.flyco.tablayout.SlidingTabLayout;
-import com.orhanobut.dialogplus.DialogPlus;
 import com.victor.loading.rotate.RotateLoading;
-
-import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +39,7 @@ public class AddFoodActivity extends AppCompatActivity {
     private final int UPDATE_FAILED = 2;
     private final int REQUEST_FAILED = 3;
     private ImageButton camera;
+    private SearchView searchView;
 
     public final int GET_DATA_SUCCEEDED = 1;
     public final int GET_DATA_FAILED = 2;
@@ -73,6 +54,8 @@ public class AddFoodActivity extends AppCompatActivity {
 //        recyclerView = (RecyclerView) findViewById(R.id.add_food_recycler);
         loading = (RotateLoading) findViewById(R.id.loading);
         camera = (ImageButton) findViewById(R.id.camera_add);
+        searchView = (SearchView) findViewById(R.id.addfoodsearch_view);
+
 //        loading.start();
         //返回
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +65,36 @@ public class AddFoodActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+//        //点击搜索栏进入搜索界面中
+//        searchView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            // 当点击搜索按钮时触发该方法
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(AddFoodActivity.this, SearchActivity.class);
+                intent.putExtra("SearchStr",query);
+                startActivity(intent);
+                return false;
+            }
+            // 当搜索内容改变时触发该方法
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        //点击相机按钮跳转进入识别
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddFoodActivity.this, IdentifyFoodActivity.class);
+                startActivity(intent);
+            }
+        });
         //分类显示方式
         for(String title: mTitles) {
             mFragments.add(AddFoodTypeFregment.getInstant(this, title));
@@ -214,14 +226,7 @@ public class AddFoodActivity extends AppCompatActivity {
 //            }
 //        }, recyclerView);
 
-//点击相机按钮跳转进入识别
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddFoodActivity.this, IdentifyFoodActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
     }
 

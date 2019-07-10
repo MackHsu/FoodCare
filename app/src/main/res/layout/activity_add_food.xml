@@ -11,69 +11,46 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/mainColor1">
+            android:background="@color/mainColor4">
             <!--返回按钮-->
             <ImageButton
                 android:id="@+id/back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:src="@drawable/back_button"
                 android:background="#00000000"
                 android:layout_margin="10dp" />
-            <!--标题-->
-            <TextView
-                android:layout_width="wrap_content"
+            <SearchView
+                android:id="@+id/addfoodsearch_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="加餐"
-                android:textColor="#fff"
-                android:textSize="20sp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-        <!--搜索栏和拍照、扫描按钮的布局容器-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:background="@color/light_gray"
-            android:elevation="2dp">
-            <!--搜索栏-->
-            <EditText
-                android:id="@+id/search_bar"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"/>
-            <!--搜索按钮-->
-            <ImageButton
-                android:id="@+id/search_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/search_bar"
-                android:layout_marginTop="15dp"
-                android:src="@drawable/search_button_black"
-                android:background="#00000000"/>
-            <!--摄像头按钮-->
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:iconifiedByDefault="false"
+                android:queryHint="搜索内容" />
             <ImageButton
                 android:id="@+id/camera_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/camera_button_black"
-                android:layout_toLeftOf="@id/scan_button"
+                android:src="@drawable/camera_button"
                 android:background="#00000000"
-                android:layout_margin="20dp"/>
-            <!--扫码按钮-->
-            <ImageButton
-                android:id="@+id/scan_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/scan_button_black"
+                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:background="#00000000"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_margin="20dp"/>
+            <!--&lt;!&ndash;标题&ndash;&gt;-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="加餐"-->
+                <!--android:textColor="#fff"-->
+                <!--android:textSize="20sp"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_centerVertical="true"/>-->
         </RelativeLayout>
+
         <!--列表-->
         <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/slide"

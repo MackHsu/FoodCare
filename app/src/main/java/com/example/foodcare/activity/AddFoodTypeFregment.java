@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
-import com.example.foodcare.Retrofit.Diet.DietDetailAdd.DietDetailAddTest;
+import com.example.foodcare.Retrofit.DietPackage.Diet.DietDetailAdd.DietDetailAddTest;
 import com.example.foodcare.Retrofit.Page.CategoryPageTest;
 import com.example.foodcare.Retrofit.Page.DishPageTest;
 import com.example.foodcare.Retrofit.Page.FrequentPageTest;
