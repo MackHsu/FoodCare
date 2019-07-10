@@ -54,7 +54,7 @@ public class AddFoodActivity extends AppCompatActivity {
 //        recyclerView = (RecyclerView) findViewById(R.id.add_food_recycler);
         loading = (RotateLoading) findViewById(R.id.loading);
         camera = (ImageButton) findViewById(R.id.camera_add);
-        searchView = (SearchView) findViewById(R.id.addfoodsearchView);
+        searchView = (SearchView) findViewById(R.id.addfoodsearch_view);
 
 //        loading.start();
         //返回

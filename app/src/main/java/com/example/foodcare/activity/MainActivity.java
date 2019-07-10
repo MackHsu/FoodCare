@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     LinearLayout mainBgLayout;
     ImageButton uploadPictureButton;
     RotateLoading loading;
-    MainPresenter mainPresenter;
     CircleTextImageView avatar;
     TextView username;
     TextView accounttext;
