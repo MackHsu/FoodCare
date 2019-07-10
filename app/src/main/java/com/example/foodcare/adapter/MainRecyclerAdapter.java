@@ -1,11 +1,9 @@
 //许朗铭 2017302580224
 package com.example.foodcare.adapter;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -18,12 +16,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
 import com.donkingliang.groupedadapter.holder.BaseViewHolder;
-import com.example.foodcare.Retrofit.Diet.DietDetailAdd.DietDetailAddTest;
-import com.example.foodcare.Retrofit.Diet.DietDetailDelete.DietDetailDeleteTest;
-import com.example.foodcare.Retrofit.UpdateDietDetail.DietDetailUpdateTest;
-import com.example.foodcare.activity.AddFoodActivity;
-import com.example.foodcare.activity.MainActivity;
-import com.example.foodcare.entity.AccountID;
+import com.example.foodcare.Retrofit.DietPackage.Diet.DietDetailDelete.DietDetailDeleteTest;
+import com.example.foodcare.Retrofit.DietPackage.UpdateDietDetail.DietDetailUpdateTest;
 import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.R;

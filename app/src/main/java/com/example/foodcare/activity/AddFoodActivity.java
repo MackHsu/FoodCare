@@ -2,42 +2,21 @@ package com.example.foodcare.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
-import com.example.foodcare.Retrofit.A_entity.Food;
-import com.example.foodcare.Retrofit.Diet.DietDetailAdd.DietDetailAddTest;
-import com.example.foodcare.Retrofit.FoodList.FoodList;
-import com.example.foodcare.Retrofit.Page.CategoryPageTest;
-import com.example.foodcare.Retrofit.Page.DishPageTest;
-import com.example.foodcare.Retrofit.Page.FrequentPageTest;
-import com.example.foodcare.Retrofit.Page.PageTest;
-import com.example.foodcare.ToolClass.IP;
-import com.example.foodcare.adapter.AddFoodAdapter2;
-import com.example.foodcare.entity.AccountID;
+import com.example.foodcare.Retrofit.FoodPackage.FoodList.FoodList;
 import com.example.foodcare.entity.AddFood;
 import com.flyco.tablayout.SlidingTabLayout;
-import com.orhanobut.dialogplus.DialogPlus;
 import com.victor.loading.rotate.RotateLoading;
-
-import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
