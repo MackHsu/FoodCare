@@ -5,9 +5,9 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.example.foodcare.Retrofit.A_entity.Diet;
+import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
-import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -25,12 +25,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AnyDayDietTest {
+public class AnyDayDietStringTest {
     private List<Diet> Diets;
+    private Handler handler;
     private final int DATA_NULL = 0;
     private final int DATA_UPDATED = 1;
     private final int FAILED = 2;
-    private Handler handler;
 
     public void setHandler(Handler handler) {
         this.handler = handler;
@@ -40,7 +40,7 @@ public class AnyDayDietTest {
         return Diets;
     }
 
-    public void request(int account_id, Date date, final Context context){
+    public void request(int account_id, String date, final Context context){
 
         //创建符合日期格式的 Gson,因为原Gson无法解析太长的日期串
         final Gson builder = new GsonBuilder()
@@ -60,7 +60,7 @@ public class AnyDayDietTest {
         System.out.println("建立retrofit对象");
 
         // 步骤5:创建 网络请求接口 的实例
-        AnyDayDietInterface request = retrofit.create(AnyDayDietInterface.class);
+        AnyDayDietStringInterface request = retrofit.create(AnyDayDietStringInterface.class);
         //对 发送请求 进行封装
         System.out.println("建立post对象");
         Call<List<Diet>> call=request.getCall(account_id,date);

@@ -26,6 +26,7 @@ public class CategoryPageTest {
     private String category = "烤";//默认搜索类别
     private Page page;
     private Handler handler;
+    private int RETURN_NULL = 0;
     private int UPDATE_DATA = 1;
     private int UPDATE_FAILURE = 2;
     public int getPage(){return this.page.getStart();}
@@ -58,7 +59,7 @@ public class CategoryPageTest {
 
         PageInterface post = retrofit.create(PageInterface.class);
         System.out.println("建立post对象");
-        category = "烤";
+//        category = "零食";
         System.out.println(page+"---------------------");
         Call<FoodPage> call = post.getMalCategoryCall(start,category);
         System.out.println(page+"---------------------");

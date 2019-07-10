@@ -80,7 +80,7 @@ public class CalendarActivity extends AppCompatActivity {
                 bundles.putInt("selectedDay",currentDate.getDay());
 
                 intent.putExtras(bundles);*/
-                String datepicked = currentDate.getYear()+"年"+currentDate.getMonth()+"月"+currentDate.getDay()+"日";
+                String datepicked = currentDate.getYear()+"-"+currentDate.getMonth()+"-"+currentDate.getDay();
                 //获取当前时间
                 intent.putExtra("date",datepicked);
                 startActivity(intent);

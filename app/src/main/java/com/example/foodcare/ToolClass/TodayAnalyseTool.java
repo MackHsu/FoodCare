@@ -39,7 +39,7 @@ public class TodayAnalyseTool {
     private int SodiumAmount;//钠盐总量
     private List<Diet> diets;
 
-    public TodayAnalyseTool(int TodayRecommended,int TodaySport,List<Diet> diets,Context context){
+    public TodayAnalyseTool(int TodayRecommended,List<Diet> diets,Context context){
         this.diets = diets;
         this.TodayRecommended = TodayRecommended;
         this.context = context;

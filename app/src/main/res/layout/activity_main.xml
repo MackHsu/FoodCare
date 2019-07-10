@@ -22,7 +22,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:background="@color/mainColor1"
+                    android:background="@color/mainColor4"
                     android:paddingBottom="10dp">
                         <!--菜单按钮-->
                         <ImageButton
@@ -85,7 +85,8 @@
                                             android:orientation="vertical"
                                             android:layout_width="match_parent"
                                             android:layout_height="200dp"
-                                            android:background="@color/mainColor3">
+                                            android:background="@color/mainColor5"
+                                            android:layout_margin="5dp">
                                                 <!--摄入、剩余、运动 布局容器-->
                                                 <LinearLayout
                                                     android:orientation="horizontal"
@@ -218,9 +219,13 @@
                                         <!--加载提示-->
                                         <com.victor.loading.rotate.RotateLoading
                                             android:id="@+id/loading"
-                                            android:layout_width="60dp"
-                                            android:layout_height="60dp"
-                                            android:layout_gravity="center_horizontal"/>
+                                            android:layout_width="50dp"
+                                            android:layout_height="50dp"
+                                            android:layout_gravity="center_horizontal"
+                                            app:loading_color="@color/mainColor1"
+                                            app:loading_speed="11"
+                                            app:loading_width="2dp"
+                                            android:layout_margin="10dp"/>
                                 </LinearLayout>
                         </com.example.foodcare.view.HeaderAnimatedScrollView>
                         <com.getbase.floatingactionbutton.FloatingActionsMenu
@@ -287,7 +292,7 @@
                             android:layout_alignParentTop="true"
                             app:citv_border_width="5dp"
                             app:citv_border_color="@color/mainColor"
-                            app:citv_text_text="M"
+                            app:citv_text_text=""
                             app:citv_text_size="60sp"
                             app:citv_text_color="#6A6A6A"
                             app:citv_fill_color="#BAE881"/>

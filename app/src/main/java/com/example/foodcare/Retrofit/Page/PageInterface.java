@@ -39,7 +39,7 @@ public interface PageInterface {
     Call<FoodPage> getMalCategoryCall(@Part("start") int start,@Part("category") String category);
 
 
-    @POST("food/frequent/limit ")
+    @POST("food/list/frequent/limit")
     Call<FoodPage> getFrequentCall(@Body Page page);
 
 //    @Multipart

@@ -29,9 +29,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Account;
 import com.example.foodcare.Retrofit.A_entity.FoodRank;
+import com.example.foodcare.Retrofit.Diet.AnyDayDiet.AnyDayDietStringTest;
+import com.example.foodcare.Retrofit.Diet.AnyDayDiet.AnyDayDietTest;
 import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.Retrofit.User.UpdateUserInfo.UpdateUserInfoTest;
 import com.example.foodcare.Retrofit.User.UserInformation.UserInformationTest;
@@ -69,6 +72,9 @@ import java.util.List;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements IMainView {
+
+    private final int ACCOUNT_GET_SUCCESS=8;
+    private final int ACCOUNT_GET_FAILE=9;
 
     private long exit_time;
 
@@ -129,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         mainDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         calendarButton = (Button) findViewById(R.id.calendar) ;
         Cancellation_main=(Button)findViewById(R.id.Cancellation_main);
-        UserInformation = (CircleTextImageView) findViewById(R.id.avatar);
+        UserInformation = (CircleTextImageView) findViewById(R.id.avatar);         //头像
         mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
         addButton = (FloatingActionButton) findViewById(R.id.floating_button_add);
         analysisButton = (FloatingActionButton) findViewById(R.id.floating_button_analysis);
@@ -141,8 +147,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         loading = (RotateLoading) findViewById(R.id.loading);
         passageText = (TextView) findViewById(R.id.Passage_main);
-        username = (TextView) findViewById(R.id.username);
-        accounttext = (TextView) findViewById(R.id.accounttext);
+        username = (TextView) findViewById(R.id.username);                                //用户名
+        accounttext = (TextView) findViewById(R.id.accounttext);                          //用户的那个id，自己设置得那个
 
         dateText = (TextView) findViewById(R.id.date);
 
@@ -158,17 +164,20 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         lastday = (ImageView) findViewById(R.id.last_day);
         nextday = (ImageView )findViewById(R.id.next_day);
 
+        //动画
         initHeadAnimation();
+
+
+
+        //获取今日日期
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        date = new Date();
+        //更新今日日期
+        refreshDate();
 
         //mainPresenter = new MainPresenter(this);
         loading.start();
         getTodayData();
-
-        //获取今日日期
-        simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
-        date = new Date(System.currentTimeMillis());
-        //更新今日日期
-        refreshDate();
 
 
         //标题栏
@@ -293,6 +302,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 date=calendar.getTime();
                 refreshDate();
                 //TODO : 将界面中的diet根据更新后的日期进行更新
+                getTodayData();
             }
         });
 
@@ -306,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 date=calendar.getTime();
                 System.out.println(date.toString());
                 refreshDate();
-
+                getTodayData();
                 //TODO : 将界面中的diet根据更新后的日期进行更新
             }
         });
@@ -315,6 +325,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
 
     private void refreshDate() {
+        System.out.println("日期变化");
+
         Intent intent = getIntent();
         String datestring = intent.getStringExtra("date");
         if (datestring == null){
@@ -322,9 +334,12 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             dateText.setText(simpleDateFormat.format(date));
         }
         else{
+            System.out.println("日期变化"+datestring);
+
             System.out.println(datestring);
             dateText.setText(datestring);
             try{
+
                 date = simpleDateFormat.parse(datestring);
             }catch(Exception e){
                 e.printStackTrace();
@@ -334,8 +349,16 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     protected void onResume() {
         super.onResume();
+        refreshDate();
         getTodayData();
     }
+
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//// TODO Auto-generated method stub
+//        super.onNewIntent(intent);
+//        setIntent(intent);
+//    }
 
     @Override
     public void refresh(ArrayList<MainGroup> groupList, double recommendedIntake, double intake, double consumption) {
@@ -425,7 +448,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 exit_time = System.currentTimeMillis();
             } else {
                 Intent intent=new Intent();
-                setResult(RESULT_CANCELED,intent);
+                setResult(RESULT_CANCELED,intent);    //这个是用来标识从这个界面退出的两种的方式的
                 finish();
             }
             return true;
@@ -435,16 +458,18 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     public void getTodayData() {
         loading.start();
-        final TodayDietTest dataFetcher = new TodayDietTest();
+        final AnyDayDietStringTest dataFetcher = new AnyDayDietStringTest();
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 switch(msg.what) {
                     case DATA_NULL:
                         Toast.makeText(MainActivity.this, "用户今日Diet数据为空", Toast.LENGTH_SHORT).show();
+                        initInfo();
                         break;
                     case DATA_UPDATED:
                         List<Diet> diets = dataFetcher.getDiets();
+                        initInfo();
                         loading.stop();
                         refreshDiets(diets);
                         break;
@@ -458,13 +483,12 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         };
         dataFetcher.setHandler(handler);
         int id = AccountID.getId();
-        dataFetcher.request(id, this);
+        String dateStr = simpleDateFormat.format(date);
+        dataFetcher.request(id, dateStr, this);
     }
 
     private void refreshDiets(List<Diet> diets) {
         //测试：写定每餐推荐量
-        //TODO: 获取今日推荐量、每餐推荐量
-        //TODO: 获取group、dietDetail
         this.diets = diets;
         groupList = new ArrayList<>();
 //        groupList.add(new MainGroup("早餐", 1000, new ArrayList<MainFood>())) ;
@@ -473,6 +497,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         for (Diet diet: diets) {
             MainGroup group = new MainGroup(diet.getId(), diet.getGroup(), diet.getGroup() * 100, new ArrayList<MainFood>());
             List<DietDetail> details = diet.getDetailList();
+
             for (DietDetail detail: details) {
                 Food food = detail.getFood();
                 group.getFoodsThisMeal().add(new MainFood(detail.getFood().getId(), IP.ip + detail.getFood().getPicture_mid(), detail.getFood().getName(), detail.getQuantity(), detail.getFood().getHeat()));
@@ -514,4 +539,23 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 //        dataFetcher.setHandler(handler);
 //        dataFetcher.request(dietId, this);
 //    }
+
+    private void initInfo(){
+        final UserInformationTest userInformationTest=new UserInformationTest();
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case ACCOUNT_GET_SUCCESS:
+                        username.setText(userInformationTest.account.getName());
+                        accounttext.setText(userInformationTest.account.getUser());
+                        String url=IP.ip+userInformationTest.account.getPicture();
+                        Glide.with(getApplicationContext()).load(url).into(UserInformation);
+
+                }
+            }
+        };
+        userInformationTest.setHandler(handler);
+        userInformationTest.request(AccountID.getId(),getApplicationContext());
+    }
 }

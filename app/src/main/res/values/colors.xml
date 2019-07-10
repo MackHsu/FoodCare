@@ -23,5 +23,12 @@
     <color name="calendar_selected_color">#AD03A9F4</color>
     <color name="exist_account">#FF0000</color>
     <color name="only_account">#00FF00</color>
-
+    <color name="light_blue">#ADD8E6</color>
+    <color name="red">#FF0000</color>
+    <color name="DarkSlateBlue">#6495ED	</color>
+    <color name="Honeydew3">#E3EEE3</color>
+    <color name="SlateBlue1">	#836FFF</color>
+    <color name="gray81">#CFCFCF</color>
+    <color name="Azure1">#F0FFFF</color>
+    <color name="Beige">#F7F7E9</color>
 </resources>

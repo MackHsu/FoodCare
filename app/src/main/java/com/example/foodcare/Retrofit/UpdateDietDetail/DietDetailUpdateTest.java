@@ -21,6 +21,7 @@ public class DietDetailUpdateTest {
     private final int UPDATE_FAILED = 2;
     private final int REQUEST_FAILED = 3;
 
+
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
