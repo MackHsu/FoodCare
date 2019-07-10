@@ -26,6 +26,7 @@ import com.example.foodcare.Retrofit.Page.DishPageTest;
 import com.example.foodcare.Retrofit.Page.FrequentPageTest;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.AddFoodAdapter2;
+import com.example.foodcare.adapter.SpaceItemDecoration;
 import com.example.foodcare.entity.AccountID;
 import com.example.foodcare.entity.AddFood;
 import com.orhanobut.dialogplus.DialogPlus;
@@ -128,15 +129,16 @@ public class AddFoodTypeFregment extends Fragment {
     private void getFrequentFood(View view) {
         loading.start();
         final FrequentPageTest dataFetcher = new FrequentPageTest();
-        adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
+        adapter = new AddFoodAdapter2(R.layout.add_food_item_my, foodList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(19));
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if(view.getId() == R.id.food_info_button) {
-                    Intent intent = new Intent(mContext, FoodInfoActivity.class);
+                    Intent intent = new Intent(mContext, MealInfoActivity.class);
                     intent.putExtra("foodId", foodList.get(position).getFoodId());
                     startActivity(intent);
                 }
@@ -187,10 +189,11 @@ public class AddFoodTypeFregment extends Fragment {
     private void getFoodByCategory(View view, String category) {
         loading.start();
         final CategoryPageTest dataFetcher = new CategoryPageTest(category);
-        adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
+        adapter = new AddFoodAdapter2(R.layout.add_food_item_my, foodList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(19));
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -247,10 +250,11 @@ public class AddFoodTypeFregment extends Fragment {
 
         loading.start();
         final DishPageTest dataFetcher = new DishPageTest(type);
-        final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
+        final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item_my, foodList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(19));
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
