@@ -5,18 +5,15 @@ package com.example.foodcare.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Px;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -34,22 +31,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.foodcare.R;
-import com.example.foodcare.Retrofit.A_entity.Account;
-import com.example.foodcare.Retrofit.A_entity.FoodRank;
-import com.example.foodcare.Retrofit.Diet.AnyDayDiet.AnyDayDietStringTest;
-import com.example.foodcare.Retrofit.Diet.AnyDayDiet.AnyDayDietTest;
-import com.example.foodcare.Retrofit.Page.PageTest;
-import com.example.foodcare.Retrofit.User.UpdateUserInfo.UpdateUserInfoTest;
+import com.example.foodcare.Retrofit.DietPackage.Diet.AnyDayDiet.AnyDayDietStringTest;
 import com.example.foodcare.Retrofit.User.UserInformation.UserInformationTest;
+import com.example.foodcare.ToolClass.CalendarDialog;
+import com.example.foodcare.ToolClass.Day;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.Retrofit.A_entity.Diet;
 import com.example.foodcare.Retrofit.A_entity.DietDetail;
 import com.example.foodcare.Retrofit.A_entity.Food;
-import com.example.foodcare.Retrofit.Diet.TodayDiet.TodayDietTest;
-import com.example.foodcare.Retrofit.DietDetailList.DietDetailListTest;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
-import com.example.foodcare.entity.AccountID;
 import com.example.foodcare.entity.AccountID;
 import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
@@ -59,17 +50,11 @@ import com.example.foodcare.util.CommonUtil;
 import com.example.foodcare.view.HeaderAnimatedScrollView;
 import com.example.foodcare.view.IMainView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.google.gson.Gson;
 import com.thinkcool.circletextimageview.CircleTextImageView;
 import com.victor.loading.rotate.RotateLoading;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Date;
@@ -80,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     private final int ACCOUNT_GET_FAILE=9;
 
     private final int RETURN_ANALYSE=20;
+
+    private final int DATE_PICKED = 1;
 
     private long exit_time;
 
@@ -175,8 +162,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
 
         //获取今日日期
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        date = new Date();
+        Day.setDate(new Date());
+//        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        date = new Date();
         //更新今日日期
         refreshDate();
 
@@ -302,10 +290,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         lastday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                calendar.add(Calendar.DATE,-1);
-                date=calendar.getTime();
+                Day.lastDay();
                 refreshDate();
                 //TODO : 将界面中的diet根据更新后的日期进行更新
                 getTodayData();
@@ -315,15 +300,36 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         nextday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                System.out.println(date.toString());
-                calendar.add(Calendar.DATE,1);
-                date=calendar.getTime();
-                System.out.println(date.toString());
+                Day.nextDay();
                 refreshDate();
                 getTodayData();
                 //TODO : 将界面中的diet根据更新后的日期进行更新
+            }
+        });
+
+        dateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("点击一次");
+                MyToast.mytoast("点击一次",MainActivity.this);
+                CalendarDialog calendarDialog = new CalendarDialog();
+                //用于更新挑选的日期
+                Handler handlerhere = new Handler(){
+                    public void handleMessage(Message msg) {
+                        System.out.println("进入handler");
+                        switch(msg.what) {
+                            case DATE_PICKED:
+                                Toast.makeText(MainActivity.this, "从日期弹窗返回", Toast.LENGTH_SHORT).show();
+                                refreshDate();
+                                getTodayData();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                };
+                calendarDialog.setHandler(handlerhere);
+                calendarDialog.popCalendarDialog(MainActivity.this);
             }
         });
 
@@ -332,29 +338,13 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     private void refreshDate() {
         System.out.println("日期变化");
+        dateText.setText(Day.getDateString());
 
-        Intent intent = getIntent();
-        String datestring = intent.getStringExtra("date");
-        if (datestring == null){
-            System.out.println("intent中参数为空");
-            dateText.setText(simpleDateFormat.format(date));
-        }
-        else{
-            System.out.println("日期变化"+datestring);
-
-            System.out.println(datestring);
-            dateText.setText(datestring);
-            try{
-
-                date = simpleDateFormat.parse(datestring);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
     }
     @Override
     protected void onResume() {
         super.onResume();
+        mainDrawerLayout.closeDrawers();
         refreshDate();
         getTodayData();
     }
@@ -489,8 +479,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         };
         dataFetcher.setHandler(handler);
         int id = AccountID.getId();
-        String dateStr = simpleDateFormat.format(date);
-        dataFetcher.request(id, dateStr, this);
+//        String dateStr = simpleDateFormat.format(Day.getDate());
+        System.out.println("当前前往请求的日期是"+Day.getDateString());
+        dataFetcher.request(id, Day.getDateString(), this);
     }
 
     private void refreshDiets(List<Diet> diets) {

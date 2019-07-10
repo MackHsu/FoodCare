@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Food;
-import com.example.foodcare.Retrofit.GetFoodById.GetFoodByIdTest;
+import com.example.foodcare.Retrofit.FoodPackage.GetFoodById.GetFoodByIdTest;
 import com.example.foodcare.ToolClass.IP;
 import com.victor.loading.rotate.RotateLoading;
 

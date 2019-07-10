@@ -4,16 +4,13 @@ package com.example.foodcare.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +19,7 @@ import com.example.foodcare.Retrofit.A_entity.Account;
 import com.example.foodcare.Retrofit.A_entity.Diet;
 import com.example.foodcare.Retrofit.A_entity.DietDetail;
 import com.example.foodcare.Retrofit.A_entity.Food;
-import com.example.foodcare.Retrofit.Diet.TodayDiet.TodayDietTest;
+import com.example.foodcare.Retrofit.DietPackage.Diet.TodayDiet.TodayDietTest;
 import com.example.foodcare.Retrofit.User.UserInformation.UserInformationTest;
 import com.example.foodcare.ToolClass.MyAxisValueFormatter;
 import com.example.foodcare.ToolClass.MyToast;
@@ -40,22 +37,14 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.RadarData;
-import com.github.mikephil.charting.data.RadarDataSet;
-import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.orhanobut.dialogplus.DialogPlus;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static android.os.SystemClock.sleep;
 
 public class TodayAnalyseActivity extends AppCompatActivity {
     private final int DATA_NULL = 0;
@@ -92,6 +81,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
     TextView viewTodaySport;
     TextView viewTodayLeft;
     TextView today_detail_date;
+    TextView error_info_analyse;
     ImageButton backButton;
     private List<Diet> diets;
     Account account;
@@ -123,7 +113,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         today_detail_date=(TextView)findViewById(R.id.today_detail_date);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         today_detail_date.setText(df.format(new Date()));
-
+        error_info_analyse=(TextView)findViewById(R.id.error_info_analyse);
 
         //查询数据
         //getNumber();
@@ -226,8 +216,14 @@ public class TodayAnalyseActivity extends AppCompatActivity {
                     case DATA_UPDATED:
                         diets = dataFetcher.getDiets();  //此时拿到的长度就是其吃了几顿
                         Log.i("TAG代销",diets.size()+"");
-                        wdnmd();
-                        Toast.makeText(getApplicationContext(), "用户今日Diet数据很多多大", Toast.LENGTH_SHORT).show();
+                        if(diets.size()==0){
+                            error_info_analyse.setText("您今日还没有饮食记录");
+                            error_info_analyse.setTextSize(25);
+                        }else{
+                            wdnmd();
+                            Toast.makeText(getApplicationContext(), "用户今日Diet数据很多多大", Toast.LENGTH_SHORT).show();
+                        }
+
 
                         break;
                     case FAILED:
@@ -303,7 +299,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
                     celluloseAmount=0.0;
                 }
                 else {
-                    celluloseAmount += food.getNa()*dietDetail.getQuantity()/100;
+                    celluloseAmount += food.getCellulose()*dietDetail.getQuantity()/100;
                 }
                 Log.i("TAG",celluloseAmount+"");
             }
@@ -338,7 +334,6 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         viewTodaySport.setText( viewTodaySport.getText()+(TodaySport+""));
         viewTodayLeft.setText(viewTodayLeft.getText()+(TodayLeft+""));
     }
-
 
     private void wdnmd(){
         if(TodayRecommended==0){
