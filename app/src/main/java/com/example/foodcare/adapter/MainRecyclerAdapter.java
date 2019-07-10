@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.media.Image;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +33,8 @@ import com.orhanobut.dialogplus.DialogPlus;
 import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
+
+import retrofit2.http.Query;
 
 public class MainRecyclerAdapter extends GroupedRecyclerViewAdapter {
 
@@ -146,6 +149,52 @@ public class MainRecyclerAdapter extends GroupedRecyclerViewAdapter {
             }
         });
 
+        //长按删除
+        holder.get(R.id.item_layout).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Vibrator vibrator=(Vibrator) v.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(new long[]{100, 200, 100, 200},-1);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+                dialog.setTitle("提示");
+                dialog.setMessage("将要删除" + ((TextView) holder.get(R.id.food_name_text)).getText().toString() + "，是否确定？");
+                dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DietDetailDeleteTest dataManager = new DietDetailDeleteTest();
+                        Handler handler = new Handler() {
+                            @Override
+                            public void handleMessage(Message msg) {
+                                switch (msg.what) {
+                                    case NO_RETURN:
+                                        break;
+                                    case UPDATE_SUCCEEDED:
+                                        mainGroups.get(groupPosition).getFoodsThisMeal().remove(childPosition);
+                                        MainRecyclerAdapter.this.notifyChildRemoved(groupPosition, childPosition);
+                                        break;
+                                    case UPDATE_FAILED:
+                                        break;
+                                    case REQUEST_FAILED:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        };
+                        dataManager.setHandler(handler);
+                        dataManager.request(mainFood.getFoodId(), mainGroups.get(groupPosition).getDietId(), mContext);
+                    }
+                });
+                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                dialog.show();
+                return true;
+            }
+        });
+
         //修改
         holder.get(R.id.item_layout).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,4 +268,5 @@ public class MainRecyclerAdapter extends GroupedRecyclerViewAdapter {
             }
         });
     }
+
 }

@@ -216,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 //        info.setHandler(handlerhere);
 
         //点击左上方的按钮左侧菜单栏滑出
+
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -352,6 +353,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             }
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -575,7 +577,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         userInformationTest.request(AccountID.getId(),getApplicationContext());
     }
 
-
     @Override
     protected void onActivityResult(int requestCode,int resultCode,Intent data){
         switch (requestCode){
@@ -586,6 +587,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 break;
         }
     }
+
     private void showNormalDialog(){
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题

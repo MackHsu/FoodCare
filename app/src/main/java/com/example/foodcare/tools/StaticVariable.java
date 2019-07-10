@@ -1,7 +1,9 @@
 package com.example.foodcare.tools;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Vibrator;
 
 import com.example.foodcare.activity.Fruit;
 import com.google.gson.Gson;
@@ -14,6 +16,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StaticVariable {
+
     static public List<Fruit> AllFruitList=new ArrayList<>();
     static public Fruit JsonToFruit(String jsonData){
         Gson gson=new Gson();
