@@ -60,10 +60,10 @@ public class AnyDayDietStringTest {
         System.out.println("建立retrofit对象");
 
         // 步骤5:创建 网络请求接口 的实例
-        AnyDayDietStringInterface request = retrofit.create(AnyDayDietStringInterface.class);
+        AnyDayDietInterface request = retrofit.create(AnyDayDietInterface.class);
         //对 发送请求 进行封装
         System.out.println("建立post对象");
-        Call<List<Diet>> call=request.getCall(account_id,date);
+        Call<List<Diet>> call=request.getAnyDayDietString(account_id,date);
         System.out.println("getcall");
         try{ //步骤6:发送网络请求(异步)
             call.enqueue(new Callback<List<Diet>>() {

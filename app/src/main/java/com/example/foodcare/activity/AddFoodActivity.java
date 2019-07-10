@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.FoodPackage.FoodList.FoodList;
@@ -38,6 +39,7 @@ public class AddFoodActivity extends AppCompatActivity {
     private final int UPDATE_FAILED = 2;
     private final int REQUEST_FAILED = 3;
     private ImageButton camera;
+    private SearchView searchView;
 
     public final int GET_DATA_SUCCEEDED = 1;
     public final int GET_DATA_FAILED = 2;
@@ -52,6 +54,8 @@ public class AddFoodActivity extends AppCompatActivity {
 //        recyclerView = (RecyclerView) findViewById(R.id.add_food_recycler);
         loading = (RotateLoading) findViewById(R.id.loading);
         camera = (ImageButton) findViewById(R.id.camera_add);
+        searchView = (SearchView) findViewById(R.id.addfoodsearchView);
+
 //        loading.start();
         //返回
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +65,36 @@ public class AddFoodActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+//        //点击搜索栏进入搜索界面中
+//        searchView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            // 当点击搜索按钮时触发该方法
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(AddFoodActivity.this, SearchActivity.class);
+                intent.putExtra("SearchStr",query);
+                startActivity(intent);
+                return false;
+            }
+            // 当搜索内容改变时触发该方法
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        //点击相机按钮跳转进入识别
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddFoodActivity.this, IdentifyFoodActivity.class);
+                startActivity(intent);
+            }
+        });
         //分类显示方式
         for(String title: mTitles) {
             mFragments.add(AddFoodTypeFregment.getInstant(this, title));
@@ -193,14 +226,7 @@ public class AddFoodActivity extends AppCompatActivity {
 //            }
 //        }, recyclerView);
 
-//点击相机按钮跳转进入识别
-        camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddFoodActivity.this, IdentifyFoodActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
     }
 
