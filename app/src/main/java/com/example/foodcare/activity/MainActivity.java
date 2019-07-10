@@ -38,6 +38,7 @@ import com.example.foodcare.Retrofit.Diet.AnyDayDiet.AnyDayDietTest;
 import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.Retrofit.User.UpdateUserInfo.UpdateUserInfoTest;
 import com.example.foodcare.Retrofit.User.UserInformation.UserInformationTest;
+import com.example.foodcare.ToolClass.Day;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.Retrofit.A_entity.Diet;
 import com.example.foodcare.Retrofit.A_entity.DietDetail;
@@ -170,8 +171,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
 
         //获取今日日期
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        date = new Date();
+        Day.setDate(new Date());
+//        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        date = new Date();
         //更新今日日期
         refreshDate();
 
@@ -296,10 +298,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         lastday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                calendar.add(Calendar.DATE,-1);
-                date=calendar.getTime();
+                Day.lastDay();
                 refreshDate();
                 //TODO : 将界面中的diet根据更新后的日期进行更新
                 getTodayData();
@@ -309,12 +308,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         nextday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                System.out.println(date.toString());
-                calendar.add(Calendar.DATE,1);
-                date=calendar.getTime();
-                System.out.println(date.toString());
+                Day.nextDay();
                 refreshDate();
                 getTodayData();
                 //TODO : 将界面中的diet根据更新后的日期进行更新
@@ -326,29 +320,13 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     private void refreshDate() {
         System.out.println("日期变化");
+        dateText.setText(Day.getDateString());
 
-        Intent intent = getIntent();
-        String datestring = intent.getStringExtra("date");
-        if (datestring == null){
-            System.out.println("intent中参数为空");
-            dateText.setText(simpleDateFormat.format(date));
-        }
-        else{
-            System.out.println("日期变化"+datestring);
-
-            System.out.println(datestring);
-            dateText.setText(datestring);
-            try{
-
-                date = simpleDateFormat.parse(datestring);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }
     }
     @Override
     protected void onResume() {
         super.onResume();
+        mainDrawerLayout.closeDrawers();
         refreshDate();
         getTodayData();
     }
@@ -483,8 +461,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         };
         dataFetcher.setHandler(handler);
         int id = AccountID.getId();
-        String dateStr = simpleDateFormat.format(date);
-        dataFetcher.request(id, dateStr, this);
+//        String dateStr = simpleDateFormat.format(Day.getDate());
+        System.out.println("当前前往请求的日期是"+Day.getDateString());
+        dataFetcher.request(id, Day.getDateString(), this);
     }
 
     private void refreshDiets(List<Diet> diets) {
