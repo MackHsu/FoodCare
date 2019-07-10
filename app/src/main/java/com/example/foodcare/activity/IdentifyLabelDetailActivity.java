@@ -11,7 +11,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.A_entity.FoodReg;
-import com.example.foodcare.ToolClass.EasyFood;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.adapter.IdentifyAdapter2;
 import com.example.foodcare.adapter.IdentifyLabelDetailAdapter;

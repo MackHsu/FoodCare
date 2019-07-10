@@ -41,6 +41,7 @@ import com.example.foodcare.Retrofit.Diet.AnyDayDiet.AnyDayDietTest;
 import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.Retrofit.User.UpdateUserInfo.UpdateUserInfoTest;
 import com.example.foodcare.Retrofit.User.UserInformation.UserInformationTest;
+import com.example.foodcare.ToolClass.CalendarDialog;
 import com.example.foodcare.ToolClass.Day;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.Retrofit.A_entity.Diet;
@@ -81,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     private final int ACCOUNT_GET_FAILE=9;
 
     private final int RETURN_ANALYSE=20;
+
+    private final int DATE_PICKED = 1;
 
     private long exit_time;
 
@@ -318,6 +321,32 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 refreshDate();
                 getTodayData();
                 //TODO : 将界面中的diet根据更新后的日期进行更新
+            }
+        });
+
+        dateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("点击一次");
+                MyToast.mytoast("点击一次",MainActivity.this);
+                CalendarDialog calendarDialog = new CalendarDialog();
+                //用于更新挑选的日期
+                Handler handlerhere = new Handler(){
+                    public void handleMessage(Message msg) {
+                        System.out.println("进入handler");
+                        switch(msg.what) {
+                            case DATE_PICKED:
+                                Toast.makeText(MainActivity.this, "从日期弹窗返回", Toast.LENGTH_SHORT).show();
+                                refreshDate();
+                                getTodayData();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                };
+                calendarDialog.setHandler(handlerhere);
+                calendarDialog.popCalendarDialog(MainActivity.this);
             }
         });
 
