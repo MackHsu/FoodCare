@@ -121,7 +121,8 @@
                 android:text=""/>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="250dp"
+                android:layout_marginTop="20dp">
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/PieChart"
                     android:layout_width="match_parent"
@@ -137,6 +138,7 @@
                     android:layout_height="match_parent" />
             </RelativeLayout>-->
             <TextView
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -153,7 +155,8 @@
                 android:layout_height="wrap_content"
                 android:text="我们根据您所记录的食品记录\n和您的身体状况进行以上分析"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/shape_corner"/>
+                android:background="@drawable/shape_corner"
+                android:layout_marginTop="20dp"/>
         </LinearLayout>
 
 

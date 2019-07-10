@@ -92,6 +92,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
     TextView viewTodaySport;
     TextView viewTodayLeft;
     TextView today_detail_date;
+    TextView error_info_analyse;
     ImageButton backButton;
     private List<Diet> diets;
     Account account;
@@ -123,7 +124,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         today_detail_date=(TextView)findViewById(R.id.today_detail_date);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         today_detail_date.setText(df.format(new Date()));
-
+        error_info_analyse=(TextView)findViewById(R.id.error_info_analyse);
 
         //查询数据
         //getNumber();
@@ -226,8 +227,14 @@ public class TodayAnalyseActivity extends AppCompatActivity {
                     case DATA_UPDATED:
                         diets = dataFetcher.getDiets();  //此时拿到的长度就是其吃了几顿
                         Log.i("TAG代销",diets.size()+"");
-                        wdnmd();
-                        Toast.makeText(getApplicationContext(), "用户今日Diet数据很多多大", Toast.LENGTH_SHORT).show();
+                        if(diets.size()==0){
+                            error_info_analyse.setText("您今日还没有饮食记录");
+                            error_info_analyse.setTextSize(25);
+                        }else{
+                            wdnmd();
+                            Toast.makeText(getApplicationContext(), "用户今日Diet数据很多多大", Toast.LENGTH_SHORT).show();
+                        }
+
 
                         break;
                     case FAILED:
@@ -303,7 +310,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
                     celluloseAmount=0.0;
                 }
                 else {
-                    celluloseAmount += food.getNa()*dietDetail.getQuantity()/100;
+                    celluloseAmount += food.getCellulose()*dietDetail.getQuantity()/100;
                 }
                 Log.i("TAG",celluloseAmount+"");
             }
@@ -338,7 +345,6 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         viewTodaySport.setText( viewTodaySport.getText()+(TodaySport+""));
         viewTodayLeft.setText(viewTodayLeft.getText()+(TodayLeft+""));
     }
-
 
     private void wdnmd(){
         if(TodayRecommended==0){
