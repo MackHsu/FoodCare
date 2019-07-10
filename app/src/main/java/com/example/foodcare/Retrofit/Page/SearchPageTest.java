@@ -20,19 +20,29 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchPageTest {
+    private int start;
+    private boolean end;
     private List<Food> foods;
     private String searchstr;
     private Page page;
     private Handler handler;
-    private int UPDATE_DATA = 1;
-    private int UPDATE_FAILURE = 2;
+    private final int SEARCH_CONN_ERR = 2;
+    private final int SEARCH_SUCCESS = 1;
+    private final int SEARCH_FAILED = 0;
 
     public SearchPageTest(String searchstr) {
         this.searchstr = searchstr;
         page = new Page();
+        start = 0;
+        end = false;
         page.setStart(0);
     }
 
+    public int getStart(){
+
+        return page.getStart();
+
+    }
     public boolean getEnd(){
         return page.isEnd();
     }
@@ -52,11 +62,9 @@ public class SearchPageTest {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         System.out.println("建立retrofit对象");
-
         PageInterface post = retrofit.create(PageInterface.class);
-        System.out.println("建立post对象");
-        searchstr = "烤";//TODO 删除这行
-        Call<FoodPage> call = post.getSearchCall(searchstr,page);
+        System.out.println("建立post对象");//TODO 删除这行
+        Call<FoodPage> call = post.getSearchCall(searchstr,start);
         System.out.println("getcall");
         call.enqueue(new Callback<FoodPage>() {
             @Override
@@ -64,14 +72,29 @@ public class SearchPageTest {
                 System.out.println("请求成功");
                 if(response.body()==null) {
                     System.out.println("对象为空！！！！！！！！！！！！！");
+                    MyToast.mytoast("对象为空",context);
+
                 } else {
                     Message message = new Message();
-                    message.what = UPDATE_DATA;
+                    message.what = SEARCH_SUCCESS;
                     handler.sendMessage(message);
                     System.out.println(page.getStart());
+                    page = response.body().getPage();
                     foods = response.body().getFoods();
-                    //page = response.body().getPage();
-                    page.setStart(page.getStart()+20);
+//                    start += response.body().getFoods().size();
+                    start = response.body().getPage().getStart();
+                    end = response.body().getPage().isEnd();
+//                    start += response.body().getFoods().size();
+//                    start = response.body().getPage().getStart();
+//                    end = response.body().getPage().isEnd();
+                   // page = response.body().getPage();
+                    if(foods.size()==0)
+                    {
+                        MyToast.mytoast("搜索结果为零",context);
+                    }
+//                    page.setStart(page.getStart()+foods.size());
+//                    page.setEnd(response.body().getPage().isEnd());
+//                    page.setStart(page.getStart()+10);
                     System.out.println(page.getStart());
                 }
             }
@@ -80,13 +103,25 @@ public class SearchPageTest {
             public void onFailure(Call<FoodPage> call, Throwable t) {
                 System.out.println("请求失败");
                 System.out.println(t.toString());
-                MyToast.mytoast("请求失败！！",context);
+                MyToast.mytoast("检查网络问题！！",context);
                 Message message = new Message();
-                message.what = UPDATE_FAILURE;
+                message.what = SEARCH_CONN_ERR;
                 handler.sendMessage(message);
                 t.printStackTrace();
             }
         });
+    }
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public List<Food> getFoods() {
+        return foods;
+    }
+
+    public String getSearchstr() {
+        return searchstr;
     }
 
     public void setHandler(Handler handler) {

@@ -23,7 +23,6 @@ public class FrequentPageTest {
     private List<Food> foods;
     private Page page;
     private Handler handler;
-    private int RETURN_NULL = 0;
     private int UPDATE_DATA = 1;
     private int UPDATE_FAILURE = 2;
 
@@ -57,17 +56,20 @@ public class FrequentPageTest {
                 System.out.println("请求成功");
                 if(response.body()==null) {
                     System.out.println("对象为空！！！！！！！！！！！！！");
-                    Message message = new Message();
-                    message.what = RETURN_NULL;
-                    handler.sendMessage(message);
                 } else {
-                    foods = response.body().getFoods();
-                    page = response.body().getPage();
                     Message message = new Message();
                     message.what = UPDATE_DATA;
                     handler.sendMessage(message);
-                    System.out.println(page.getStart());
-                    System.out.println(page.getStart());
+                    System.out.println("old"+page.getStart());
+                    foods = response.body().getFoods();
+//                    page = response.body().getPage();
+                    if(foods.size()==0)
+                    {
+                        MyToast.mytoast("搜索结果为零",context);
+                    }
+                    page.setStart(page.getStart()+foods.size());
+                    page.setEnd(response.body().getPage().isEnd());
+                    System.out.println("new"+page.getStart());
                 }
             }
 
@@ -86,5 +88,13 @@ public class FrequentPageTest {
 
     public void setHandler(Handler handler) {
         this.handler = handler;
+    }
+
+    public List<Food> getFoods() {
+        return foods;
+    }
+
+    public Page getPage() {
+        return page;
     }
 }

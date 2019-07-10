@@ -1,50 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/main_header_layout"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/mainColor1"
-        android:paddingBottom="10dp">
-
-        <ImageButton
-            android:id="@+id/search_back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:src="@drawable/back_button"
-            android:background="#00000000"
-            android:layout_margin="10dp" />
-        <SearchView
-            android:id="@+id/searchView"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:id="@+id/searchhead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:iconifiedByDefault="false"
-            android:queryHint="搜索内容" />
-    </RelativeLayout>
+            android:background="@color/mainColor1"
+            android:paddingBottom="10dp">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/searchrecycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main_header_layout">
+            <ImageButton
+                android:id="@+id/search_back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:src="@drawable/back_button"
+                android:background="#00000000"
+                android:layout_margin="10dp" />
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:iconifiedByDefault="false"
+                android:queryHint="搜索内容" />
+        </RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/searchrecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_header_layout">
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_below="@+id/main_header_layout"/>
+        <com.victor.loading.rotate.RotateLoading
+            android:id="@+id/searchrotate"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            app:loading_color="@color/mainColor1"
+            app:loading_speed="11"
+            app:loading_width="2dp" />
+    </LinearLayout>
+
+    <!--<ListView-->
+        <!--android:id="@+id/listView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:layout_below="@+id/main_header_layout"/>-->
 
 </RelativeLayout>
