@@ -381,7 +381,7 @@
                 <!--android:text="更多营养元素 >" />-->
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/more"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -637,6 +637,7 @@
                     android:id="@+id/seasoning_expandable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/seasoning_recycler"
                         android:layout_width="match_parent"

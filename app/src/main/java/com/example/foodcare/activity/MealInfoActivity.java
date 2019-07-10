@@ -32,6 +32,7 @@ public class MealInfoActivity extends AppCompatActivity {
     TextView measureText;
     CardView measureCard;
     View measureDivider;
+    TextView moreText;
 
     private final int GET_FOOD_DETAIL_SUCCESS=1;
     private final int GET_FOOD_DETAIL_FAILED=0;
@@ -77,11 +78,21 @@ public class MealInfoActivity extends AppCompatActivity {
         measureCard = (CardView) findViewById(R.id.measure_card);
         backButton = (ImageButton) findViewById(R.id.back_button);
         measureDivider = (View) findViewById(R.id.measure_divider);
+        moreText = (TextView) findViewById(R.id.more);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        moreText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MealInfoActivity.this, MoreInfoActivity.class);
+                intent.putExtra("foodId", foodId);
+                startActivity(intent);
             }
         });
     }

@@ -39,7 +39,7 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
                @Override
                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                    if(view.getId() == R.id.identifylabelbutton) {
-                       Intent intent = new Intent(IdentifyLabelDetailActivity.this, FoodInfoActivity.class);
+                       Intent intent = new Intent(IdentifyLabelDetailActivity.this, MoreInfoActivity.class);
                        intent.putExtra("foodId",foodReg.getFoods().get(position).getId());
                        MyToast.mytoast("成功进入食物详情界面",IdentifyLabelDetailActivity.this);
                        startActivity(intent);

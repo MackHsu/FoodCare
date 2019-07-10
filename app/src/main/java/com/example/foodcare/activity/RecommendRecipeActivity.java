@@ -12,7 +12,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.ToolClass.MyToast;
-import com.example.foodcare.adapter.IdentifyLabelDetailAdapter;
 import com.example.foodcare.adapter.RecommendAdapter;
 
 import java.util.List;
@@ -40,7 +39,7 @@ public class RecommendRecipeActivity extends AppCompatActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if(view.getId() == R.id.identifylabelbutton) {
-                    Intent intent = new Intent(RecommendRecipeActivity.this, FoodInfoActivity.class);
+                    Intent intent = new Intent(RecommendRecipeActivity.this, MoreInfoActivity.class);
                     intent.putExtra("foodId",foods.get(position).getId());
                     MyToast.mytoast("成功进入食物详情界面",RecommendRecipeActivity.this);
                     startActivity(intent);

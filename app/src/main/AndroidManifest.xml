@@ -50,7 +50,7 @@
             android:theme="@style/FoodCareStatusBarTheme" />
         <activity android:name=".activity.UploadPictureActivity" />
         <activity
-            android:name=".activity.FoodInfoActivity"
+            android:name=".activity.MoreInfoActivity"
             android:theme="@style/FoodCareStatusBarTheme" />
         <activity
             android:name=".activity.AddFoodActivity"
