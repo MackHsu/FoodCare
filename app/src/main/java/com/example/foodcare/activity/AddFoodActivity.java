@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,9 @@ import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.Diet.DietDetailAdd.DietDetailAddTest;
 import com.example.foodcare.Retrofit.FoodList.FoodList;
+import com.example.foodcare.Retrofit.Page.CategoryPageTest;
+import com.example.foodcare.Retrofit.Page.DishPageTest;
+import com.example.foodcare.Retrofit.Page.FrequentPageTest;
 import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.AddFoodAdapter2;
@@ -66,7 +70,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
         //初始化
         backButton = (ImageButton) findViewById(R.id.back_button);
-        recyclerView = (RecyclerView) findViewById(R.id.add_food_recycler);
+//        recyclerView = (RecyclerView) findViewById(R.id.add_food_recycler);
         loading = (RotateLoading) findViewById(R.id.loading);
         camera = (ImageButton) findViewById(R.id.camera_add);
 //        loading.start();
@@ -80,142 +84,144 @@ public class AddFoodActivity extends AppCompatActivity {
         });
 
         //分类显示方式
-//        for(String title: mTitles) {
-//            mFragments.add(AddFoodTypeFregment.getInstant(this, title));
-//        }
+        for(String title: mTitles) {
+            mFragments.add(AddFoodTypeFregment.getInstant(this, title));
+        }
+
+        View decorView = getWindow().getDecorView();
+        ViewPager pager = (ViewPager) decorView.findViewById(R.id.view_pager);
+        pager.setOffscreenPageLimit(2);
+        mAdapter = new PageRecyclerAdapter(getSupportFragmentManager());
+        pager.setAdapter(mAdapter);
+        slide = decorView.findViewById(R.id.slide);
+        slide.setViewPager(pager);
+
+        //无分类、分页请求、添加和跳转详情
+//        loading.start();
+//        final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
+//        final PageTest dataFetcher = new PageTest();
+//        final Handler handler = new Handler() {
+//            @Override
+//            public void handleMessage(Message msg) {
+//                switch (msg.what) {
+//                    case GET_DATA_SUCCEEDED:
+//                        for (Food food: dataFetcher.getfoods()) {
+//                            adapter.addData(new AddFood(food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
+//                        }
+//                        loading.stop();
+//                        adapter.loadMoreComplete();
+//                        if(dataFetcher.getEnd()){
+//                            adapter.loadMoreEnd();
+//                        }
+//                        break;
+//                    case GET_DATA_FAILED:
+//                        loading.stop();
+//                        adapter.loadMoreFail();
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        };
+//        dataFetcher.setHandler(handler);
+//        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+//            @Override
+//            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
+//                if(view.getId() == R.id.item_layout) {
+//                    //弹窗
+//                    final DialogPlus dialog = DialogPlus.newDialog(AddFoodActivity.this)
+//                            .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.bottomsheet))
+//                            .create();
+//                    //下拉框
+//                    final NiceSpinner spinner = (NiceSpinner) dialog.findViewById(R.id.spinner);
+//                    ArrayList<String> meals = new ArrayList<>();
+//                    meals.add("早餐"); meals.add("午餐"); meals.add("晚餐");
+//                    spinner.attachDataSource(meals);
+//                    //文本和图像
+//                    TextView nameTextDialog = (TextView) dialog.findViewById(R.id.food_name);
+//                    TextView energyTextDialog = (TextView) dialog.findViewById(R.id.food_energy);
+//                    ImageView foodImageDialog = (ImageView) dialog.findViewById(R.id.image);
+//                    nameTextDialog.setText(((TextView) view.findViewById(R.id.food_name_text)).getText());
+//                    energyTextDialog.setText(((TextView) view.findViewById(R.id.food_energy_text)).getText());
+//                    foodImageDialog.setImageDrawable(((ImageView) view.findViewById(R.id.food_image)).getDrawable());
 //
-//        View decorView = getWindow().getDecorView();
-//        ViewPager pager = (ViewPager) decorView.findViewById(R.id.view_pager);
-//        mAdapter = new PageRecyclerAdapter(getSupportFragmentManager());
-//        pager.setAdapter(mAdapter);
-//        slide = decorView.findViewById(R.id.slide);
-//        slide.setViewPager(pager);
+//                    dialog.show();
+//
+//                    //取消
+//                    Button cancelButton = (Button) dialog.findViewById(R.id.cancel);
+//                    cancelButton.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            dialog.dismiss();
+//                        }
+//                    });
+//
+//                    //确定
+//                    final EditText editText = (EditText) dialog.findViewById(R.id.weight_edit_text);
+//                    Button addButton = (Button) dialog.findViewById(R.id.add);
+//                    addButton.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            DietDetailAddTest dataManager = new DietDetailAddTest();
+//                            Handler handler = new Handler() {
+//                                @Override
+//                                public void handleMessage(Message msg) {
+//                                    switch (msg.what) {
+//                                        case NO_RETURN:
+//                                            Toast.makeText(AddFoodActivity.this, "没有返回值", Toast.LENGTH_SHORT).show();
+//                                            break;
+//                                        case UPDATE_SUCCEEDED:
+//                                            Toast.makeText(AddFoodActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
+//                                            dialog.dismiss();
+//                                            break;
+//                                        case UPDATE_FAILED:
+//                                            Toast.makeText(AddFoodActivity.this, "添加失败", Toast.LENGTH_SHORT).show();
+//                                            break;
+//                                        case REQUEST_FAILED:
+//                                            Toast.makeText(AddFoodActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+//                                            break;
+//                                        default:
+//                                            break;
+//                                    }
+//                                }
+//                            };
+//                            dataManager.setHandler(handler);
+//                            dataManager.request(foodList.get(position).getFoodId(),
+//                                    Integer.parseInt(editText.getText().toString()),
+//                                    AccountID.getId(),
+//                                    spinner.getSelectedIndex(),
+//                                    AddFoodActivity.this);
+//                        }
+//                    });
+//                } else {
+//                    Intent intent = new Intent(AddFoodActivity.this, FoodInfoActivity.class);
+//                    intent.putExtra("foodId", foodList.get(position).getFoodId());
+//                    startActivity(intent);
+//                }
+//            }
+//        });
+//        dataFetcher.request(AddFoodActivity.this);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setAdapter(adapter);
+//        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+//            @Override
+//            public void onLoadMoreRequested() {
+//                System.out.println("请求一次");
+//                dataFetcher.setHandler(handler);
+//                dataFetcher.request(AddFoodActivity.this);
+//                //判断是否请求到头
+//            }
+//        }, recyclerView);
 
-        loading.start();
-
-        final AddFoodAdapter2 adapter = new AddFoodAdapter2(R.layout.add_food_item, foodList);
-        final PageTest dataFetcher = new PageTest();
-        final Handler handler = new Handler() {
+//点击相机按钮跳转进入识别
+        camera.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what) {
-                    case GET_DATA_SUCCEEDED:
-                        for (Food food: dataFetcher.getfoods()) {
-                            adapter.addData(new AddFood(food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
-                        }
-                        loading.stop();
-                        adapter.loadMoreComplete();
-                        if(dataFetcher.getEnd()){
-                            adapter.loadMoreEnd();
-                        }
-                        break;
-                    case GET_DATA_FAILED:
-                        loading.stop();
-                        adapter.loadMoreFail();
-                    default:
-                        break;
-                }
-            }
-        };
-        dataFetcher.setHandler(handler);
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
-                if(view.getId() == R.id.item_layout) {
-                    //弹窗
-                    final DialogPlus dialog = DialogPlus.newDialog(AddFoodActivity.this)
-                            .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.bottomsheet))
-                            .create();
-                    //下拉框
-                    final NiceSpinner spinner = (NiceSpinner) dialog.findViewById(R.id.spinner);
-                    ArrayList<String> meals = new ArrayList<>();
-                    meals.add("早餐"); meals.add("午餐"); meals.add("晚餐");
-                    spinner.attachDataSource(meals);
-                    //文本和图像
-                    TextView nameTextDialog = (TextView) dialog.findViewById(R.id.food_name);
-                    TextView energyTextDialog = (TextView) dialog.findViewById(R.id.food_energy);
-                    ImageView foodImageDialog = (ImageView) dialog.findViewById(R.id.image);
-                    nameTextDialog.setText(((TextView) view.findViewById(R.id.food_name_text)).getText());
-                    energyTextDialog.setText(((TextView) view.findViewById(R.id.food_energy_text)).getText());
-                    foodImageDialog.setImageDrawable(((ImageView) view.findViewById(R.id.food_image)).getDrawable());
-
-                    dialog.show();
-
-                    //取消
-                    Button cancelButton = (Button) dialog.findViewById(R.id.cancel);
-                    cancelButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-
-                    //确定
-                    final EditText editText = (EditText) dialog.findViewById(R.id.weight_edit_text);
-                    Button addButton = (Button) dialog.findViewById(R.id.add);
-                    addButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            DietDetailAddTest dataManager = new DietDetailAddTest();
-                            Handler handler = new Handler() {
-                                @Override
-                                public void handleMessage(Message msg) {
-                                    switch (msg.what) {
-                                        case NO_RETURN:
-                                            Toast.makeText(AddFoodActivity.this, "没有返回值", Toast.LENGTH_SHORT).show();
-                                            break;
-                                        case UPDATE_SUCCEEDED:
-                                            Toast.makeText(AddFoodActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
-                                            dialog.dismiss();
-                                            break;
-                                        case UPDATE_FAILED:
-                                            Toast.makeText(AddFoodActivity.this, "添加失败", Toast.LENGTH_SHORT).show();
-                                            break;
-                                        case REQUEST_FAILED:
-                                            Toast.makeText(AddFoodActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                            };
-                            dataManager.setHandler(handler);
-                            dataManager.request(foodList.get(position).getFoodId(),
-                                    Integer.parseInt(editText.getText().toString()),
-                                    AccountID.getId(),
-                                    spinner.getSelectedIndex(),
-                                    AddFoodActivity.this);
-                        }
-                    });
-                } else {
-                    Intent intent = new Intent(AddFoodActivity.this, FoodInfoActivity.class);
-                    intent.putExtra("foodId", foodList.get(position).getFoodId());
-                    startActivity(intent);
-                }
+            public void onClick(View v) {
+                Intent intent = new Intent(AddFoodActivity.this, IdentifyFoodActivity.class);
+                startActivity(intent);
             }
         });
-        dataFetcher.request(AddFoodActivity.this);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                System.out.println("请求一次");
-                dataFetcher.setHandler(handler);
-                dataFetcher.request(AddFoodActivity.this);
-                //判断是否请求到头
-            }
-        }, recyclerView);
-
-//点击相机按钮跳转进入牌照识别
-    camera.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(AddFoodActivity.this, IdentifyFoodActivity.class);
-            startActivity(intent);
-        }
-    });
 
     }
 
@@ -225,7 +231,7 @@ public class AddFoodActivity extends AppCompatActivity {
         foodList.add(new AddFood(1, "", "鸡腿", 400));
         foodList.add(new AddFood(2, "", "豆浆", 50));
         foodList.add(new AddFood(3, "", "煮鸡蛋", 100));
-        for(int i = 0; i < 30; i++) {
+        for (int i = 0; i < 30; i++) {
             foodList.add(new AddFood(i, "", i + "", i));
         }
     }

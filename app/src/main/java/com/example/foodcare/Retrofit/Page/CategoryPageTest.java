@@ -7,14 +7,11 @@ import android.os.Message;
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.A_entity.FoodPage;
 import com.example.foodcare.Retrofit.A_entity.Page;
-import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
-import com.google.gson.internal.bind.ObjectTypeAdapter;
+import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,16 +19,21 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PageTest {
-   // private int type;//0 1 2 3
+public class CategoryPageTest {
     private List<Food> foods;
+    private String category = "烤";//默认搜索类别
     private Page page;
     private Handler handler;
+    private int RETURN_NULL = 0;
     private int UPDATE_DATA = 1;
     private int UPDATE_FAILURE = 2;
-
     public int getPage(){return this.page.getStart();}
-    public PageTest() {
+    public CategoryPageTest(){
+        page = new Page();
+        page.setStart(0);
+    }
+    public CategoryPageTest(String category) {
+        this.category = category;
         page = new Page();
         page.setStart(0);
     }
@@ -53,8 +55,10 @@ public class PageTest {
 
         PageInterface post = retrofit.create(PageInterface.class);
         System.out.println("建立post对象");
-        Call<FoodPage> call = post.getFoodListCall(page);
-
+//        category = "零食";
+        System.out.println(page+"---------------------");
+        Call<FoodPage> call = post.getMalCategoryCall(this.page,category);
+        System.out.println(page+"---------------------");
         System.out.println("getcall");
         call.enqueue(new Callback<FoodPage>() {
             @Override
@@ -69,6 +73,7 @@ public class PageTest {
                     System.out.println(page.getStart());
                     foods = response.body().getFoods();
                     page = response.body().getPage();
+//                    page.setStart(page.getStart()+10);
                     System.out.println(page.getStart());
                 }
             }
@@ -89,6 +94,5 @@ public class PageTest {
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
-
 
 }

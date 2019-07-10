@@ -32,6 +32,8 @@ import android.widget.Toast;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Account;
 import com.example.foodcare.Retrofit.A_entity.FoodRank;
+import com.example.foodcare.Retrofit.Diet.AnyDayDiet.AnyDayDietStringTest;
+import com.example.foodcare.Retrofit.Diet.AnyDayDiet.AnyDayDietTest;
 import com.example.foodcare.Retrofit.Page.PageTest;
 import com.example.foodcare.Retrofit.User.UpdateUserInfo.UpdateUserInfoTest;
 import com.example.foodcare.Retrofit.User.UserInformation.UserInformationTest;
@@ -158,17 +160,20 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         lastday = (ImageView) findViewById(R.id.last_day);
         nextday = (ImageView )findViewById(R.id.next_day);
 
+        //动画
         initHeadAnimation();
+
+
+
+        //获取今日日期
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        date = new Date();
+        //更新今日日期
+        refreshDate();
 
         //mainPresenter = new MainPresenter(this);
         loading.start();
         getTodayData();
-
-        //获取今日日期
-        simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
-        date = new Date(System.currentTimeMillis());
-        //更新今日日期
-        refreshDate();
 
 
         //标题栏
@@ -293,6 +298,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 date=calendar.getTime();
                 refreshDate();
                 //TODO : 将界面中的diet根据更新后的日期进行更新
+                getTodayData();
             }
         });
 
@@ -306,7 +312,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 date=calendar.getTime();
                 System.out.println(date.toString());
                 refreshDate();
-
+                getTodayData();
                 //TODO : 将界面中的diet根据更新后的日期进行更新
             }
         });
@@ -315,6 +321,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
 
     private void refreshDate() {
+        System.out.println("日期变化");
+
         Intent intent = getIntent();
         String datestring = intent.getStringExtra("date");
         if (datestring == null){
@@ -322,9 +330,12 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             dateText.setText(simpleDateFormat.format(date));
         }
         else{
+            System.out.println("日期变化"+datestring);
+
             System.out.println(datestring);
             dateText.setText(datestring);
             try{
+
                 date = simpleDateFormat.parse(datestring);
             }catch(Exception e){
                 e.printStackTrace();
@@ -334,8 +345,16 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     protected void onResume() {
         super.onResume();
+        refreshDate();
         getTodayData();
     }
+
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//// TODO Auto-generated method stub
+//        super.onNewIntent(intent);
+//        setIntent(intent);
+//    }
 
     @Override
     public void refresh(ArrayList<MainGroup> groupList, double recommendedIntake, double intake, double consumption) {
@@ -435,7 +454,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     public void getTodayData() {
         loading.start();
-        final TodayDietTest dataFetcher = new TodayDietTest();
+        final AnyDayDietStringTest dataFetcher = new AnyDayDietStringTest();
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -458,13 +477,12 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         };
         dataFetcher.setHandler(handler);
         int id = AccountID.getId();
-        dataFetcher.request(id, this);
+        String dateStr = simpleDateFormat.format(date);
+        dataFetcher.request(id, dateStr, this);
     }
 
     private void refreshDiets(List<Diet> diets) {
         //测试：写定每餐推荐量
-        //TODO: 获取今日推荐量、每餐推荐量
-        //TODO: 获取group、dietDetail
         this.diets = diets;
         groupList = new ArrayList<>();
 //        groupList.add(new MainGroup("早餐", 1000, new ArrayList<MainFood>())) ;
@@ -473,6 +491,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         for (Diet diet: diets) {
             MainGroup group = new MainGroup(diet.getId(), diet.getGroup(), diet.getGroup() * 100, new ArrayList<MainFood>());
             List<DietDetail> details = diet.getDetailList();
+
             for (DietDetail detail: details) {
                 Food food = detail.getFood();
                 group.getFoodsThisMeal().add(new MainFood(detail.getFood().getId(), IP.ip + detail.getFood().getPicture_mid(), detail.getFood().getName(), detail.getQuantity(), detail.getFood().getHeat()));

@@ -11,12 +11,30 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface PageInterface {
 
     @POST("food/list/limit")
-    Call<FoodPage> getCall(@Body Page page);
+    Call<FoodPage> getFoodListCall(@Body Page page);
+
+    @Multipart
+    @POST("food/dishes/type/limit ")
+    Call<FoodPage> getDishTypeCall(@Part("page") Page page,@Part("type") String type );
+
+    @Multipart
+    @POST("food/meal/category/limit")
+    Call<FoodPage> getMalCategoryCall(@Part("page") Page page,@Part("category") String category);
+
+    @POST("food/list/frequent/limit")
+    Call<FoodPage> getFrequentCall(@Body Page page);
+
+    @Multipart
+    @POST("search/limit")
+    Call<FoodPage> getSearchCall(@Part("name") String name,@Part("page") Page page);
+
 
 }

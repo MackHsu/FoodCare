@@ -35,7 +35,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:background="@color/light_gray"
+            android:elevation="2dp">
             <!--搜索栏-->
             <EditText
                 android:id="@+id/search_bar"
@@ -73,33 +75,33 @@
                 android:layout_marginBottom="20dp"/>
         </RelativeLayout>
         <!--列表-->
-        <!--<com.flyco.tablayout.SlidingTabLayout-->
-            <!--android:id="@+id/slide"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:background="@color/light_gray"-->
-            <!--app:tl_indicator_corner_radius="2dp"-->
-            <!--app:tl_indicator_height="1.5dp"-->
-            <!--app:tl_indicator_color="@color/mainColor"-->
-            <!--app:tl_textUnselectColor="@color/mainColor4"-->
-            <!--app:tl_textSelectColor="@color/mainColor"-->
-            <!--android:textAlignment="center"-->
-            <!--android:elevation="5dp" />-->
-        <!--<android.support.v4.view.ViewPager-->
-            <!--android:id="@+id/view_pager"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="1"/>-->
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/add_food_recycler"
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/slide"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <com.victor.loading.rotate.RotateLoading
-            android:id="@+id/loading"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            app:loading_color="@color/mainColor1"
-            app:loading_speed="11"
-            app:loading_width="2dp" />
+            android:layout_height="40dp"
+            android:background="@color/light_gray"
+            app:tl_indicator_corner_radius="2dp"
+            app:tl_indicator_height="1.5dp"
+            app:tl_indicator_color="@color/mainColor"
+            app:tl_textUnselectColor="@color/mainColor4"
+            app:tl_textSelectColor="@color/mainColor"
+            android:textAlignment="center"
+            android:elevation="2dp" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/add_food_recycler"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"/>-->
+        <!--<com.victor.loading.rotate.RotateLoading-->
+            <!--android:id="@+id/loading"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--app:loading_color="@color/mainColor1"-->
+            <!--app:loading_speed="11"-->
+            <!--app:loading_width="2dp" />-->
 </LinearLayout>

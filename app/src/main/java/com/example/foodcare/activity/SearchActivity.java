@@ -1,6 +1,9 @@
 package com.example.foodcare.activity;
 
+import android.app.SearchableInfo;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +16,9 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.example.foodcare.R;
+import com.example.foodcare.Retrofit.A_entity.Food;
+import com.example.foodcare.Retrofit.Search.SearchTest;
+import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.tools.FruitAdapter;
 import com.example.foodcare.tools.StaticVariable;
 
@@ -26,11 +32,13 @@ import java.util.regex.Pattern;
 public class SearchActivity extends AppCompatActivity {
 
     private SearchView mSearchView;
-    private ListView lListView;
     private ImageButton backButton;
 
+    private List<Food> foods;
     private static Context mContent;
-
+    private final int SEARCH_CONN_ERR = 2;
+    private final int SEARCH_SUCCESS = 1;
+    private final int SEARCH_FAILED = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +60,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //lListView.setTextFilterEnabled(false);
-                searchSomething(query);
+                searchFood(query);
                 return false;
             }
 
@@ -73,15 +81,42 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    private void searchSomething(String search){
-
+    private void searchFood(final String searchstr){
+        //清空当前搜索食物
+        foods.clear();
         //TODO request 拿到数据填充到recycler中
-        //searchFruits(search);
-        RecyclerView recyclerView=(RecyclerView)findViewById(R.id.searchrecycler);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        FruitAdapter adapter=new FruitAdapter(fruitList);
-        recyclerView.setAdapter(adapter);
+        final SearchTest searchtest = new SearchTest();
+        Handler handlerhere = new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                //MyToast.mytoast("进入handler",IdentifyResultActivity.this);
+                switch(msg.what)
+                {
+                    case SEARCH_SUCCESS:
+                        //计算每日推荐摄入热量
+                        MyToast.mytoast("搜索成功", SearchActivity.this);
+                        foods = searchtest.getFoods();
+                        //getFoodsFromSearch(searchtest);
+                        break;
+                    case SEARCH_FAILED:
+                        MyToast.mytoast("搜索失败",SearchActivity.this);
+                        break;
+                    case SEARCH_CONN_ERR:
+                        MyToast.mytoast("搜索失败，请检查网络情况",SearchActivity.this);
+                        break;
+                }
+            }
+        };
+        searchtest.setHandler(handlerhere);
+        searchtest.request(searchstr);
+
+
+//
+//        RecyclerView recyclerView=(RecyclerView)findViewById(R.id.searchrecycler);
+//        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//        FruitAdapter adapter=new FruitAdapter(fruitList);
+//        recyclerView.setAdapter(adapter);
 
 
     }
@@ -90,21 +125,10 @@ public class SearchActivity extends AppCompatActivity {
      * 下面是搜索结果显示
      * 上面由于需要用到网络功能，所以下面的数据先读取本地的
      * */
-    private List<Fruit> fruitList=new ArrayList<>();
-
-    private void searchFruits(String search){
-        fruitList.clear();
-        String pattern = ".*"+search+".*";
-        for(int i=0;i<StaticVariable.AllFruitList.size();i++){
-            if(Pattern.matches(pattern, StaticVariable.AllFruitList.get(i).getName())){
-                fruitList.add(StaticVariable.AllFruitList.get(i));
-            }
-        }
+    private void getFoodsFromSearch(SearchTest searchTest){
+        this.foods = searchTest.getFoods();
     }
 
-    private void initFruits(){
-
-    }
 
     public static Context getContext(){
         return mContent;
