@@ -240,7 +240,7 @@ public class AddFoodTypeFregment extends Fragment {
                 dataFetcher.setHandler(handler);
                 dataFetcher.request(mContext);
             }
-        }, recyclerView);
+            }, recyclerView);
     }
 
     private void getDishesByType(View view, String type) {
