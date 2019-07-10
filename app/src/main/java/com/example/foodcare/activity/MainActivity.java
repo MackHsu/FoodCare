@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,8 +44,8 @@ import com.example.foodcare.entity.AccountID;
 import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.presenter.MainPresenter;
-import com.example.foodcare.tools.SaveFile;
-import com.example.foodcare.util.CommonUtil;
+import com.example.foodcare.ToolClass.SaveFile;
+import com.example.foodcare.ToolClass.CommonUtil;
 import com.example.foodcare.view.HeaderAnimatedScrollView;
 import com.example.foodcare.view.IMainView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -136,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         intakeText = (TextView) findViewById(R.id.intake_today);
         consumptionText = (TextView) findViewById(R.id.consumption_today);
         restText = (TextView) findViewById(R.id.rest_today_text);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
         loading = (RotateLoading) findViewById(R.id.loading);
         passageText = (TextView) findViewById(R.id.Passage_main);
         username = (TextView) findViewById(R.id.username);                                //用户名
@@ -172,14 +171,14 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         loading.start();
         getTodayData();
 
-
-        //标题栏
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.menu_button);
-        }
+//
+//        //标题栏
+//        setSupportActionBar(toolbar);
+//        ActionBar actionBar = getSupportActionBar();
+//        if(actionBar != null) {
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//            actionBar.setHomeAsUpIndicator(R.drawable.menu_button);
+//        }
 
 
 //        final UserInformationTest info = new UserInformationTest();

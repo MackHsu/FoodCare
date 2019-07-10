@@ -24,8 +24,6 @@ import com.example.foodcare.Retrofit.Page.SearchPageTest;
 import com.example.foodcare.Retrofit.Search.SearchTest;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.adapter.SearchAdapter;
-import com.example.foodcare.tools.FruitAdapter;
-import com.example.foodcare.tools.StaticVariable;
 import com.google.gson.Gson;
 import com.victor.loading.rotate.RotateLoading;
 

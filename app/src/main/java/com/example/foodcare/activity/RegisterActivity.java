@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,14 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodcare.R;
-import com.example.foodcare.Retrofit.A_entity.AccountLog;
 import com.example.foodcare.Retrofit.User.UserExist.UserExistInterface;
-import com.example.foodcare.Retrofit.User.UserLogin.UserLoginInterface;
 import com.example.foodcare.Retrofit.User.UserRegister.UserRegisterInterface;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
-import com.example.foodcare.tools.SaveFile;
 
 import retrofit2.Call;
 import retrofit2.Callback;
