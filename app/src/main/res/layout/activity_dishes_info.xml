@@ -114,7 +114,8 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="food_pic"
                         tools:srcCompat="@drawable/defult"
-                        android:layout_marginRight="30dp"/>
+                        android:layout_marginRight="30dp"
+                        android:scaleType="centerCrop"/>
 
                 </android.support.v7.widget.CardView>
 
@@ -402,6 +403,7 @@
             android:background="#A6E9E5E5" />
 
         <android.support.v7.widget.CardView
+            android:id="@+id/ingredient_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="0dp"
@@ -429,7 +431,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"/>
                     <ImageView
-                        android:id="@+id/ic_pick"
+                        android:id="@+id/ingredient_pick"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -495,13 +497,51 @@
             android:background="#A6E9E5E5" />
 
         <android.support.v7.widget.CardView
+            android:id="@+id/excipient_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="0dp"
             app:cardElevation="0dp"
             android:background="#FFFFFF"
             >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                >
 
+            <RelativeLayout
+                android:id="@+id/excipient_head_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="辅料"
+                    android:textColor="#3D3B3B"
+                    android:layout_marginLeft="30dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+                <ImageView
+                    android:id="@+id/excipient_pick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_pick"
+                    android:layout_marginRight="30dp"/>
+            </RelativeLayout>
+            <net.cachapa.expandablelayout.ExpandableLayout
+                android:id="@+id/excipient_expandable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/excipient_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </net.cachapa.expandablelayout.ExpandableLayout>
+            </LinearLayout>
             <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="match_parent"-->
@@ -556,12 +596,51 @@
             android:background="#A6E9E5E5" />
 
         <android.support.v7.widget.CardView
+            android:id="@+id/seasoning_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="0dp"
             app:cardElevation="0dp"
             android:background="#FFFFFF"
             >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/seasoning_head_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="配料"
+                        android:textColor="#3D3B3B"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+                    <ImageView
+                        android:id="@+id/seasoning_pick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_pick"
+                        android:layout_marginRight="30dp"/>
+                </RelativeLayout>
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/seasoning_expandable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/seasoning_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </net.cachapa.expandablelayout.ExpandableLayout>
+            </LinearLayout>
 
             <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->

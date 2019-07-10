@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Food;
-import com.example.foodcare.Retrofit.GetFoodById.GetFoodByIdTest;
+import com.example.foodcare.Retrofit.FoodPackage.FoodMap.FoodMapTest;
 import com.example.foodcare.ToolClass.IP;
 
 public class MealInfoActivity extends AppCompatActivity {
@@ -46,13 +46,13 @@ public class MealInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         foodId = intent.getIntExtra("foodId", -1);
-        final GetFoodByIdTest dataFetcher = new GetFoodByIdTest();
+        final FoodMapTest dataFetcher = new FoodMapTest();
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case GET_FOOD_DETAIL_SUCCESS:
-                        showInfo(dataFetcher.getFood());
+                        showInfo(dataFetcher.getFoodMap().getFood());
                         break;
                     case GET_FOOD_DETAIL_FAILED:
                         break;

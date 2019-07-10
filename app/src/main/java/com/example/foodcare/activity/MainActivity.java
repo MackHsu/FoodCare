@@ -173,13 +173,13 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         getTodayData();
 
 
-        //标题栏
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.menu_button);
-        }
+//        //标题栏
+//        setSupportActionBar(toolbar);
+//        ActionBar actionBar = getSupportActionBar();
+//        if(actionBar != null) {
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//            actionBar.setHomeAsUpIndicator(R.drawable.menu_button);
+//        }
 
 
 //        final UserInformationTest info = new UserInformationTest();
