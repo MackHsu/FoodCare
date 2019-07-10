@@ -95,7 +95,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 //TODO 清除所有的搜索结果
-
+                foods.clear();
 //                if (!TextUtils.isEmpty(newText)) {
 //
 //
@@ -171,6 +171,8 @@ public class SearchActivity extends AppCompatActivity {
                         loading.stop();
                         MyToast.mytoast("请检查网络连接状态",SearchActivity.this);
                         break;
+                    default:
+                        adapter.loadMoreEnd();
                 }
             }
         };

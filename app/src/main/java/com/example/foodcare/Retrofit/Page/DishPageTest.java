@@ -22,6 +22,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DishPageTest {
+    int start;
+    boolean end;
     private List<Food> foods;
     private String type;
     private Page page;
@@ -33,7 +35,10 @@ public class DishPageTest {
     public DishPageTest(String type) {
         this.type = type;
         page = new Page();
-        page.setStart(30);
+        start = 0;
+        end = false;
+        page.setStart(0);
+//        page.setStart(30);
     }
 
     public boolean getEnd(){
@@ -68,7 +73,7 @@ public class DishPageTest {
         PageInterface post = retrofit.create(PageInterface.class);
         System.out.println("建立post对象");
         System.out.println(page.getStart()+"---------------------");
-        Call<FoodPage> call = post.getDishTypeCall(page,type);
+        Call<FoodPage> call = post.getDishTypeCall(start,type);
         System.out.println(page.getStart()+"---------------------");
         System.out.println("getcall");
         call.enqueue(new Callback<FoodPage>() {
@@ -83,7 +88,12 @@ public class DishPageTest {
                     handler.sendMessage(message);
 
                     System.out.println(page.getStart());
+                    page = response.body().getPage();
                     foods = response.body().getFoods();
+//                    start += response.body().getFoods().size();
+                    start = response.body().getPage().getStart();
+                    end = response.body().getPage().isEnd();
+
                     //page = response.body().getPage();
 //                    page.setStart(page.getStart()+10);
 
@@ -94,7 +104,7 @@ public class DishPageTest {
 //                    }
 //                    page.setStart(page.getStart()+foods.size());
 //                    page.setEnd(response.body().getPage().isEnd());
-//
+
                     System.out.println(page.getStart());
                 }
             }
@@ -115,8 +125,20 @@ public class DishPageTest {
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
-    public void setSelfHandler(Handler handler){
-        this.selfHandler= handler;
+
+    public int getStart() {
+        return start;
     }
 
+    public boolean isEnd() {
+        return end;
+    }
+
+    public List<Food> getFoods() {
+        return foods;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

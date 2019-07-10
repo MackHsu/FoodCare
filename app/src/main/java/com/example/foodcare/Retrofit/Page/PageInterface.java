@@ -21,20 +21,34 @@ public interface PageInterface {
     @POST("food/list/limit")
     Call<FoodPage> getFoodListCall(@Body Page page);
 
+//    @Multipart
+//    @POST("food/dishes/type/limit ")
+//    Call<FoodPage> getDishTypeCall(@Part("page") Page page,@Part("type") String type );
+
     @Multipart
     @POST("food/dishes/type/limit ")
-    Call<FoodPage> getDishTypeCall(@Part("page") Page page,@Part("type") String type );
+    Call<FoodPage> getDishTypeCall(@Part("start") int start,@Part("type") String type );
+
+
+//    @Multipart
+//    @POST("food/meal/category/limit")
+//    Call<FoodPage> getMalCategoryCall(@Part("page") Page page,@Part("category") String category);
 
     @Multipart
     @POST("food/meal/category/limit")
-    Call<FoodPage> getMalCategoryCall(@Part("page") Page page,@Part("category") String category);
+    Call<FoodPage> getMalCategoryCall(@Part("start") int start,@Part("category") String category);
+
 
     @POST("food/frequent/limit ")
     Call<FoodPage> getFrequentCall(@Body Page page);
 
+//    @Multipart
+//    @POST("food/search/limit")
+//    Call<FoodPage> getSearchCall(@Part("name") String name,@Part("page") Page page);
+
     @Multipart
     @POST("food/search/limit")
-    Call<FoodPage> getSearchCall(@Part("name") String name,@Part("page") Page page);
+    Call<FoodPage> getSearchCall(@Part("name") String name,@Part("start") int start);
 
 
 }

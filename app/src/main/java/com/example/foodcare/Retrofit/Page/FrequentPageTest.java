@@ -89,4 +89,12 @@ public class FrequentPageTest {
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
+
+    public List<Food> getFoods() {
+        return foods;
+    }
+
+    public Page getPage() {
+        return page;
+    }
 }

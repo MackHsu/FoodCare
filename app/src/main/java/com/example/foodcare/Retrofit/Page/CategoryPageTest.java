@@ -20,6 +20,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CategoryPageTest {
+    private int start;
+    private boolean end;
     private List<Food> foods;
     private String category = "烤";//默认搜索类别
     private Page page;
@@ -30,6 +32,8 @@ public class CategoryPageTest {
     public CategoryPageTest(){
         page = new Page();
         page.setStart(0);
+        start = 0;
+        end = false;
     }
     public CategoryPageTest(String category) {
         this.category = category;
@@ -56,7 +60,7 @@ public class CategoryPageTest {
         System.out.println("建立post对象");
         category = "烤";
         System.out.println(page+"---------------------");
-        Call<FoodPage> call = post.getMalCategoryCall(this.page,category);
+        Call<FoodPage> call = post.getMalCategoryCall(start,category);
         System.out.println(page+"---------------------");
         System.out.println("getcall");
         call.enqueue(new Callback<FoodPage>() {
@@ -70,9 +74,14 @@ public class CategoryPageTest {
                     message.what = UPDATE_DATA;
                     handler.sendMessage(message);
                     System.out.println(page.getStart());
+                    page = response.body().getPage();
                     foods = response.body().getFoods();
-                    //page = response.body().getPage();
-                    page.setStart(page.getStart()+10);
+//                    start += response.body().getFoods().size();
+                    start = response.body().getPage().getStart();
+                    end = response.body().getPage().isEnd();
+//                    foods = response.body().getFoods();
+//                    //page = response.body().getPage();
+//                    page.setStart(page.getStart()+10);
                     System.out.println(page.getStart());
                 }
             }
@@ -94,4 +103,19 @@ public class CategoryPageTest {
         this.handler = handler;
     }
 
+    public int getStart() {
+        return start;
+    }
+
+    public boolean isEnd() {
+        return end;
+    }
+
+    public List<Food> getFoods() {
+        return foods;
+    }
+
+    public String getCategory() {
+        return category;
+    }
 }
