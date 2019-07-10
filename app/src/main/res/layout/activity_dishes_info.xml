@@ -446,7 +446,8 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/ingredient_recycler"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"/>
                 </net.cachapa.expandablelayout.ExpandableLayout>
 
                 <!--<RelativeLayout-->
@@ -539,7 +540,8 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/excipient_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp" />
             </net.cachapa.expandablelayout.ExpandableLayout>
             </LinearLayout>
             <!--<LinearLayout-->
@@ -638,7 +640,8 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/seasoning_recycler"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp" />
                 </net.cachapa.expandablelayout.ExpandableLayout>
             </LinearLayout>
 
@@ -697,12 +700,52 @@
             android:background="#A6E9E5E5" />
 
         <android.support.v7.widget.CardView
+            android:id="@+id/practice_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="0dp"
             app:cardElevation="0dp"
             android:background="#FFFFFF"
             >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/practice_head_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="做法"
+                        android:textColor="#3D3B3B"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+                    <ImageView
+                        android:id="@+id/practice_pick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_pick"
+                        android:layout_marginRight="30dp"/>
+                </RelativeLayout>
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/practice_expandable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/practice_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"/>
+                </net.cachapa.expandablelayout.ExpandableLayout>
+            </LinearLayout>
 
             <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->
@@ -756,12 +799,55 @@
             android:background="#A6E9E5E5" />
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cook_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="0dp"
             app:cardElevation="0dp"
             android:background="#FFFFFF"
             >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/cook_head_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="烹饪工艺"
+                        android:textColor="#3D3B3B"
+                        android:layout_marginLeft="30dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
+                    <ImageView
+                        android:id="@+id/cook_pick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_pick"
+                        android:layout_marginRight="30dp"/>
+                </RelativeLayout>
+                <net.cachapa.expandablelayout.ExpandableLayout
+                    android:id="@+id/cook_expandable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/cook_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginTop="15dp"/>
+                </net.cachapa.expandablelayout.ExpandableLayout>
+            </LinearLayout>
 
             <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->

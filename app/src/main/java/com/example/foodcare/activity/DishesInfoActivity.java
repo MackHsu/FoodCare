@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,11 +20,15 @@ import com.example.foodcare.Retrofit.A_entity.FoodMap;
 import com.example.foodcare.Retrofit.FoodPackage.FoodMap.FoodMapTest;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.IngredientAdapter;
+import com.example.foodcare.adapter.PracticeAdapter;
 import com.example.foodcare.adapter.SpaceItemDecoration;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class DishesInfoActivity extends AppCompatActivity {
@@ -34,6 +37,7 @@ public class DishesInfoActivity extends AppCompatActivity {
     private Map<String, String> ingredientList;
     private Map<String, String> excipientList;
     private Map<String, String> seasoningList;
+    private List<String> practiceList;
     ArrayList<ExpandableLayout> expandables;
     ArrayList<ImageView> expandableIamges;
 
@@ -63,6 +67,17 @@ public class DishesInfoActivity extends AppCompatActivity {
     BaseQuickAdapter seasoningRecyclerAdapter;
     ImageView seasoningExpandableImage;
 
+    CardView practiceCard;
+    ExpandableLayout practiceExpandable;
+    RecyclerView practiceRecycler;
+    BaseQuickAdapter practiceRecyclerAdapter;
+    ImageView practiceExpandableImage;
+
+    CardView cookCard;
+    ExpandableLayout cookExpandable;
+    TextView cookText;
+    ImageView cookExpandableImage;
+
     private final int GET_FOOD_DETAIL_SUCCESS = 1;
     private final int GET_FOOD_DETAIL_FAILED = 0;
 
@@ -84,7 +99,7 @@ public class DishesInfoActivity extends AppCompatActivity {
                 switch (msg.what) {
                     case GET_FOOD_DETAIL_SUCCESS:
                         showInfo(dataFetcher.getFoodMap().getFood());
-                        loadMaps(dataFetcher.getFoodMap());
+                        loadMapData(dataFetcher.getFoodMap());
                         initRecyclers();
                         break;
                     case GET_FOOD_DETAIL_FAILED:
@@ -132,6 +147,21 @@ public class DishesInfoActivity extends AppCompatActivity {
         seasoningRecycler.addItemDecoration( new SpaceItemDecoration(5));
         seasoningExpandableImage = (ImageView) findViewById(R.id.seasoning_pick);
         expandableIamges.add(seasoningExpandableImage);
+
+        practiceExpandable = (ExpandableLayout) findViewById(R.id.practice_expandable);
+        expandables.add(practiceExpandable);
+        practiceCard = (CardView) findViewById(R.id.practice_card);
+        practiceRecycler = (RecyclerView) findViewById(R.id.practice_recycler);
+        practiceRecycler.addItemDecoration( new SpaceItemDecoration(5));
+        practiceExpandableImage = (ImageView) findViewById(R.id.practice_pick);
+        expandableIamges.add(practiceExpandableImage);
+
+        cookExpandable = (ExpandableLayout) findViewById(R.id.cook_expandable);
+        expandables.add(cookExpandable);
+        cookCard = (CardView) findViewById(R.id.cook_card);
+        cookText = (TextView) findViewById(R.id.cook_text);
+        cookExpandableImage = (ImageView) findViewById(R.id.cook_pick);
+        expandableIamges.add(cookExpandableImage);
     }
 
     private void showInfo(Food food) {
@@ -142,6 +172,7 @@ public class DishesInfoActivity extends AppCompatActivity {
         tanshuiText.setText(food.getTanshui() + "克");
         fatText.setText(food.getFat() + "克");
         proteinText.setText(food.getProtein() + "克");
+        cookText.setText(food.getCook());
     }
 
     private void initRecyclers() {
@@ -159,12 +190,18 @@ public class DishesInfoActivity extends AppCompatActivity {
         seasoningRecycler.setLayoutManager(manager3);
         seasoningRecyclerAdapter = new IngredientAdapter(R.layout.gradient_item, seasoningList);
         seasoningRecycler.setAdapter(seasoningRecyclerAdapter);
+
+        LinearLayoutManager manager4 = new LinearLayoutManager(this);
+        practiceRecycler.setLayoutManager(manager4);
+        practiceRecyclerAdapter = new PracticeAdapter(R.layout.practice_item, practiceList);
+        practiceRecycler.setAdapter(practiceRecyclerAdapter);
     }
 
-    private void loadMaps(FoodMap foodMap) {
+    private void loadMapData(FoodMap foodMap) {
         ingredientList = foodMap.getIngredients();
         excipientList = foodMap.getExcipients();
         seasoningList = foodMap.getSeasoning();
+        practiceList = foodMap.getPractice();
     }
 
     private void initExpandables() {
@@ -224,6 +261,46 @@ public class DishesInfoActivity extends AppCompatActivity {
                     }
                     seasoningExpandable.expand();
                     Glide.with(DishesInfoActivity.this).load(R.drawable.ic_collapse).into(seasoningExpandableImage);
+                }
+            }
+        });
+
+        practiceCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(practiceExpandable.isExpanded()) {
+                    practiceExpandable.collapse();
+                    Glide.with(DishesInfoActivity.this).load(R.drawable.ic_pick).into(practiceExpandableImage);
+                }
+                else {
+                    for (ImageView image: expandableIamges) {
+                        Glide.with(DishesInfoActivity.this).load(R.drawable.ic_pick).into(image);
+                    }
+                    for (ExpandableLayout expandable: expandables) {
+                        expandable.collapse();
+                    }
+                    practiceExpandable.expand();
+                    Glide.with(DishesInfoActivity.this).load(R.drawable.ic_collapse).into(practiceExpandableImage);
+                }
+            }
+        });
+
+        cookCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cookExpandable.isExpanded()) {
+                    cookExpandable.collapse();
+                    Glide.with(DishesInfoActivity.this).load(R.drawable.ic_pick).into(cookExpandableImage);
+                }
+                else {
+                    for (ImageView image: expandableIamges) {
+                        Glide.with(DishesInfoActivity.this).load(R.drawable.ic_pick).into(image);
+                    }
+                    for (ExpandableLayout expandable: expandables) {
+                        expandable.collapse();
+                    }
+                    cookExpandable.expand();
+                    Glide.with(DishesInfoActivity.this).load(R.drawable.ic_collapse).into(cookExpandableImage);
                 }
             }
         });
