@@ -33,7 +33,7 @@ public class DishPageTest {
     public DishPageTest(String type) {
         this.type = type;
         page = new Page();
-        page.setStart(0);
+        page.setStart(30);
     }
 
     public boolean getEnd(){
@@ -85,7 +85,16 @@ public class DishPageTest {
                     System.out.println(page.getStart());
                     foods = response.body().getFoods();
                     //page = response.body().getPage();
-                    page.setStart(page.getStart()+10);
+//                    page.setStart(page.getStart()+10);
+
+
+//                    if(foods.size()==0)
+//                    {
+//                        MyToast.mytoast("搜索结果为零",context);
+//                    }
+//                    page.setStart(page.getStart()+foods.size());
+//                    page.setEnd(response.body().getPage().isEnd());
+//
                     System.out.println(page.getStart());
                 }
             }

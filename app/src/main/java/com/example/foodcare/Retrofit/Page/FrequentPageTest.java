@@ -62,7 +62,13 @@ public class FrequentPageTest {
                     handler.sendMessage(message);
                     System.out.println("old"+page.getStart());
                     foods = response.body().getFoods();
-                    page = response.body().getPage();
+//                    page = response.body().getPage();
+                    if(foods.size()==0)
+                    {
+                        MyToast.mytoast("搜索结果为零",context);
+                    }
+                    page.setStart(page.getStart()+foods.size());
+                    page.setEnd(response.body().getPage().isEnd());
                     System.out.println("new"+page.getStart());
                 }
             }

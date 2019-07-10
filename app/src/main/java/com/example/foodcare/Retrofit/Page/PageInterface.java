@@ -33,7 +33,7 @@ public interface PageInterface {
     Call<FoodPage> getFrequentCall(@Body Page page);
 
     @Multipart
-    @POST("search/limit")
+    @POST("food/search/limit")
     Call<FoodPage> getSearchCall(@Part("name") String name,@Part("page") Page page);
 
 
