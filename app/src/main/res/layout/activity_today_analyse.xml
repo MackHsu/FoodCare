@@ -45,17 +45,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="12dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:orientation="horizontal"
-                android:background="#00FF00"
+                android:background="@drawable/shape_corner"
                 android:paddingTop="-50dp"
                 >
 
                 <LinearLayout
-                    android:layout_width="200dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
                     android:orientation="vertical">
@@ -100,12 +103,22 @@
                         android:textSize="20dp"
                         android:typeface="normal" />
                 </LinearLayout>
+
+<!--
                 <LinearLayout
-                    android:layout_width="200dp"
+                    android:layout_width="100dp"
                     android:layout_height="match_parent">
 
                 </LinearLayout>
+-->
             </LinearLayout>
+            <TextView
+                android:id="@+id/error_info_analyse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="0dp"
+                android:layout_gravity="center_horizontal"
+                android:text=""/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="250dp">
@@ -114,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
             </RelativeLayout>
-            <RelativeLayout
+           <!-- <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="250dp">
 
@@ -122,15 +135,31 @@
                     android:id="@+id/RadarChart"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
-            </RelativeLayout>
-            <RelativeLayout
+            </RelativeLayout>-->
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="折线图" />
 
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_margin="10dp"
+                android:padding="20dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我们根据您所记录的食品记录\n和您的身体状况进行以上分析"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/shape_corner"/>
         </LinearLayout>
 
+
+
     </android.support.v4.widget.NestedScrollView>
+
 
 </LinearLayout>
     <!--com.haibin.calendarview.CalendarLayout

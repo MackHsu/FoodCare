@@ -25,8 +25,6 @@ import java.util.regex.Pattern;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private String[] mStrs = {"苹果", "米饭", "香蕉", "香菜"};
-
     private SearchView mSearchView;
     private ListView lListView;
     private ImageButton backButton;
@@ -37,15 +35,10 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        mContent=getApplicationContext();//
+        mContent=getApplicationContext();
 
         mSearchView = (SearchView) findViewById(R.id.searchView);
-        lListView = (ListView) findViewById(R.id.listView);
-        lListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mStrs));
-        lListView.setTextFilterEnabled(true);
-        backButton = (ImageButton) findViewById(R.id.back_button);
-
-        initFruits();
+        backButton = (ImageButton) findViewById(R.id.search_back_button);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,47 +59,30 @@ public class SearchActivity extends AppCompatActivity {
             // 当搜索内容改变时触发该方法
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (!TextUtils.isEmpty(newText)) {
-                    lListView.setFilterText(newText);
-                } else {
-                    lListView.clearTextFilter();
-                }
+                //TODO 清除所有的搜索结果
+//                if (!TextUtils.isEmpty(newText)) {
+//
+//
+////                    lListView.setFilterText(newText);
+//                } else {
+////                    lListView.clearTextFilter();
+//                }
                 return false;
             }
         });
 
-        /*
-         * 上面是搜索用到的参数
-         * 下面是搜索结果
-         * */
-
     }
 
     private void searchSomething(String search){
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("type", search);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        searchFruits(search);
-        RecyclerView recyclerView=(RecyclerView)findViewById(R.id.recycler_view);
+        //TODO request 拿到数据填充到recycler中
+        //searchFruits(search);
+        RecyclerView recyclerView=(RecyclerView)findViewById(R.id.searchrecycler);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         FruitAdapter adapter=new FruitAdapter(fruitList);
         recyclerView.setAdapter(adapter);
 
-        //RecyclerView.Adapter.notifyDataSetChanged();
-       /* DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallBack(mDatas, newDatas), true);
-        diffResult.dispatchUpdatesTo(mAdapter);
-        fruitList.clear();
-        String pattern = ".*"+search+".*";
-        for(int i=0;i<StaticVariable.AllFruitList.size();i++){
-            if(Pattern.matches(pattern, StaticVariable.AllFruitList.get(i).getName())){
-                fruitList.add(StaticVariable.AllFruitList.get(i));
-            }
-        }*/
 
     }
     /*
@@ -127,40 +103,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void initFruits(){
-        for(int i=0;i<3;i++){
-            Fruit apple=new Fruit("Apple",R.drawable.apple_pic);
-            StaticVariable.AllFruitList.add(apple);
-            //fruitList.add(apple);
-            Fruit banana=new Fruit("Banana",R.drawable.banana_pic);
-            StaticVariable.AllFruitList.add(banana);
-            //fruitList.add(banana);
-            Fruit orange=new Fruit("Orange",R.drawable.orange_pic);
-            StaticVariable.AllFruitList.add(orange);
-            //fruitList.add(orange);
-            Fruit watermelon=new Fruit("Watermelon",R.drawable.watermelon_pic);
-            StaticVariable.AllFruitList.add(watermelon);
-            //fruitList.add(watermelon);
-            Fruit pear=new Fruit("Pear",R.drawable.pear_pic);
-            StaticVariable.AllFruitList.add(pear);
-            //fruitList.add(pear);
-            Fruit grape=new Fruit("Grape",R.drawable.grape_pic);
-            StaticVariable.AllFruitList.add(grape);
-            //fruitList.add(grape);
-            Fruit pineapple=new Fruit("Pineapple",R.drawable.pineapple_pic);
-            StaticVariable.AllFruitList.add(pineapple);
-            //fruitList.add(pineapple);
-            Fruit strawberry=new Fruit("Strawberry",R.drawable.strawberry_pic);
-            StaticVariable.AllFruitList.add(strawberry);
-            //fruitList.add(strawberry);
-            Fruit cherry=new Fruit("Cherry",R.drawable.cherry_pic);
-            StaticVariable.AllFruitList.add(cherry);
-            //fruitList.add(cherry);
-            Fruit mango=new Fruit("Mango",R.drawable.mango_pic);
-            StaticVariable.AllFruitList.add(mango);
-            //fruitList.add(mango);
 
-
-        }
     }
 
     public static Context getContext(){
