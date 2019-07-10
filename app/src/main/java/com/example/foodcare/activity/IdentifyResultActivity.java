@@ -8,9 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.Interfaces.IdentifyFoodInterface;
@@ -20,16 +17,11 @@ import com.example.foodcare.Retrofit.A_entity.FoodReg;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
-import com.example.foodcare.adapter.AddFoodAdapter2;
-import com.example.foodcare.adapter.IdentifyAdapter2;
+import com.example.foodcare.adapter.IdentifyAdapter;
 import com.google.gson.Gson;
-import com.orhanobut.dialogplus.DialogPlus;
 import com.victor.loading.rotate.RotateLoading;
 
-import org.angmarch.views.NiceSpinner;
-
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -64,7 +56,7 @@ public class IdentifyResultActivity extends AppCompatActivity {
         loading = (RotateLoading) findViewById(R.id.identifyloading);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        final IdentifyAdapter2 adapter = new IdentifyAdapter2(R.layout.identify_item, foodRegList);
+        final IdentifyAdapter adapter = new IdentifyAdapter(R.layout.identify_item, foodRegList);
         recyclerView.setAdapter(adapter);
         //点击某一表项时获得该食物的id并且传入intent参数中
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

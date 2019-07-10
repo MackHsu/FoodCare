@@ -7,8 +7,8 @@ import com.example.foodcare.Retrofit.A_entity.FoodReg;
 
 import java.util.List;
 
-public class IdentifyAdapter2 extends BaseQuickAdapter<FoodReg, BaseViewHolder> {
-    public IdentifyAdapter2(int layoutResId, List data) {
+public class IdentifyAdapter extends BaseQuickAdapter<FoodReg, BaseViewHolder> {
+    public IdentifyAdapter(int layoutResId, List data) {
         super(layoutResId, data);
     }
 

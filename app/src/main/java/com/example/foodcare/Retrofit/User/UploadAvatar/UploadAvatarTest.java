@@ -10,7 +10,6 @@ import com.example.foodcare.Retrofit.A_entity.FoodReg;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
-import com.example.foodcare.UploadPicture.UploadPicture;
 import com.example.foodcare.activity.IdentifyFoodActivity;
 
 import java.io.File;

@@ -7,26 +7,20 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import com.example.foodcare.R;
 import com.example.foodcare.ToolClass.Day;
-import com.example.foodcare.activity.MainActivity;
-import com.example.foodcare.tools.BackGroundSpan;
-import com.example.foodcare.tools.EventDecorator;
+import com.example.foodcare.ToolClass.EventDecorator;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 
 public class CalendarActivity extends AppCompatActivity {
     MaterialCalendarView calendarView;
@@ -66,7 +60,7 @@ public class CalendarActivity extends AppCompatActivity {
         {
             System.out.println(dates.toString());
         }
-        calendarView.addDecorators(new com.example.foodcare.tools.EventDecorator(Color.YELLOW,dates));
+        calendarView.addDecorators(new EventDecorator(Color.YELLOW,dates));
         //  calendarView.addDecorators(new BackGroundSpan(dates));
 
         //************

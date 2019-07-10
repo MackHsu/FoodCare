@@ -1,7 +1,6 @@
 package com.example.foodcare.activity;
 
 import android.content.Intent;
-import android.opengl.ETC1;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -24,10 +23,8 @@ import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.entity.AccountID;
-import com.example.foodcare.tools.NullOnEmptyFactory;
-import com.example.foodcare.tools.SaveFile;
+import com.example.foodcare.ToolClass.SaveFile;
 
-import java.io.InputStream;
 import java.util.Map;
 
 //import pl.droidsonroids.gif.GifTextView;

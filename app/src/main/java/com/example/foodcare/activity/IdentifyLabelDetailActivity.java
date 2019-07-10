@@ -12,12 +12,8 @@ import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.A_entity.FoodReg;
 import com.example.foodcare.ToolClass.MyToast;
-import com.example.foodcare.adapter.IdentifyAdapter2;
 import com.example.foodcare.adapter.IdentifyLabelDetailAdapter;
 import com.google.gson.Gson;
-import com.victor.loading.rotate.RotateLoading;
-
-import java.util.List;
 
 public class IdentifyLabelDetailActivity extends AppCompatActivity {
     private FoodReg foodReg;
