@@ -535,8 +535,9 @@ public class UserInfoActivity extends AppCompatActivity {
     private void UpdataInfo(){
         Account account=new Account();
         account.setId(AccountID.getId());
+
         String info=age_account.getText().toString().trim();
-        if(info.equals("未填写")){
+        if(info.equals("请填写")){
             account.setAge(0);
         }
         else{
@@ -547,7 +548,7 @@ public class UserInfoActivity extends AppCompatActivity {
         account.setName(name_account.getText().toString().trim());
 
         info=weight_account.getText().toString().trim();
-        if(info.equals("未填写")){
+        if(info.equals("请填写")){
             account.setWeight(0.0);
         }else{
             String[] _weight=info.split("kg");
@@ -555,7 +556,7 @@ public class UserInfoActivity extends AppCompatActivity {
         }
 
         info=height_account.getText().toString().trim();
-        if(info.equals("未填写")){
+        if(info.equals("请填写")){
             account.setHeight(0.0);
         }
         else{
@@ -564,7 +565,7 @@ public class UserInfoActivity extends AppCompatActivity {
         }
 
         info=fat_rate_account.getText().toString().trim();
-        if(info.equals("未填写")){
+        if(info.equals("请填写")){
             account.setFatRate(1.0);
         }
         else{

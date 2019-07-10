@@ -3,6 +3,7 @@
 //使用github上的CircleTextImageView来做圆形头像框 https://github.com/CoolThink/CircleTextImageView
 package com.example.foodcare.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
@@ -12,12 +13,14 @@ import android.support.annotation.Px;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     private final int ACCOUNT_GET_SUCCESS=8;
     private final int ACCOUNT_GET_FAILE=9;
+
+    private final int RETURN_ANALYSE=20;
 
     private long exit_time;
 
@@ -260,7 +265,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TodayAnalyseActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,RETURN_ANALYSE);
+
             }
         });
 
@@ -547,15 +553,66 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case ACCOUNT_GET_SUCCESS:
-                        username.setText(userInformationTest.account.getName());
+                        if(userInformationTest.account.getName()==null){
+                            username.setText("昵称");
+                        }
+                        else{
+                            username.setText(userInformationTest.account.getName());
+                        }
                         accounttext.setText(userInformationTest.account.getUser());
-                        String url=IP.ip+userInformationTest.account.getPicture();
-                        Glide.with(getApplicationContext()).load(url).into(UserInformation);
+                        try{
+                            String url=IP.ip+userInformationTest.account.getPicture();
+                            Glide.with(getApplicationContext()).load(url).into(UserInformation);
+                        }catch (Exception e){
+                            Log.i("TAG","没有请求到图片");
+                            e.printStackTrace();
+                        }
 
                 }
             }
         };
         userInformationTest.setHandler(handler);
         userInformationTest.request(AccountID.getId(),getApplicationContext());
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        switch (requestCode){
+            case RETURN_ANALYSE:
+                if(resultCode==RESULT_OK){
+                    showNormalDialog();
+                }
+                break;
+        }
+    }
+    private void showNormalDialog(){
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(MainActivity.this);
+        normalDialog.setIcon(R.drawable.warn_info);
+        normalDialog.setTitle("提示");
+        normalDialog.setMessage("请先完善个人信息");
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplicationContext(), UserInfoActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        normalDialog.setNegativeButton("关闭",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MyToast.mytoast("请尽快完善个人信息",getApplicationContext());
+                    }
+                });
+        // 显示
+        normalDialog.show();
     }
 }

@@ -62,6 +62,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
     private final int DATA_UPDATED = 1;
     private final int FAILED = 2;
     private final int ACCOUNT_GET_SUCCESS=8;
+    private final int RETURN_ANALYSE=20;
     private final int ACCOUNT_GET_FAILE=9;
     //折线图
     private LineChart lineChart;
@@ -219,14 +220,8 @@ public class TodayAnalyseActivity extends AppCompatActivity {
                 switch(msg.what) {
                     case DATA_NULL:
                         diets=dataFetcher.getDiets();//此时拿到的是长度为0
-                        if(can_updata){
-                            wdnmd();
-                        }
-                        else{
-                            can_updata=true;
-                        }
+                        Log.i("TAG","请求舒普结果为空");
                         Toast.makeText(getApplicationContext(), "用户今日Diet数据为空实打实", Toast.LENGTH_SHORT).show();
-
                         break;
                     case DATA_UPDATED:
                         diets = dataFetcher.getDiets();  //此时拿到的长度就是其吃了几顿
@@ -260,16 +255,16 @@ public class TodayAnalyseActivity extends AppCompatActivity {
                 {
                     case ACCOUNT_GET_SUCCESS:
                         //计算每日推荐摄入热量
-                        TodayRecommended=new Double(info.account.getWeight()*35).intValue();     //推荐摄入总量
+                        try{
+                            TodayRecommended=new Double(info.account.getWeight()*35).intValue();     //推荐摄入总量
+                        }
+                        catch (Exception e){
+                            TodayRecommended=0;
+                            e.printStackTrace();
+                        }
                         getTodayData();//初始化食谱
                         Log.i("TAG","初始化食谱成功");
-                       /* Log.i("TAG",account.getId()+"");
-                        if(can_updata){
-                            wdnmd();
-                        }
-                        else{
-                            can_updata=true;
-                        }*/
+
                         break;
                     case ACCOUNT_GET_FAILE:
                         MyToast.mytoast("获取用户个人身体数据失败",getApplicationContext());
@@ -346,6 +341,13 @@ public class TodayAnalyseActivity extends AppCompatActivity {
 
 
     private void wdnmd(){
+        if(TodayRecommended==0){
+            Intent intent=new Intent();
+            setResult(RESULT_OK,intent);
+            finish();
+            //return;
+        }
+
         initPropertyData();  //初始化上面的数据
         Log.i("TAG","初始化界面");
         init();        //将数据填充到控件中
@@ -355,6 +357,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         //drawRadarChart();
 
         initLineChart();
+        Log.i("TAG","初始化折线图成功");
     }
 
     private void initLineChart() {
@@ -425,5 +428,9 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         lineChart.invalidate();
     }
 
-
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Log.i("TAG","执行销毁函数");
+    }
 }
