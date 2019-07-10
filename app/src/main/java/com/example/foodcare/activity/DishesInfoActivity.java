@@ -1,27 +1,36 @@
 package com.example.foodcare.activity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.view.View;
-import android.widget.ImageButton;
+import android.support.v7.widget.RecyclerView;
+import android.view.textclassifier.TextClassificationSessionFactory;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.GetFoodById.GetFoodByIdTest;
 import com.example.foodcare.ToolClass.IP;
 
-public class MealInfoActivity extends AppCompatActivity {
+import net.cachapa.expandablelayout.ExpandableLayout;
+
+import java.util.Dictionary;
+import java.util.List;
+
+public class DishesInfoActivity extends AppCompatActivity {
 
     private int foodId;
+    private List<Dictionary<String, String>> ingredientList;
 
-    ImageButton backButton;
     TextView foodName;
     ImageView foodImage;
     ImageView lightImage;
@@ -29,9 +38,11 @@ public class MealInfoActivity extends AppCompatActivity {
     TextView tanshuiText;
     TextView fatText;
     TextView proteinText;
-    TextView measureText;
-    CardView measureCard;
-    View measureDivider;
+
+    RelativeLayout ingredientHeadLayout;
+    ExpandableLayout ingredientExpandable;
+    RecyclerView ingredientRecycler;
+    BaseQuickAdapter ingredientRecyclerAdapter;
 
     private final int GET_FOOD_DETAIL_SUCCESS=1;
     private final int GET_FOOD_DETAIL_FAILED=0;
@@ -39,13 +50,13 @@ public class MealInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meal_info);
+        setContentView(R.layout.activity_dishes_info);
+        Intent intent = getIntent();
+        foodId = intent.getIntExtra("foodId", -1);
 
         //初始化
         initViews();
 
-        Intent intent = getIntent();
-        foodId = intent.getIntExtra("foodId", -1);
         final GetFoodByIdTest dataFetcher = new GetFoodByIdTest();
         Handler handler = new Handler() {
             @Override
@@ -73,17 +84,9 @@ public class MealInfoActivity extends AppCompatActivity {
         tanshuiText = (TextView) findViewById(R.id.tanshui_text);
         fatText = (TextView) findViewById(R.id.fat_text);
         proteinText = (TextView) findViewById(R.id.protein_text);
-        measureText = (TextView) findViewById(R.id.measure_text);
-        measureCard = (CardView) findViewById(R.id.measure_card);
-        backButton = (ImageButton) findViewById(R.id.back_button);
-        measureDivider = (View) findViewById(R.id.measure_divider);
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        ingredientExpandable = (ExpandableLayout) findViewById(R.id.ingredient_expandable);
+        ingredientHeadLayout = (RelativeLayout) findViewById(R.id.ingredient_head_layout);
+        ingredientRecycler = (RecyclerView) findViewById(R.id.ingredient_recycler);
     }
 
     private void showInfo(Food food) {
@@ -94,10 +97,6 @@ public class MealInfoActivity extends AppCompatActivity {
         tanshuiText.setText(food.getTanshui() + "克");
         fatText.setText(food.getFat() + "克");
         proteinText.setText(food.getProtein() + "克");
-        if(food.getMeasure() == null || food.getMeasure() == "") {
-            measureCard.setVisibility(View.GONE);
-            measureDivider.setVisibility(View.GONE);
-        }
-        else measureText.setText(food.getMeasure());
     }
+
 }

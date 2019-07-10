@@ -403,6 +403,7 @@
             android:background="#A6E9E5E5" />
 
         <android.support.v7.widget.CardView
+            android:id="@+id/measure_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:cardCornerRadius="0dp"
@@ -449,7 +450,7 @@
         </android.support.v7.widget.CardView>
 
         <View
-            android:id="@+id/divider6"
+            android:id="@+id/measure_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginRight="30dp"

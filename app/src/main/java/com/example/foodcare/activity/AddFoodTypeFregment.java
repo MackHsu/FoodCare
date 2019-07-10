@@ -78,6 +78,7 @@ public class AddFoodTypeFregment extends Fragment {
         final View view = inflater.inflate(R.layout.add_food_type_fregment, null);
         loading = (RotateLoading) view.findViewById(R.id.loading);
         recyclerView = (RecyclerView) view.findViewById(R.id.add_food_recycler);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(19));
         foodList = new ArrayList<>();
         final int UPDATE_DATA = 1;
 
@@ -133,12 +134,13 @@ public class AddFoodTypeFregment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(19));
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if(view.getId() == R.id.food_info_button) {
-                    Intent intent = new Intent(mContext, MealInfoActivity.class);
+                    Intent intent = new Intent();
+                    if(foodList.get(position).getGroup() == 1) intent.setClass(mContext, MealInfoActivity.class);
+                    else intent.setClass(mContext, DishesInfoActivity.class);
                     intent.putExtra("foodId", foodList.get(position).getFoodId());
                     startActivity(intent);
                 }
@@ -157,7 +159,7 @@ public class AddFoodTypeFregment extends Fragment {
                     case UPDATE_DATA:
                         List<Food> foods = dataFetcher.getfoods();
                         for (Food food: dataFetcher.getfoods()) {
-                            adapter.addData(new AddFood(food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
+                            adapter.addData(new AddFood(food.getGroup(), food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
                         }
                         loading.stop();
                         adapter.loadMoreComplete();
@@ -193,12 +195,13 @@ public class AddFoodTypeFregment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(19));
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if(view.getId() == R.id.food_info_button) {
-                    Intent intent = new Intent(mContext, FoodInfoActivity.class);
+                    Intent intent = new Intent();
+                    if(foodList.get(position).getGroup() == 1) intent.setClass(mContext, MealInfoActivity.class);
+                    else intent.setClass(mContext, DishesInfoActivity.class);
                     intent.putExtra("foodId", foodList.get(position).getFoodId());
                     startActivity(intent);
                 }
@@ -217,7 +220,7 @@ public class AddFoodTypeFregment extends Fragment {
                     case UPDATE_DATA:
                         List<Food> foods = dataFetcher.getfoods();
                         for (Food food: dataFetcher.getfoods()) {
-                            adapter.addData(new AddFood(food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
+                            adapter.addData(new AddFood(food.getGroup(), food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
                         }
                         loading.stop();
                         adapter.loadMoreComplete();
@@ -254,12 +257,13 @@ public class AddFoodTypeFregment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(19));
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if(view.getId() == R.id.food_info_button) {
-                    Intent intent = new Intent(mContext, FoodInfoActivity.class);
+                    Intent intent = new Intent();
+                    if(foodList.get(position).getGroup() == 1) intent.setClass(mContext, MealInfoActivity.class);
+                    else intent.setClass(mContext, DishesInfoActivity.class);
                     intent.putExtra("foodId", foodList.get(position).getFoodId());
                     startActivity(intent);
                 }
@@ -278,7 +282,7 @@ public class AddFoodTypeFregment extends Fragment {
                     case UPDATE_DATA:
                         List<Food> foods = dataFetcher.getfoods();
                         for (Food food: dataFetcher.getfoods()) {
-                            adapter.addData(new AddFood(food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
+                            adapter.addData(new AddFood(food.getGroup(), food.getId(), IP.ip + food.getPicture_mid(), food.getName(), food.getHeat()));
                         }
                         loading.stop();
                         adapter.loadMoreComplete();
