@@ -29,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Account;
 import com.example.foodcare.Retrofit.A_entity.FoodRank;
@@ -71,6 +72,9 @@ import java.util.List;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements IMainView {
+
+    private final int ACCOUNT_GET_SUCCESS=8;
+    private final int ACCOUNT_GET_FAILE=9;
 
     private long exit_time;
 
@@ -131,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         mainDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         calendarButton = (Button) findViewById(R.id.calendar) ;
         Cancellation_main=(Button)findViewById(R.id.Cancellation_main);
-        UserInformation = (CircleTextImageView) findViewById(R.id.avatar);
+        UserInformation = (CircleTextImageView) findViewById(R.id.avatar);         //头像
         mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
         addButton = (FloatingActionButton) findViewById(R.id.floating_button_add);
         analysisButton = (FloatingActionButton) findViewById(R.id.floating_button_analysis);
@@ -143,8 +147,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         loading = (RotateLoading) findViewById(R.id.loading);
         passageText = (TextView) findViewById(R.id.Passage_main);
-        username = (TextView) findViewById(R.id.username);
-        accounttext = (TextView) findViewById(R.id.accounttext);
+        username = (TextView) findViewById(R.id.username);                                //用户名
+        accounttext = (TextView) findViewById(R.id.accounttext);                          //用户的那个id，自己设置得那个
 
         dateText = (TextView) findViewById(R.id.date);
 
@@ -461,9 +465,11 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 switch(msg.what) {
                     case DATA_NULL:
                         Toast.makeText(MainActivity.this, "用户今日Diet数据为空", Toast.LENGTH_SHORT).show();
+                        initInfo();
                         break;
                     case DATA_UPDATED:
                         List<Diet> diets = dataFetcher.getDiets();
+                        initInfo();
                         loading.stop();
                         refreshDiets(diets);
                         break;
@@ -533,4 +539,23 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 //        dataFetcher.setHandler(handler);
 //        dataFetcher.request(dietId, this);
 //    }
+
+    private void initInfo(){
+        final UserInformationTest userInformationTest=new UserInformationTest();
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case ACCOUNT_GET_SUCCESS:
+                        username.setText(userInformationTest.account.getName());
+                        accounttext.setText(userInformationTest.account.getUser());
+                        String url=IP.ip+userInformationTest.account.getPicture();
+                        Glide.with(getApplicationContext()).load(url).into(UserInformation);
+
+                }
+            }
+        };
+        userInformationTest.setHandler(handler);
+        userInformationTest.request(AccountID.getId(),getApplicationContext());
+    }
 }
