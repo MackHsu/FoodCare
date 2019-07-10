@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     TextView username;
     TextView accounttext;
     TextView passageText;
+    FloatingActionButton sportButton;
     private final int GET_USERINFO_SUCCESS = 1;
 
     ArrayList<MainGroup> groupList;
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         passageText = (TextView) findViewById(R.id.Passage_main);
         username = (TextView) findViewById(R.id.username);                                //用户名
         accounttext = (TextView) findViewById(R.id.accounttext);                          //用户的那个id，自己设置得那个
-
+        sportButton = (FloatingActionButton) findViewById(R.id.floating_button_workout);//添加运动悬浮按钮
         dateText = (TextView) findViewById(R.id.date);
 
         mainHeaderLayout = (RelativeLayout) findViewById(R.id.main_header_layout);
@@ -210,6 +211,13 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             }
         });
 
+        sportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(MainActivity.this,AddSportActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //点击添加跳转到添加饮食情况界面
         addButton.setOnClickListener(new View.OnClickListener() {

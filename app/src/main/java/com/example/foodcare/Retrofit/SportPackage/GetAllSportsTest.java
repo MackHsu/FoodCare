@@ -1,5 +1,6 @@
 package com.example.foodcare.Retrofit.SportPackage;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
@@ -7,6 +8,7 @@ import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.A_entity.Sport;
 import com.example.foodcare.Retrofit.FoodPackage.FoodList.FoodListInterface;
 import com.example.foodcare.ToolClass.IP;
+import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 
 import java.util.List;
@@ -30,7 +32,7 @@ public class GetAllSportsTest {
         this.handler = handler;
     }
 
-    public void request() {
+    public void request(final Context context) {
         Retrofit retrofit  = new Retrofit.Builder()
                 .baseUrl(IP.ip)
                 .addConverterFactory(new NullOnEmptyConverterFactory())
@@ -48,10 +50,16 @@ public class GetAllSportsTest {
                 System.out.println("请求成功");
                 sports = response.body();
                 if(sports == null)
-                    System.out.println("返回错误");
-                Message message = new Message();
-                message.what = GET_SPORTS_SUCCESS;
-                handler.sendMessage(message);
+                {
+                    MyToast.mytoast("返回为空",context);
+                    System.out.println("返回为空");
+                }
+                else{
+                    Message message = new Message();
+                    message.what = GET_SPORTS_SUCCESS;
+                    handler.sendMessage(message);
+                }
+
             }
 
             @Override

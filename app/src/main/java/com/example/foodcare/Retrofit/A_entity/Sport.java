@@ -11,6 +11,9 @@ public class Sport implements Serializable {
     public Sport() {
     }
 
+    public String getPicUrl(){
+        return "";
+    }
     public Sport(int id) {
         this.id = id;
     }
