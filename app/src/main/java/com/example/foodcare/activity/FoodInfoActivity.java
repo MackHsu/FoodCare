@@ -99,12 +99,6 @@ public class FoodInfoActivity extends AppCompatActivity {
                 finish();
             }
         });
-        lightImage = (ImageView) findViewById(R.id.light_image);
-        foodImage = (ImageView) findViewById(R.id.food_image);
-        heatText = (TextView) findViewById(R.id.heat_text);
-        fatText = (TextView) findViewById(R.id.fat_text);
-        tanshuiText = (TextView) findViewById(R.id.tanshui_text);
-        proteinText = (TextView) findViewById(R.id.protein_text);
         celluloseText = (TextView) findViewById(R.id.cellulose_text);
         vAText = (TextView) findViewById(R.id.vA_text);
         vCText = (TextView) findViewById(R.id.vC_text);
@@ -126,11 +120,6 @@ public class FoodInfoActivity extends AppCompatActivity {
         naText = (TextView) findViewById(R.id.na_text);
         xiText = (TextView) findViewById(R.id.xi_text);
         measureText = (TextView) findViewById(R.id.measure_text);
-        evaluateText = (TextView) findViewById(R.id.evaluate_text);
-        ingredientText = (TextView) findViewById(R.id.ingredient_text);
-        excipientText = (TextView) findViewById(R.id.excipient_text);
-        practiceText = (TextView) findViewById(R.id.practice_text);
-        cookText = (TextView) findViewById(R.id.cook_text);
     }
 
     private void loadData(Food food) {

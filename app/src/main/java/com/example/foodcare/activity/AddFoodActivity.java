@@ -230,15 +230,15 @@ public class AddFoodActivity extends AppCompatActivity {
     }
 
     //前端测试用
-    private void initFoods() {
-        foodList.add(new AddFood(0, "", "米饭", 150));
-        foodList.add(new AddFood(1, "", "鸡腿", 400));
-        foodList.add(new AddFood(2, "", "豆浆", 50));
-        foodList.add(new AddFood(3, "", "煮鸡蛋", 100));
-        for (int i = 0; i < 30; i++) {
-            foodList.add(new AddFood(i, "", i + "", i));
-        }
-    }
+//    private void initFoods() {
+//        foodList.add(new AddFood(0, "", "米饭", 150));
+//        foodList.add(new AddFood(1, "", "鸡腿", 400));
+//        foodList.add(new AddFood(2, "", "豆浆", 50));
+//        foodList.add(new AddFood(3, "", "煮鸡蛋", 100));
+//        for (int i = 0; i < 30; i++) {
+//            foodList.add(new AddFood(i, "", i + "", i));
+//        }
+//    }
 
     private class PageRecyclerAdapter extends FragmentPagerAdapter {
         public PageRecyclerAdapter(FragmentManager fm) {

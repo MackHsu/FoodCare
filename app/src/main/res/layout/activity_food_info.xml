@@ -25,7 +25,7 @@
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="详细"
+            android:text="营养元素"
             android:textColor="#fff"
             android:textSize="20sp"
             android:layout_centerHorizontal="true"
@@ -51,34 +51,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <!--图片-->
-            <ImageView
-                android:id="@+id/food_image"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_alignParentTop="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/apple"/>
-            <!--<com.github.siyamed.shapeimageview.RoundedImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="15dp"
-                android:layout_below="@id/title_layout"
-                android:src="@drawable/apple"
-                app:siRadius="20dp"
-                app:siBorderWidth="5dp"
-                app:siBorderColor="@color/mainColor"
-                app:siSquare="false"/>-->
-            <!--红绿灯图-->
-            <ImageView
-                android:id="@+id/light_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:layout_toRightOf="@id/food_name"
-                android:layout_alignBottom="@id/food_name"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="5dp"/>
             <!--名称-->
             <TextView
                 android:id="@+id/food_name"
@@ -87,97 +59,16 @@
                 android:text="FoodName"
                 android:textSize="20sp"
                 android:textColor="@color/mainColor4"
-                android:layout_below="@id/food_image"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="20dp"/>
-            <!--热量-->
-            <TextView
-                android:id="@+id/heat_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="热量："
-                android:layout_below="@id/food_name"
-                android:layout_alignLeft="@id/food_name"
-                android:layout_marginTop="5dp"
-                android:textSize="18sp"
-                android:textColor="@color/mainColor4"/>
-            <TextView
-                android:id="@+id/heat_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="heat"
-                android:layout_toRightOf="@id/heat_label"
-                android:layout_alignTop="@+id/heat_label"
-                android:textSize="18sp"
-                android:textColor="@color/mainColor" />
-            <!--碳水-->
-            <TextView
-                android:id="@+id/tanshui_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="碳水："
-                android:layout_below="@id/heat_text"
-                android:layout_alignLeft="@id/heat_label"
-                android:textColor="@color/mainColor4"
-                android:textSize="18sp"
-                android:layout_marginTop="5dp" />
-            <TextView
-                android:id="@+id/tanshui_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tanshui"
-                android:layout_toRightOf="@id/tanshui_label"
-                android:layout_alignTop="@+id/tanshui_label"
-                android:textSize="18sp"
-                android:textColor="@color/mainColor" />
-            <!--脂肪-->
-            <TextView
-                android:id="@+id/fat_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="脂肪："
-                android:layout_below="@id/tanshui_text"
-                android:layout_alignLeft="@id/tanshui_label"
-                android:textColor="@color/mainColor4"
-                android:textSize="18sp"
-                android:layout_marginTop="5dp" />
-            <TextView
-                android:id="@+id/fat_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="fat"
-                android:layout_toRightOf="@id/fat_label"
-                android:layout_alignTop="@+id/fat_label"
-                android:textSize="18sp"
-                android:textColor="@color/mainColor" />
-            <!--蛋白质-->
-            <TextView
-                android:id="@+id/protein_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="蛋白质："
-                android:layout_below="@id/fat_text"
-                android:layout_alignLeft="@id/fat_label"
-                android:textColor="@color/mainColor4"
-                android:textSize="18sp"
-                android:layout_marginTop="5dp" />
-            <TextView
-                android:id="@+id/protein_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="protein"
-                android:layout_toRightOf="@id/protein_label"
-                android:layout_alignTop="@+id/protein_label"
-                android:textSize="18sp"
-                android:textColor="@color/mainColor" />
             <!--纤维素-->
             <TextView
                 android:id="@+id/cellulose_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="纤维素："
-                android:layout_below="@id/protein_text"
-                android:layout_alignLeft="@id/protein_label"
+                android:layout_below="@id/food_name"
+                android:layout_alignLeft="@id/food_name"
                 android:textColor="@color/mainColor4"
                 android:textSize="18sp"
                 android:layout_marginTop="5dp" />
@@ -550,127 +441,6 @@
                 android:layout_alignTop="@+id/xi_label"
                 android:textSize="18sp"
                 android:textColor="@color/mainColor" />
-            <!--度量单位-->
-            <TextView
-                android:id="@+id/measure_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="度量方法（单位）："
-                android:layout_below="@id/xi_text"
-                android:layout_alignLeft="@id/xi_label"
-                android:textColor="@color/mainColor4"
-                android:textSize="18sp"
-                android:layout_marginTop="5dp" />
-            <TextView
-                android:id="@+id/measure_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="measure"
-                android:layout_toRightOf="@id/measure_label"
-                android:layout_alignTop="@+id/measure_label"
-                android:textSize="18sp"
-                android:textColor="@color/mainColor" />
-            <!--评价-->
-            <TextView
-                android:id="@+id/evaluate_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="评价："
-                android:layout_below="@id/measure_text"
-                android:layout_alignLeft="@id/measure_label"
-                android:textColor="@color/mainColor4"
-                android:textSize="18sp"
-                android:layout_marginTop="5dp" />
-            <TextView
-                android:id="@+id/evaluate_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="evaluate"
-                android:layout_toRightOf="@id/evaluate_label"
-                android:layout_alignTop="@+id/evaluate_label"
-                android:textSize="18sp"
-                android:textColor="@color/mainColor" />
-            <!--主料-->
-            <TextView
-                android:id="@+id/ingredient_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="主料："
-                android:layout_below="@id/evaluate_text"
-                android:layout_alignLeft="@id/evaluate_label"
-                android:textColor="@color/mainColor4"
-                android:textSize="18sp"
-                android:layout_marginTop="5dp" />
-            <TextView
-                android:id="@+id/ingredient_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ingredient"
-                android:layout_toRightOf="@id/ingredient_label"
-                android:layout_alignTop="@+id/ingredient_label"
-                android:textSize="18sp"
-                android:textColor="@color/mainColor" />
-            <!--辅料-->
-            <TextView
-                android:id="@+id/excipient_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="辅料："
-                android:layout_below="@id/ingredient_text"
-                android:layout_alignLeft="@id/ingredient_label"
-                android:textColor="@color/mainColor4"
-                android:textSize="18sp"
-                android:layout_marginTop="5dp" />
-            <TextView
-                android:id="@+id/excipient_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="excipient"
-                android:layout_toRightOf="@id/excipient_label"
-                android:layout_alignTop="@+id/excipient_label"
-                android:textSize="18sp"
-                android:textColor="@color/mainColor" />
-            <!--菜品做法-->
-            <TextView
-                android:id="@+id/practice_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="菜品做法："
-                android:layout_below="@id/excipient_text"
-                android:layout_alignLeft="@id/excipient_label"
-                android:textColor="@color/mainColor4"
-                android:textSize="18sp"
-                android:layout_marginTop="5dp" />
-            <TextView
-                android:id="@+id/practice_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="practice"
-                android:layout_toRightOf="@id/practice_label"
-                android:layout_alignTop="@+id/practice_label"
-                android:textSize="18sp"
-                android:textColor="@color/mainColor" />
-            <!--烹饪工艺-->
-            <TextView
-                android:id="@+id/cook_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="烹饪工艺："
-                android:layout_below="@id/practice_text"
-                android:layout_alignLeft="@id/practice_label"
-                android:textColor="@color/mainColor4"
-                android:textSize="18sp"
-                android:layout_marginTop="5dp" />
-            <TextView
-                android:id="@+id/cook_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="cook"
-                android:layout_toRightOf="@id/cook_label"
-                android:layout_alignTop="@+id/cook_label"
-                android:textSize="18sp"
-                android:textColor="@color/mainColor" />
-
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
     </FrameLayout>
