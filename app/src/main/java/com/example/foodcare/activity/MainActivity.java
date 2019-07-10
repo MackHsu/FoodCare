@@ -3,6 +3,7 @@
 //使用github上的CircleTextImageView来做圆形头像框 https://github.com/CoolThink/CircleTextImageView
 package com.example.foodcare.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
@@ -12,12 +13,14 @@ import android.support.annotation.Px;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Account;
 import com.example.foodcare.Retrofit.A_entity.FoodRank;
@@ -71,6 +75,11 @@ import java.util.List;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements IMainView {
+
+    private final int ACCOUNT_GET_SUCCESS=8;
+    private final int ACCOUNT_GET_FAILE=9;
+
+    private final int RETURN_ANALYSE=20;
 
     private long exit_time;
 
@@ -131,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         mainDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         calendarButton = (Button) findViewById(R.id.calendar) ;
         Cancellation_main=(Button)findViewById(R.id.Cancellation_main);
-        UserInformation = (CircleTextImageView) findViewById(R.id.avatar);
+        UserInformation = (CircleTextImageView) findViewById(R.id.avatar);         //头像
         mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
         addButton = (FloatingActionButton) findViewById(R.id.floating_button_add);
         analysisButton = (FloatingActionButton) findViewById(R.id.floating_button_analysis);
@@ -143,8 +152,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         loading = (RotateLoading) findViewById(R.id.loading);
         passageText = (TextView) findViewById(R.id.Passage_main);
-        username = (TextView) findViewById(R.id.username);
-        accounttext = (TextView) findViewById(R.id.accounttext);
+        username = (TextView) findViewById(R.id.username);                                //用户名
+        accounttext = (TextView) findViewById(R.id.accounttext);                          //用户的那个id，自己设置得那个
 
         dateText = (TextView) findViewById(R.id.date);
 
@@ -256,7 +265,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TodayAnalyseActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,RETURN_ANALYSE);
+
             }
         });
 
@@ -444,7 +454,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 exit_time = System.currentTimeMillis();
             } else {
                 Intent intent=new Intent();
-                setResult(RESULT_CANCELED,intent);
+                setResult(RESULT_CANCELED,intent);    //这个是用来标识从这个界面退出的两种的方式的
                 finish();
             }
             return true;
@@ -461,9 +471,11 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 switch(msg.what) {
                     case DATA_NULL:
                         Toast.makeText(MainActivity.this, "用户今日Diet数据为空", Toast.LENGTH_SHORT).show();
+                        initInfo();
                         break;
                     case DATA_UPDATED:
                         List<Diet> diets = dataFetcher.getDiets();
+                        initInfo();
                         loading.stop();
                         refreshDiets(diets);
                         break;
@@ -533,4 +545,74 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 //        dataFetcher.setHandler(handler);
 //        dataFetcher.request(dietId, this);
 //    }
+
+    private void initInfo(){
+        final UserInformationTest userInformationTest=new UserInformationTest();
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case ACCOUNT_GET_SUCCESS:
+                        if(userInformationTest.account.getName()==null){
+                            username.setText("昵称");
+                        }
+                        else{
+                            username.setText(userInformationTest.account.getName());
+                        }
+                        accounttext.setText(userInformationTest.account.getUser());
+                        try{
+                            String url=IP.ip+userInformationTest.account.getPicture();
+                            Glide.with(getApplicationContext()).load(url).into(UserInformation);
+                        }catch (Exception e){
+                            Log.i("TAG","没有请求到图片");
+                            e.printStackTrace();
+                        }
+
+                }
+            }
+        };
+        userInformationTest.setHandler(handler);
+        userInformationTest.request(AccountID.getId(),getApplicationContext());
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        switch (requestCode){
+            case RETURN_ANALYSE:
+                if(resultCode==RESULT_OK){
+                    showNormalDialog();
+                }
+                break;
+        }
+    }
+    private void showNormalDialog(){
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(MainActivity.this);
+        normalDialog.setIcon(R.drawable.warn_info);
+        normalDialog.setTitle("提示");
+        normalDialog.setMessage("请先完善个人信息");
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplicationContext(), UserInfoActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        normalDialog.setNegativeButton("关闭",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MyToast.mytoast("请尽快完善个人信息",getApplicationContext());
+                    }
+                });
+        // 显示
+        normalDialog.show();
+    }
 }

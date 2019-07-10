@@ -7,6 +7,7 @@ public class Food implements Serializable {
     private int id;
     //食物组别（0-菜品 or 1-食品）
     private int group;
+    //名字
     private String name;
 
     //略缩图
@@ -16,7 +17,7 @@ public class Food implements Serializable {
     //红绿灯图
     private String light;
 
-    //食品类别
+    //食品类别，肉类，
     private String category;
     //菜品类别（广东菜）
     private String type;

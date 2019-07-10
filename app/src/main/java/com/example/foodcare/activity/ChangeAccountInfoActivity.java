@@ -67,6 +67,7 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
         resultIntent.putExtra("info",resultInfo);
         setResult(RESULT_OK,resultIntent);
     }
+
     private boolean checkInfo(String info){
         switch (title){
             case "用户名/昵称":
@@ -90,6 +91,7 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
         }
         return false;
     }
+
     private boolean checkAge(String info){
         try{
             int age=Integer.valueOf(info);

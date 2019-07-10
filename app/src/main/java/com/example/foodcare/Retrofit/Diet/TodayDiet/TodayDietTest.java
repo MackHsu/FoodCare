@@ -3,6 +3,7 @@ package com.example.foodcare.Retrofit.Diet.TodayDiet;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.example.foodcare.Retrofit.A_entity.Diet;
 import com.example.foodcare.ToolClass.IP;
@@ -16,6 +17,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -74,17 +76,21 @@ public class TodayDietTest {
                     String text = "请求成功！！";
                     if(response.body()==null){
                         text = text+"/n查询结果为空！！！";
+                        Diets=new ArrayList<>();
                         Message message = new Message();
                         message.what = DATA_NULL;
                         handler.sendMessage(message);
                         MyToast.mytoast(text,context);
+                        Log.i("TAG","请求成功，但数据是空");
                     }
                     else{
+                        Log.i("TAG","请求成功，且数据不是空");
                         MyToast.mytoast(text,context);
                         Diets = response.body();
                         Message message = new Message();
                         message.what = DATA_UPDATED;
                         handler.sendMessage(message);
+
                     }
                 }
 

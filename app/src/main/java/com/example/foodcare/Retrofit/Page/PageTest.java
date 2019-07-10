@@ -90,5 +90,7 @@ public class PageTest {
         this.handler = handler;
     }
 
-
+    public List<Food> getFoods() {
+        return foods;
+    }
 }
