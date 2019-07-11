@@ -31,6 +31,7 @@ import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.UriToPathTool;
 import com.example.foodcare.adapter.IdentifyAdapter;
+import com.example.foodcare.adapter.SpaceItemDecoration;
 import com.google.gson.Gson;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -38,9 +39,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -76,6 +79,10 @@ public class UplaodPictureActivity extends AppCompatActivity {
     Uri UriOnScreen;
 
     UplaodPictureActivity thisupload = this;
+    private static final OkHttpClient client = new OkHttpClient.Builder().
+            connectTimeout(60, TimeUnit.SECONDS).
+            readTimeout(60, TimeUnit.SECONDS).
+            writeTimeout(60, TimeUnit.SECONDS).build();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +90,7 @@ public class UplaodPictureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_uplaod_picture);
         back_button_upload=(ImageButton)findViewById(R.id.back_button_upload);
         recyclerView=(RecyclerView)findViewById(R.id.identify_recycler_upload);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(19));
         loading=(RotateLoading)findViewById(R.id.identify_loading_upload);
         imageView=(ImageView)findViewById(R.id.picture_for_upload);
 
@@ -202,9 +210,6 @@ public class UplaodPictureActivity extends AppCompatActivity {
         startActivityForResult(intent,TAKE_PHOTO);
     }
 
-    private void uploadImage(){
-       //filepath 这个变量传过去了
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -360,6 +365,7 @@ public class UplaodPictureActivity extends AppCompatActivity {
 
         //步骤4:创建Retrofit对象
         Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
                 .baseUrl(IP.ip) // 设置 网络请求 Url
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)

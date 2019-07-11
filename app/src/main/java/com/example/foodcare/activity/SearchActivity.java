@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SearchView;
@@ -49,7 +50,6 @@ public class SearchActivity extends AppCompatActivity {
         SearchPageTest dataFetcher;
 
 
-
         mSearchView = (SearchView) findViewById(R.id.searchView);
         backButton = (ImageButton) findViewById(R.id.search_back_button);
         loading = (RotateLoading) findViewById(R.id.searchrotate);
@@ -64,6 +64,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        //返回键
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,8 +77,8 @@ public class SearchActivity extends AppCompatActivity {
             // 当点击搜索按钮时触发该方法
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                searchFood(query);
+                String _query=query.replaceAll(" ","");
+                searchFood(_query);
                 //将adapter所有的初始化都放在一个函数中，每次更新即重新创建一个adapter
                 return false;
             }
@@ -85,9 +86,17 @@ public class SearchActivity extends AppCompatActivity {
             // 当搜索内容改变时触发该方法
             @Override
             public boolean onQueryTextChange(String newText) {
-                //清除所有的搜索结果
-                foods.clear();
+                String _query=newText.replaceAll(" ","");
+                if (!TextUtils.isEmpty(_query)){
+                    foods.clear();
+                    searchFood(_query);
+                }else{
+                    foods.clear();
+                }
                 return false;
+              /*  //清除所有的搜索结果
+                foods.clear();
+                return false;*/
             }
         });
         Intent intent = getIntent();
