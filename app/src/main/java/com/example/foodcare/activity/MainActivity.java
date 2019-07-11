@@ -59,6 +59,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Date;
 
+import retrofit2.http.Query;
+
 public class MainActivity extends AppCompatActivity implements IMainView {
 
     private final int ACCOUNT_GET_SUCCESS=8;
@@ -275,6 +277,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
                 Button buttonTake=(Button)dialog.findViewById(R.id.take_photo_item_dialog_main);
                 Button buttonSelect=(Button)dialog.findViewById(R.id.select_photo_item_dialog_main);
+                Button buttonMultiple=(Button)dialog.findViewById(R.id.multiple_item_dialog_main);
                 buttonTake.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -289,6 +292,14 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                     public void onClick(View v){
                         Intent intent=new Intent(getApplicationContext(),UplaodPictureActivity.class);
                         intent.putExtra("WAY","SELECT_PICTURE");
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                });
+                buttonMultiple.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        Intent intent=new Intent(getApplicationContext(),IdentifyFoodActivity.class);
                         startActivity(intent);
                         dialog.dismiss();
                     }
