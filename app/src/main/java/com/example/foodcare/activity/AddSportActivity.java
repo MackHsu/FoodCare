@@ -24,6 +24,7 @@ import com.example.foodcare.Retrofit.SportPackage.AddPlayTest;
 import com.example.foodcare.Retrofit.SportPackage.GetAllSportsTest;
 import com.example.foodcare.ToolClass.Day;
 import com.example.foodcare.ToolClass.MyToast;
+import com.example.foodcare.adapter.SpaceItemDecoration;
 import com.example.foodcare.adapter.SportAdapter;
 import com.example.foodcare.entity.AccountID;
 import com.orhanobut.dialogplus.DialogPlus;
@@ -38,7 +39,7 @@ public class AddSportActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ImageButton backButton;
-    private List<Sport> sports;
+    private List<Sport> sports = new ArrayList<>();
     private RotateLoading loading;
     final int CONN_ERR = 2;
     final int GET_ALL_SPORTS_SUCCESS = 1;
@@ -53,6 +54,7 @@ public class AddSportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_sport);
 
         recyclerView = (RecyclerView) findViewById(R.id.sport_recycler);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(19));
         backButton = (ImageButton) findViewById(R.id.sport_back_button);
         loading = (RotateLoading) findViewById(R.id.sport_loading);
 
@@ -92,7 +94,9 @@ public class AddSportActivity extends AppCompatActivity {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
-                if(view.getId() == R.id.item_layout) {
+                System.out.println("点击！！");
+                if(view.getId() == R.id.sport_item_layout) {
+                    System.out.println("点击！！！！！！！！！！！！");
                     //弹窗
                     final DialogPlus dialog = DialogPlus.newDialog(AddSportActivity.this)
                             .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.add_sport_button_sheet))
@@ -119,7 +123,7 @@ public class AddSportActivity extends AppCompatActivity {
 
                     //确定
                     final EditText editText = (EditText) dialog.findViewById(R.id.time_edit_text);
-                    Button addButton = (Button) dialog.findViewById(R.id.add);
+                    Button addButton = (Button) dialog.findViewById(R.id.sport_sheet_add);
                     addButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -154,10 +158,10 @@ public class AddSportActivity extends AppCompatActivity {
                 }
             }
         });
-
-        dataFetcher.request(AddSportActivity.this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        dataFetcher.request(AddSportActivity.this);
+
     }
 }
