@@ -41,12 +41,13 @@ public class AddSportActivity extends AppCompatActivity {
     private ImageButton backButton;
     private List<Sport> sports = new ArrayList<>();
     private RotateLoading loading;
-    final int CONN_ERR = 2;
     final int GET_ALL_SPORTS_SUCCESS = 1;
     final int GET_ALL_SPORTS_FAILED = 0;
-    final int ADD_SPORT_SUCCESS = 3;
-    final int ADD_SPORT_FAILED = 4;
 
+    private final int NO_RETURN = 0;
+    private final int ADD_PLAY_SUCCESS = 1;
+    private final int ADD_PLAY_FAILED = 2;
+    private final int CONN_ERR = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,8 +124,8 @@ public class AddSportActivity extends AppCompatActivity {
 
                     //确定
                     final EditText editText = (EditText) dialog.findViewById(R.id.time_edit_text);
-                    Button addButton = (Button) dialog.findViewById(R.id.sport_sheet_add);
-                    addButton.setOnClickListener(new View.OnClickListener() {
+                    Button modifyButton = (Button) dialog.findViewById(R.id.sport_sheet_modify);
+                    modifyButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             AddPlayTest dataManager = new AddPlayTest();
@@ -132,16 +133,19 @@ public class AddSportActivity extends AppCompatActivity {
                                 @Override
                                 public void handleMessage(Message msg) {
                                     switch (msg.what) {
-                                        case ADD_SPORT_SUCCESS:
+                                        case ADD_PLAY_SUCCESS:
                                             MyToast.mytoast("添加运动成功！！！",AddSportActivity.this);
-
                                             dialog.dismiss();
                                             break;
-                                        case ADD_SPORT_FAILED:
+                                        case ADD_PLAY_FAILED:
                                             MyToast.mytoast("添加运动失败！！！",AddSportActivity.this);
                                             break;
+                                        case NO_RETURN:
+                                            break;
+                                        case CONN_ERR:
+                                            break;
                                         default:
-                                            MyToast.mytoast("请检查网络连接！！！",AddSportActivity.this);
+//                                            MyToast.mytoast("请检查网络连接！！！",AddSportActivity.this);
                                             break;
                                     }
                                 }
@@ -149,7 +153,7 @@ public class AddSportActivity extends AppCompatActivity {
                             dataManager.setHandler(handler);
                             Play playtoadd = new Play();
                             playtoadd.setAccount_id(AccountID.getId());
-                            playtoadd.setDate(Day.getDate());
+                            playtoadd.setDate(Day.getDateString());
                             playtoadd.setSport(sports.get(position));
                             playtoadd.setTime( Integer.parseInt(editText.getText().toString()));
                             dataManager.request(playtoadd,AddSportActivity.this);

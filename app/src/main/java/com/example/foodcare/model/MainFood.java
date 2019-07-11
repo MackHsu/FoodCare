@@ -39,7 +39,7 @@ public class MainFood {
     }
 
     public double getTotalEnergy() {
-        return energyPerHectogram * foodWeight / 100;
+        return (double) energyPerHectogram * (double) foodWeight / 100d;
     }
 
     public void setFoodWeight(int foodWeight) {

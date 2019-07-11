@@ -9,19 +9,24 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 
 public interface AnyDayDietInterface {
 
-    @POST("acc/diet/find")
-    @Multipart
-    Call<List<Diet>> getCall(@Part("account_id") int account_id,
-                             @Part("date") Date date);
+//    @POST("acc/diet/find")
+//    @Multipart
+//    Call<List<Diet>> getCall(@Part("account_id") int account_id,
+//                             @Part("date") Date date);
 
-    @POST("acc/diet/find")
-    @FormUrlEncoded
-    Call<List<Diet>> getAnyDayDietString(@Field("account_id") int account_id,
-                                         @Field("date") String date);
+    //    @POST("acc/diet/find")
+//    @FormUrlEncoded
+//    Call<List<Diet>> getAnyDayDietString(@Field("account_id") int account_id,
+//                                         @Field("date") String date);
+    @GET("acc/diet/find")
+    Call<List<Diet>> getAnyDayDietString(@Query("account_id") int account_id,
+                                         @Query("date") String date);
 }

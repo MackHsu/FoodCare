@@ -9,6 +9,15 @@ import com.example.foodcare.Retrofit.DietPackage.Diet.DietDetailAdd.DietDetailAd
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+
+import java.lang.reflect.Type;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,10 +37,20 @@ public class AddPlayTest {
     }
 
     public void request(Play play,final Context context) {//1 高蛋白 2 高酒精
+
+        //创建符合日期格式的 Gson,因为原Gson无法解析太长的日期串
+        final Gson builder = new GsonBuilder()
+                .registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+                    public Date deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+                        return new Date(jsonElement.getAsJsonPrimitive().getAsLong());
+                    }
+                })
+                .create();
+
         Retrofit retrofit  = new Retrofit.Builder()
                 .baseUrl(IP.ip)//http://fanyi.youdao.com/")
                 .addConverterFactory(new NullOnEmptyConverterFactory())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(builder))
                 .build();
         System.out.println("建立retrofit对象");
 

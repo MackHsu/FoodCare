@@ -8,9 +8,9 @@ public class Play {
 
     private Sport sport;
 
-    private Date date;
+    private String date;
 
-    //运动时长，以秒为单位
+    //运动时长，以分钟为单位
     private int time;
 
     public Play() {
@@ -32,11 +32,11 @@ public class Play {
         this.sport = sport;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
