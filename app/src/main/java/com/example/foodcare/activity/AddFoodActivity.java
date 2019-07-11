@@ -142,7 +142,7 @@ public class AddFoodActivity extends AppCompatActivity {
 //                if(view.getId() == R.id.item_layout) {
 //                    //弹窗
 //                    final DialogPlus dialog = DialogPlus.newDialog(AddFoodActivity.this)
-//                            .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.bottomsheet))
+//                            .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.bottomsheet_old))
 //                            .create();
 //                    //下拉框
 //                    final NiceSpinner spinner = (NiceSpinner) dialog.findViewById(R.id.spinner);

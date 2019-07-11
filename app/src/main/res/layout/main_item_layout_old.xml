@@ -5,46 +5,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp">
     <RelativeLayout
         android:id="@+id/item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="6dp"
-        android:paddingTop="6dp"
-        android:layout_marginRight="25dp">
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+        android:layout_marginRight="20dp">
+        <!--图片-->
+        <ImageView
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/food_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
             android:layout_marginLeft="40dp"
-            app:cardElevation="2dp">
-
-            <!--图片-->
-            <ImageView
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:id="@+id/food_image"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher" />
-        </android.support.v7.widget.CardView>
-
+            android:src="@mipmap/ic_launcher"/>
         <!--食物名称和分量的布局容器-->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_toRightOf="@id/cardView"
+            android:layout_toRightOf="@id/food_image"
             android:layout_marginLeft="5dp">
             <!--食物名称-->
             <TextView
                 android:id="@+id/food_name_text"
                 android:layout_width="wrap_content"
-                android:maxWidth="90dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:textSize="15sp" />
@@ -64,9 +50,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:textSize="20sp"/>
-
     </RelativeLayout>
-    <!--详情按钮-->
+    <!--删除按钮-->
     <!--<ImageButton-->
         <!--android:id="@+id/delete_food_button"-->
         <!--android:layout_width="wrap_content"-->
@@ -77,4 +62,5 @@
         <!--android:background="#00000000"-->
         <!--android:layout_marginLeft="10dp"-->
         <!--android:layout_marginRight="15dp"/>-->
+
 </RelativeLayout>

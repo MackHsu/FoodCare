@@ -6,25 +6,21 @@
     android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp">
+    android:layout_marginTop="10dp">
     <!--组名-->
     <TextView
         android:id="@+id/main_meal_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-
-        android:textColor="@color/mainColor2"
-        android:text="早餐"
-        />
+        android:layout_margin="5dp"
+        android:textColor="@color/mainColor2"/>
     <!--装饰线 分割线-->
     <View
         android:layout_width="0dp"
-        android:layout_height="2dp"
+        android:layout_height="5dp"
         android:layout_weight="1"
+        android:layout_marginRight="5dp"
         android:background="@color/mainColor2"
         android:layout_gravity="center_vertical"/>
 </LinearLayout>

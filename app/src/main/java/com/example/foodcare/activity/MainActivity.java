@@ -43,7 +43,6 @@ import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.entity.AccountID;
 import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
-import com.example.foodcare.presenter.MainPresenter;
 import com.example.foodcare.ToolClass.SaveFile;
 import com.example.foodcare.ToolClass.CommonUtil;
 import com.example.foodcare.view.HeaderAnimatedScrollView;
@@ -299,7 +298,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             public void onClick(View v) {
                 Day.lastDay();
                 refreshDate();
-                //TODO : 将界面中的diet根据更新后的日期进行更新
                 getTodayData();
             }
         });
@@ -310,7 +308,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 Day.nextDay();
                 refreshDate();
                 getTodayData();
-                //TODO : 将界面中的diet根据更新后的日期进行更新
             }
         });
 
@@ -494,12 +491,14 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     private void refreshDiets(List<Diet> diets) {
         //测试：写定每餐推荐量
+        //TODO: 推荐量
         this.diets = diets;
         groupList = new ArrayList<>();
 //        groupList.add(new MainGroup("早餐", 1000, new ArrayList<MainFood>())) ;
 //        groupList.add(new MainGroup("午餐", 1000, new ArrayList<MainFood>()));
 //        groupList.add(new MainGroup("晚餐", 1000, new ArrayList<MainFood>()));
         for (Diet diet: diets) {
+            if(diet.getDetailList() == null) break;
             MainGroup group = new MainGroup(diet.getId(), diet.getGroup(), diet.getGroup() * 100, new ArrayList<MainFood>());
             List<DietDetail> details = diet.getDetailList();
 

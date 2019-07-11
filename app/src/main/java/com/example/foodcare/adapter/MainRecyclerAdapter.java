@@ -28,8 +28,6 @@ import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
 
-import retrofit2.http.Query;
-
 public class MainRecyclerAdapter extends GroupedRecyclerViewAdapter {
 
     private ArrayList<MainGroup> mainGroups;
@@ -164,7 +162,12 @@ public class MainRecyclerAdapter extends GroupedRecyclerViewAdapter {
                                         break;
                                     case UPDATE_SUCCEEDED:
                                         mainGroups.get(groupPosition).getFoodsThisMeal().remove(childPosition);
-                                        MainRecyclerAdapter.this.notifyChildRemoved(groupPosition, childPosition);
+                                        if(mainGroups.get(groupPosition).getFoodsThisMeal().size() != 0) {
+                                            MainRecyclerAdapter.this.notifyChildRemoved(groupPosition, childPosition);
+                                        } else {
+                                            mainGroups.remove(groupPosition);
+                                            MainRecyclerAdapter.this.notifyGroupRemoved(groupPosition);
+                                        }
                                         break;
                                     case UPDATE_FAILED:
                                         break;
