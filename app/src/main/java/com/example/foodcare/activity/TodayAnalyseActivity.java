@@ -46,6 +46,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.foodcare.ToolClass.HeatAlgrithom.TotalHeat;
+
 public class TodayAnalyseActivity extends AppCompatActivity {
     private final int DATA_NULL = 0;
     private final int DATA_UPDATED = 1;
@@ -59,10 +61,10 @@ public class TodayAnalyseActivity extends AppCompatActivity {
     PieChart pieChart;
     //柱状图
     RadarChart radarChart;
-    int TodayRecommended;     //推荐摄入总量
-    int TodayIntake;          //今日摄入能量
-    int TodaySport;           //今日运动消耗
-    int TodayLeft;             //今日剩余可摄入
+    double TodayRecommended;     //推荐摄入总量
+    double TodayIntake;          //今日摄入能量
+    double TodaySport;           //今日运动消耗
+    double TodayLeft;             //今日剩余可摄入
     int BreakFastEnergy;        //早餐摄入量
     int LunchEnergy;            //午餐摄入量
     int DinnerEnergy;           //晚餐摄入量
@@ -75,6 +77,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
     double FatAmount;              //脂肪数量
     double cellulosePercentage;       //钠百分比
     double celluloseAmount;           //钠数量
+    double height;            //用户的重量
    // DayDetail today;
     TextView viewTodayRecommended;
     TextView viewTodayIntake;
@@ -90,6 +93,15 @@ public class TodayAnalyseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_today_analyse);
+        try{
+            Intent intent=getIntent();
+            //intent.putExtra("CT",consumptionToday);//消耗量
+            TodaySport=intent.getDoubleExtra("CT",0.0);
+        }catch (Exception e){
+            e.printStackTrace();
+            TodaySport=0.0;
+        }
+
         initiation();//首先初始化上面的部分控件
         Log.i("TAG","第一次初始化控件成功");
 
@@ -252,7 +264,14 @@ public class TodayAnalyseActivity extends AppCompatActivity {
                     case ACCOUNT_GET_SUCCESS:
                         //计算每日推荐摄入热量
                         try{
-                            TodayRecommended=new Double(info.account.getWeight()*35).intValue();     //推荐摄入总量
+                            int sex=info.account.getSex();
+                            int age=info.account.getAge();
+                            double weight=info.account.getWeight();
+                            double _height=info.account.getHeight();
+                            int level=info.account.getLevel();
+                            int plan=info.account.getPlan();
+                            height=_height;
+                            TodayRecommended=TotalHeat(sex,age,weight,_height,level,plan);    //推荐摄入总量
                         }
                         catch (Exception e){
                             TodayRecommended=0;
@@ -276,7 +295,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
 
     private void initPropertyData(){
 
-        TodaySport=0;           //今日运动消耗
+        //TodaySport=0;           //今日运动消耗
         TodayIntake=0;          //今日摄入能量,在后面进行叠加
         for(Diet diet : diets){
             Log.i("TAG","正在遍历食谱");
@@ -319,7 +338,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
                     break;
             }
         }
-        AdditionEnergy=TodayIntake/10;
+        AdditionEnergy=(BreakFastEnergy+LunchEnergy+DinnerEnergy)/10;
         TodayIntake=AdditionEnergy+TodayIntake;
         TodayLeft=TodayRecommended-TodayIntake;
         ProteinPercentage=ProteinAmount*100.0/TodayIntake;      //蛋白质百分比
@@ -388,10 +407,10 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         List<Entry> valsComp1 = new ArrayList<>();
         List<Entry> valsComp2 = new ArrayList<>();
 
-        valsComp1.add(new Entry(0, TodayRecommended*1.2f/35.0f));
-        valsComp1.add(new Entry(1, TodayRecommended*1.4f/35.0f));
-        valsComp1.add(new Entry(2, TodayRecommended/36.0f));
-        valsComp1.add(new Entry(3, 30));
+        valsComp1.add(new Entry(0, Float.valueOf(String.valueOf(height*1.2f))));
+        valsComp1.add(new Entry(1, Float.valueOf(String.valueOf(height*1.4f))));
+        valsComp1.add(new Entry(2, Float.valueOf(String.valueOf(height*0.9f))));
+        valsComp1.add(new Entry(3, Float.valueOf(String.valueOf(height*0.5f))));
 
         valsComp2.add(new Entry(0,Float.valueOf(String.valueOf(ProteinAmount))));
         valsComp2.add(new Entry(1, Float.valueOf(String.valueOf(SugarAmount))));

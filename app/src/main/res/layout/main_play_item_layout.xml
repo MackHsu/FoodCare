@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--许朗铭 2017302580224-->
+
+<!--列表格子布局，显示名称、时间和总热量-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp">
+    <RelativeLayout
+        android:id="@+id/item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:layout_marginRight="25dp">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            android:layout_marginLeft="40dp"
+            app:cardElevation="2dp">
+
+            <!--图片-->
+            <ImageView
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/sport_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher" />
+        </android.support.v7.widget.CardView>
+
+        <!--食物名称和时间的布局容器-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_toRightOf="@id/cardView"
+            android:layout_marginLeft="5dp">
+            <!--运动名称-->
+            <TextView
+                android:id="@+id/sport_name_text"
+                android:layout_width="wrap_content"
+                android:maxWidth="90dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="15sp" />
+            <!--时间-->
+            <TextView
+                android:id="@+id/sport_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sport_name_text"
+                android:textSize="10sp"/>
+        </RelativeLayout>
+        <!--总热量-->
+        <TextView
+            android:id="@+id/total_energy_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"/>
+
+    </RelativeLayout>
+</RelativeLayout>

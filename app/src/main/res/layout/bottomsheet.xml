@@ -103,7 +103,8 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="30dp"
             android:layout_toRightOf="@id/center_horizental_reference"
-            android:singleLine="true" />
+            android:maxLines="1"
+            android:inputType="number"/>
         <!--文本标签 克-->
         <TextView
             android:layout_width="wrap_content"
