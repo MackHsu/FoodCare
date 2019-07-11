@@ -41,6 +41,12 @@
                 android:layout_height="43dp"
                 android:text="上传图片文件"
                 android:textSize="20dp" />
+            <Button
+                android:id="@+id/multiple_identify"
+                android:layout_width="340dp"
+                android:layout_height="43dp"
+                android:text="多物体识别"
+                android:textSize="20dp" />
             <TextView
                 android:id="@+id/textofpath"
                 android:layout_width="match_parent"

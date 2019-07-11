@@ -16,6 +16,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -65,6 +66,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
     Button albumbutton;
     Button uploadbutton;
     Button camerafile;
+    Button multipleButton;
     TextView textofpath ;
     TextView path;
     IdentifyFoodActivity thisactivity;
@@ -78,6 +80,8 @@ public class IdentifyFoodActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageviewfilr);
         albumbutton = (Button) findViewById(R.id.albumfile);
         uploadbutton = (Button) findViewById(R.id.uploadbuttonfile);
+        multipleButton = (Button) findViewById(R.id.multiple_identify);
+
         textofpath= (TextView) findViewById(R.id.textofpath);
         path = (TextView) findViewById(R.id.path);
 
@@ -173,6 +177,16 @@ public class IdentifyFoodActivity extends AppCompatActivity {
             }
         });
 
+        multipleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(realFilrPath);
+                System.out.println(filepath);
+                Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyMultipleResultActivity.class);
+                intent.putExtra("path",filepath);
+                startActivity(intent);
+            }
+        });
     }
 
     public void setHandler(Handler handler){
