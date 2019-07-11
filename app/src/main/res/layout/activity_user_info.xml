@@ -82,7 +82,8 @@
             android:text="请填写"
             android:textSize="20dp"
             android:gravity="center_vertical"
-            android:layout_toLeftOf="@+id/J2"/>
+            android:layout_toLeftOf="@+id/J2"
+            android:maxLength="6"/>
 
     </RelativeLayout>
 
@@ -122,10 +123,44 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/L8"
+        android:layout_below="@+id/L3"
+        android:paddingRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/sex_account_l"
+            android:text="性别"
+            android:textSize="25dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/J8"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=" >"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:textSize="25dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/sex_account_r"
+            android:text="请填写"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:layout_toLeftOf="@+id/J8"/>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/L4"
-        android:layout_below="@+id/L3"
+        android:layout_below="@+id/L8"
         android:layout_width="match_parent"
         android:paddingRight="15dp"
         android:layout_height="50dp">
@@ -226,9 +261,45 @@
             android:layout_toLeftOf="@+id/J6"/>
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/L9"
+        android:layout_below="@+id/L6"
+        android:paddingRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/my_sport_account_l"
+            android:text="我的运动"
+            android:textSize="25dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/J9"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=" >"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:textSize="25dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/my_sport_account_r"
+            android:text="请填写"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:layout_toLeftOf="@+id/J9"/>
+
+    </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/L7"
-        android:layout_below="@+id/L6"
+        android:layout_below="@+id/L9"
         android:paddingRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -260,6 +331,7 @@
             android:layout_toLeftOf="@+id/J7"/>
 
     </RelativeLayout>
+
     <Button
         android:id="@+id/submit_info"
         android:layout_width="200dp"

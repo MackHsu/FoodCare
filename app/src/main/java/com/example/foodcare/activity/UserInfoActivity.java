@@ -67,6 +67,8 @@ public class UserInfoActivity extends AppCompatActivity {
     private TextView height_account;
     private TextView fat_rate_account;
     private TextView my_goal_account;
+    private TextView my_sex_account;
+    private TextView my_sport_account;
     private Uri imageUri;
     private CircleTextImageView imageView;
     private Toolbar toolbar;
@@ -83,6 +85,8 @@ public class UserInfoActivity extends AppCompatActivity {
         height_account=(TextView)findViewById(R.id.height_account_r);
         fat_rate_account=(TextView)findViewById(R.id.fat_rate_account_r);
         my_goal_account=(TextView)findViewById(R.id.my_goal_account_r);
+        my_sex_account=(TextView)findViewById(R.id.sex_account_r);
+        my_sport_account=(TextView)findViewById(R.id.my_sport_account_r);
         button_submit=(Button)findViewById(R.id.submit_info);
         toolbar=findViewById(R.id.toolbar_account);
         toolbar.setTitle("< 我的信息");
@@ -183,6 +187,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+        //设置目标
         my_goal_account.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -227,6 +232,107 @@ public class UserInfoActivity extends AppCompatActivity {
             }
         });
 
+        //设置性别
+        my_sex_account.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                try{
+                    final DialogPlus dialog = DialogPlus.newDialog(UserInfoActivity.this)
+                            .setContentHolder(new ViewHolder(R.layout.dialog_item_account_sex))
+                            .create();
+                    Button button_boy = (Button) dialog.findViewById(R.id.my_boy_info);
+                    button_boy.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            my_sex_account.setText("男");
+                            changeInfo = true;
+                            button_submit.setVisibility(View.VISIBLE);
+                            dialog.dismiss();
+                        }
+                    });
+                    Button button_girl=(Button)dialog.findViewById(R.id.my_girl_info);
+                    button_girl.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            my_sex_account.setText("女");
+                            changeInfo=true;
+                            button_submit.setVisibility(View.VISIBLE);
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Log.i("TAG","设置性别这出错了");
+                }
+            }
+        });
+
+        //设置运动类型
+        my_sport_account.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                try {
+                    final DialogPlus dialog = DialogPlus.newDialog(UserInfoActivity.this)
+                            .setContentHolder(new ViewHolder(R.layout.dialog_item_account_sport))
+                            .create();
+                    Button button_zero=(Button)dialog.findViewById(R.id.jiu_zuo_bu_dong_info);
+                    button_zero.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            my_sport_account.setText("久坐不动");
+                            changeInfo=true;
+                            button_submit.setVisibility(View.VISIBLE);
+                            dialog.dismiss();
+                        }
+                    });
+                    Button button_one=(Button)dialog.findViewById(R.id.little_sport_info);
+                    button_one.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            my_sport_account.setText("轻度运动");
+                            changeInfo=true;
+                            button_submit.setVisibility(View.VISIBLE);
+                            dialog.dismiss();
+                        }
+                    });
+                    Button button_two=(Button)dialog.findViewById(R.id.middle_sport_info);
+                    button_two.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            my_sport_account.setText("中度运动");
+                            changeInfo=true;
+                            button_submit.setVisibility(View.VISIBLE);
+                            dialog.dismiss();
+                        }
+                    });
+                    Button button_three=(Button)dialog.findViewById(R.id.intensity_sport_info);
+                    button_three.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            my_sport_account.setText("重度运动");
+                            changeInfo=true;
+                            button_submit.setVisibility(View.VISIBLE);
+                            dialog.dismiss();
+                        }
+                    });
+                    Button button_four=(Button)dialog.findViewById(R.id.high_sport_info);
+                    button_four.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            my_sport_account.setText("高强度度运动");
+                            changeInfo=true;
+                            button_submit.setVisibility(View.VISIBLE);
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Log.i("TAG","运动设置点击事件这出错了");
+                }
+            }
+        });
         button_submit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -235,6 +341,7 @@ public class UserInfoActivity extends AppCompatActivity {
         });
         getAccountInfo(account_id);
     }
+
     private void openAlbum(){
         Intent intent=new Intent("android.intent.action.GET_CONTENT");
         intent.setType("image/*");
@@ -380,6 +487,7 @@ public class UserInfoActivity extends AppCompatActivity {
                     {
                         case ACCOUNT_GET_SUCCESS:
                             String _use="";
+                            //昵称那
                             try{
                                 _use=userInformationTest.account.getName();
                                 if(_use.equals("")){
@@ -393,7 +501,7 @@ public class UserInfoActivity extends AppCompatActivity {
                                 name_account.setText("请填写");
                             }
 
-
+                            //是年龄那
                             try{
                                 _use=userInformationTest.account.getAge()+"";
                                 if(_use.equals("0")){
@@ -406,7 +514,7 @@ public class UserInfoActivity extends AppCompatActivity {
                                 e.printStackTrace();
                                 age_account.setText("请填写");
                             }
-
+                            //体重那
                             try{
                                 _use=userInformationTest.account.getWeight()+"";
                                 if(_use.equals("null")){
@@ -419,7 +527,7 @@ public class UserInfoActivity extends AppCompatActivity {
                                 e.printStackTrace();
                                 weight_account.setText("请填写");
                             }
-
+                            //身高那
                             try{
                                 _use=userInformationTest.account.getHeight()+"";
                                 if(_use.equals("null")){
@@ -432,7 +540,7 @@ public class UserInfoActivity extends AppCompatActivity {
                                 e.printStackTrace();
                                 height_account.setText("请填写");
                             }
-
+                            //体脂率那
                             try{
                                 _use=userInformationTest.account.getFatRate()+"";
                                 if(_use.equals("null")){
@@ -445,7 +553,7 @@ public class UserInfoActivity extends AppCompatActivity {
                                 e.printStackTrace();
                                 fat_rate_account.setText("请填写");
                             }
-
+                            //目标那
                             int goal=userInformationTest.account.getPlan();
                             switch (goal){
                                 case 0:
@@ -460,7 +568,56 @@ public class UserInfoActivity extends AppCompatActivity {
                                     default:
                                         break;
                             }
+                            //性别这
+                            int _info=-1;
+                            try{
+                                _info=userInformationTest.account.getSex();
+                                switch (_info){
+                                    case 0:
+                                        my_sex_account.setText("女");
+                                        break;
+                                    case 1:
+                                        my_sex_account.setText("男");
+                                        break;
+                                        default:
+                                            my_sex_account.setText("请填写");//如果没出错的话，是执行不到这的
+                                            break;
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                                my_sex_account.setText("请填写");
+                            }
 
+                            //运动这
+                            _info=-1;
+                            try{
+                                _info=userInformationTest.account.getLevel();
+                                switch (_info){
+                                    case 0:
+                                        my_sport_account.setText("久坐不动");
+                                        break;
+                                    case 1:
+                                        my_sport_account.setText("轻度运动");
+                                        break;
+                                    case 2:
+                                        my_sport_account.setText("中度运动");
+                                        break;
+                                    case 3:
+                                        my_sport_account.setText("重度运动");
+                                        break;
+                                    case 4:
+                                        my_sport_account.setText("高强度运动");
+                                        break;
+                                        default:
+                                            my_sport_account.setText("请填写");
+                                            break;
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                                Log.i("TAG","在个人信息界面，请求运动者出错了");
+                                my_sport_account.setText("请填写");
+                            }
+                            //头像这
                            try{
                                 String _picture= IP.ip+userInformationTest.account.getPicture();
                                 System.out.println(_picture);
@@ -587,6 +744,49 @@ public class UserInfoActivity extends AppCompatActivity {
                 break;
         }
         account.setPlan(goal);
+        String _sex=my_sex_account.getText().toString().trim();
+        int sex=-1;
+        switch (_sex){
+            case "男":
+                sex=1;
+                break;
+            case "女":
+                sex=0;
+                break;
+            case "请填写":
+                sex=0;
+                break;
+                default:
+                    sex=0;
+                    break;
+        }
+        account.setSex(sex);
+        String _sport=my_sport_account.getText().toString().trim();
+        int sport=-1;
+        switch (_sport){
+            case "久坐不动":
+                sport=0;
+                break;
+            case "轻度运动":
+                sport=1;
+                break;
+            case "中度运动":
+                sport=2;
+                break;
+            case "重度运动":
+                sport=3;
+                break;
+            case "高强度运动":
+                sport=4;
+                break;
+            case "请填写":
+                sport=1;
+                break;
+                default:
+                    sport=0;
+                    break;
+        }
+        account.setLevel(sport);
         UpdateUserInfoTest updateUserInfoTest=new UpdateUserInfoTest();
         Handler handler = new Handler(){
             @Override

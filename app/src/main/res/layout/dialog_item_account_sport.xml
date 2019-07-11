@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="25dp"
+        android:textSize="20dp"
+        android:text="我的运动水平"/>
+
+    <Button
+        android:id="@+id/jiu_zuo_bu_dong_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:layout_marginTop="15dp"
+        android:text="久坐不动"/>
+    <Button
+        android:id="@+id/little_sport_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:layout_marginTop="10dp"
+        android:text="轻度运动"/>
+    <Button
+        android:id="@+id/middle_sport_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:layout_marginTop="10dp"
+        android:text="中度运动"/>
+    <Button
+        android:id="@+id/intensity_sport_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:layout_marginTop="10dp"
+        android:text="重度运动"/>
+    <Button
+        android:id="@+id/high_sport_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:layout_marginTop="10dp"
+        android:text="高强度运动"/>
+
+
+</LinearLayout>
