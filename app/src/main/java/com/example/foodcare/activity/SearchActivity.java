@@ -111,6 +111,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private SearchAdapter adapter;
+
     public void searchFood(String query)
     {
         loading.start();

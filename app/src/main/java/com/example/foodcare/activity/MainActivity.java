@@ -49,6 +49,8 @@ import com.example.foodcare.ToolClass.CommonUtil;
 import com.example.foodcare.view.HeaderAnimatedScrollView;
 import com.example.foodcare.view.IMainView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
 import com.thinkcool.circletextimageview.CircleTextImageView;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -261,8 +263,36 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         uploadPictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, IdentifyFoodActivity.class);
+                final DialogPlus dialog = DialogPlus.newDialog(v.getContext())
+                        .setContentHolder(new ViewHolder(R.layout.dialog_items_take_photo))
+                        .create();
+
+                Button buttonTake=(Button)dialog.findViewById(R.id.take_photo_item_dialog_main);
+                Button buttonSelect=(Button)dialog.findViewById(R.id.select_photo_item_dialog_main);
+                buttonTake.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(getApplicationContext(),UplaodPictureActivity.class);
+                        intent.putExtra("WAY","TAKE_PHOTO");
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                });
+                buttonSelect.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        Intent intent=new Intent(getApplicationContext(),UplaodPictureActivity.class);
+                        intent.putExtra("WAY","SELECT_PICTURE");
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+              /*  Intent intent = new Intent(MainActivity.this, IdentifyFoodActivity.class);
                 startActivity(intent);
+                最后如果出什么问题就用这个
+                */
             }
         });
 
