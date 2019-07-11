@@ -13,6 +13,7 @@ import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.A_entity.FoodReg;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.adapter.IdentifyLabelDetailAdapter;
+import com.example.foodcare.adapter.SpaceItemDecoration;
 import com.google.gson.Gson;
 
 public class IdentifyLabelDetailActivity extends AppCompatActivity {
@@ -31,6 +32,7 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
            foodReg =gson.fromJson(data,FoodReg.class);
 
            recyclerView = (RecyclerView) findViewById(R.id.identifylabeldetailrecycler);
+           recyclerView.addItemDecoration(new SpaceItemDecoration(19));
            recyclerView.setLayoutManager(new LinearLayoutManager(this));
            final IdentifyLabelDetailAdapter adapter = new IdentifyLabelDetailAdapter(R.layout.identify_label_detail_item, foodReg.getFoods());
            recyclerView.setAdapter(adapter);

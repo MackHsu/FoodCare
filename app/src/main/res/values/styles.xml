@@ -15,7 +15,7 @@
     <!--floating button label style-->
     <style name="floating_button_label_style">
         <item name="android:background">@drawable/rounded_rectangle</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/mainColor2</item>
         <item name="android:textSize">20sp</item>
     </style>
 </resources>
