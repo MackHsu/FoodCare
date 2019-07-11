@@ -3,11 +3,13 @@
 //使用github上的CircleTextImageView来做圆形头像框 https://github.com/CoolThink/CircleTextImageView
 package com.example.foodcare.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -29,8 +31,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
+import com.example.foodcare.Retrofit.A_entity.Account;
+import com.example.foodcare.Retrofit.A_entity.Play;
 import com.example.foodcare.Retrofit.DietPackage.Diet.AnyDayDiet.AnyDayDietStringTest;
+import com.example.foodcare.Retrofit.DietPackage.Diet.DietDetailDelete.DietDetailDeleteTest;
+import com.example.foodcare.Retrofit.SportPackage.DeletePlayTest;
+import com.example.foodcare.Retrofit.SportPackage.GetPlayByDateTest;
+import com.example.foodcare.Retrofit.SportPackage.UpdatePlayTest;
 import com.example.foodcare.Retrofit.User.UserInformation.UserInformationTest;
 import com.example.foodcare.ToolClass.CalendarDialog;
 import com.example.foodcare.ToolClass.Day;
@@ -40,6 +49,7 @@ import com.example.foodcare.Retrofit.A_entity.DietDetail;
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
+import com.example.foodcare.adapter.MainSportAdapter;
 import com.example.foodcare.entity.AccountID;
 import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
@@ -50,9 +60,11 @@ import com.example.foodcare.view.IMainView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
+import com.orhanobut.dialogplus.DialogPlus;
 import com.thinkcool.circletextimageview.CircleTextImageView;
 import com.victor.loading.rotate.RotateLoading;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -108,16 +120,32 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     TextView accounttext;
     TextView passageText;
     FloatingActionButton sportButton;
+
+    LinearLayout sportDivider;
+    RecyclerView sportRecycler;
+
     private final int GET_USERINFO_SUCCESS = 1;
 
     ArrayList<MainGroup> groupList;
     List<Diet> diets;
+    double consumptionToday;     //运动
 
     private final int DATA_NULL = 0;
     private final int DATA_UPDATED = 1;
     private final int FAILED = 2;
     SimpleDateFormat simpleDateFormat;
 
+    public final int GET_PLAYS_NULL = 0;
+    public final int GET_PLAYS_SUCCESS = 1;
+    public final int REQUEST_FALSE = 2;
+
+    private final int NO_RETURN = 0;
+    private final int UPDATE_PLAY_SUCCESS = 1;
+    private final int UPDATE_PLAY_FAILED = 2;
+    private final int CONN_ERR = 3;
+
+    private final int DELETE_PLAY_SUCCESS = 1;
+    private final int DELETE_PLAY_FAILED = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +186,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         lastday = (ImageView) findViewById(R.id.last_day);
         nextday = (ImageView )findViewById(R.id.next_day);
 
+        sportDivider = (LinearLayout) findViewById(R.id.sport_divider);
+        sportRecycler = (RecyclerView) findViewById(R.id.main_sport_recycler);
+        sportDivider.setVisibility(View.GONE);
+
         //动画
         initHeadAnimation();
 
@@ -172,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
         //mainPresenter = new MainPresenter(this);
         loading.start();
-        getTodayData();
+        getTodayDietData();
 
 //
 //        //标题栏
@@ -263,6 +295,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TodayAnalyseActivity.class);
+                intent.putExtra("CT",consumptionToday);//消耗量
                 startActivityForResult(intent,RETURN_ANALYSE);
 
             }
@@ -339,7 +372,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             public void onClick(View v) {
                 Day.lastDay();
                 refreshDate();
-                getTodayData();
+                getTodayDietData();
             }
         });
 
@@ -348,7 +381,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             public void onClick(View v) {
                 Day.nextDay();
                 refreshDate();
-                getTodayData();
+                getTodayDietData();
             }
         });
 
@@ -366,7 +399,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                             case DATE_PICKED:
                                 Toast.makeText(MainActivity.this, "从日期弹窗返回", Toast.LENGTH_SHORT).show();
                                 refreshDate();
-                                getTodayData();
+                                getTodayDietData();
                                 break;
                             default:
                                 break;
@@ -392,7 +425,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         super.onResume();
         mainDrawerLayout.closeDrawers();
         refreshDate();
-        getTodayData();
+        getTodayDietData();
     }
 
 //    @Override
@@ -498,7 +531,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         return super.onKeyDown(keyCode, event);
     }
 
-    public void getTodayData() {
+    //获取Diet数据
+    public void getTodayDietData() {
         loading.start();
         final AnyDayDietStringTest dataFetcher = new AnyDayDietStringTest();
         Handler handler = new Handler() {
@@ -507,13 +541,17 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 switch(msg.what) {
                     case DATA_NULL:
                         Toast.makeText(MainActivity.this, "用户今日Diet数据为空", Toast.LENGTH_SHORT).show();
+                        loading.stop();
                         initInfo();
+                        getTodaySportData();
                         break;
                     case DATA_UPDATED:
                         List<Diet> diets = dataFetcher.getDiets();
                         initInfo();
+                        getTodaySportData();
                         loading.stop();
-                        refreshDiets(diets);
+//                        intakeText.setText(refreshDiets(diets) + "");
+                        intakeText.setText(refreshDiets(diets).intValue() + "");
                         break;
                     case FAILED:
                         Toast.makeText(MainActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
@@ -530,9 +568,176 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         dataFetcher.request(id, Day.getDateString(), this);
     }
 
-    private void refreshDiets(List<Diet> diets) {
+    //获取今日运动
+    private void getTodaySportData() {
+        loading.start();
+        final GetPlayByDateTest dataFetcher = new GetPlayByDateTest();
+        Handler handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case GET_PLAYS_NULL:
+                        sportDivider.setVisibility(View.GONE);
+                        loading.stop();
+                        break;
+                    case GET_PLAYS_SUCCESS:
+                        sportDivider.setVisibility(View.VISIBLE);
+                        consumptionText.setText(refreshSports(dataFetcher.getPlays()).intValue() + "");
+                        loading.stop();
+                        break;
+                    case REQUEST_FALSE:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        dataFetcher.setHandler(handler);
+        System.out.println(Day.getDateString());
+        dataFetcher.request(AccountID.getId(), Day.getDateString());
+    }
+
+    //将获取的play数据填入表格
+    private Double refreshSports(List<Play> playsData) {
+        List<Play> plays = new ArrayList<>();
+        consumptionToday = 0d;
+        if (playsData.size() != 0) {
+            for (Play play: playsData) {
+                consumptionToday += play.getTime() * play.getSport().getConsume() / 60d;
+                plays.add(play);
+            }
+        }
+        else {
+            sportDivider.setVisibility(View.GONE);
+        }
+        MainSportAdapter adapter = new MainSportAdapter(R.layout.main_play_item_layout, plays);
+        sportRecycler.setAdapter(adapter);
+        initSportsListener(adapter, plays);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        sportRecycler.setLayoutManager(manager);
+        BigDecimal bg = new BigDecimal(consumptionToday);
+        consumptionToday = bg.setScale(0, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return consumptionToday;
+    }
+
+    private void initSportsListener(final MainSportAdapter adapter, final List<Play> plays) {
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(final BaseQuickAdapter adapter, View view, final int position) {
+                //修改弹窗
+                final DialogPlus dialog = DialogPlus.newDialog(MainActivity.this)
+                        .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.add_sport_button_sheet))
+                        .create();
+                //文本和图像
+                TextView nameTextDialog = (TextView) dialog.findViewById(R.id.sport_sheet_name);
+                TextView energyTextDialog = (TextView) dialog.findViewById(R.id.sport_sheet_energy);
+                ImageView sportImageDialog = (ImageView) dialog.findViewById(R.id.sport_sheet_image);
+                nameTextDialog.setText(((TextView) view.findViewById(R.id.sport_name_text)).getText());
+                energyTextDialog.setText(((TextView) view.findViewById(R.id.total_energy_text)).getText());
+                sportImageDialog.setImageDrawable(((ImageView) view.findViewById(R.id.sport_image)).getDrawable());
+
+                dialog.show();
+
+                //取消
+                Button cancelButton = (Button) dialog.findViewById(R.id.sport_sheet_cancel);
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                //确定
+                Button modifyButton = (Button) dialog.findViewById(R.id.sport_sheet_modify);
+                modifyButton.setText("修改");
+                modifyButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        UpdatePlayTest dataManager = new UpdatePlayTest();
+                        Handler handler = new Handler() {
+                            @Override
+                            public void handleMessage(Message msg) {
+                                switch (msg.what) {
+                                    case NO_RETURN:
+                                        Toast.makeText(MainActivity.this, "没有返回值", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case UPDATE_PLAY_SUCCESS:
+                                        Toast.makeText(MainActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                                        MainActivity.this.getTodaySportData();  //修改同时更新首页统计数据
+                                        dialog.dismiss();
+                                        break;
+                                    case UPDATE_PLAY_FAILED:
+                                        Toast.makeText(MainActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case CONN_ERR:
+                                        Toast.makeText(MainActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        };
+                        dataManager.setHandler(handler);
+                        dataManager.request(plays.get(position), MainActivity.this);
+                    }
+                });
+            }
+        });
+
+        adapter.setOnItemChildLongClickListener(new BaseQuickAdapter.OnItemChildLongClickListener() {
+            @Override
+            public boolean onItemChildLongClick(BaseQuickAdapter adapter, View view, final int position) {
+                //长按删除
+                        Vibrator vibrator=(Vibrator) view.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                        vibrator.vibrate(new long[]{100, 200, 100, 200},-1);
+                        android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(MainActivity.this);
+                        dialog.setTitle("提示");
+                        dialog.setMessage("将要删除" + ((TextView)view.findViewById(R.id.sport_name_text)).getText().toString() + "，是否确定？");
+                        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DeletePlayTest dataManager = new DeletePlayTest();
+                                Handler handler = new Handler() {
+                                    @Override
+                                    public void handleMessage(Message msg) {
+                                        switch (msg.what) {
+                                            case NO_RETURN:
+                                                break;
+                                            case DELETE_PLAY_SUCCESS:
+                                                (MainActivity.this).getTodaySportData();  //删除同时更新首页统计数据
+                                                break;
+                                            case DELETE_PLAY_FAILED:
+                                                break;
+                                            case CONN_ERR:
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                };
+                                dataManager.setHandler(handler);
+                                dataManager.request(AccountID.getId(),
+                                        plays.get(position).getSport().getId(),
+                                        Day.getDateString(),
+                                        MainActivity.this);
+                            }
+                        });
+                        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        dialog.show();
+                        return true;
+                    }
+        });
+    }
+
+    //将获取的Diet数据填入表格
+    private Double refreshDiets(List<Diet> diets) {
         //测试：写定每餐推荐量
         //TODO: 推荐量
+        double intakeToday = 0d;
         this.diets = diets;
         groupList = new ArrayList<>();
 //        groupList.add(new MainGroup("早餐", 1000, new ArrayList<MainFood>())) ;
@@ -544,10 +749,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             List<DietDetail> details = diet.getDetailList();
 
             for (DietDetail detail: details) {
-                Food food = detail.getFood();
                 group.getFoodsThisMeal().add(new MainFood(detail.getFood().getId(), IP.ip + detail.getFood().getPicture_mid(), detail.getFood().getName(), detail.getQuantity(), detail.getFood().getHeat()));
             }
             groupList.add(group);
+            intakeToday += group.getTotalEnergyThisMeal();
 //            refreshDetails(diet.getId(), diet.getGroup());
         }
         Collections.sort(groupList);
@@ -556,6 +761,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         MainRecyclerAdapter adapter = new MainRecyclerAdapter(this, groupList);
         mainRecycler.setAdapter(adapter);
         loading.stop();
+        return intakeToday;
     }
 
 //    private void refreshDetails(int dietId, final int group) {
@@ -585,6 +791,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 //        dataFetcher.request(dietId, this);
 //    }
 
+    //获取用户信息
     private void initInfo(){
         final UserInformationTest userInformationTest=new UserInformationTest();
         Handler handler = new Handler() {

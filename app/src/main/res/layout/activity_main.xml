@@ -233,6 +233,40 @@
                                             android:id="@+id/main_recycler"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"/>
+                                <!--分割线-->
+                                <LinearLayout
+                                    android:id="@+id/sport_divider"
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="15dp">
+                                        <!--运动-->
+                                        <TextView
+                                            android:id="@+id/main_meal_text"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="20sp"
+
+                                            android:textColor="@color/mainColor2"
+                                            android:text="运动"
+                                            />
+                                        <!--装饰线 分割线-->
+                                        <View
+                                            android:layout_width="0dp"
+                                            android:layout_height="2dp"
+                                            android:layout_weight="1"
+                                            android:background="@color/mainColor2"
+                                            android:layout_gravity="center_vertical"/>
+                                </LinearLayout>
+
+                                        <!--运动列表-->
+                                        <android.support.v7.widget.RecyclerView
+                                            android:id="@+id/main_sport_recycler"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"/>
                                         <!--加载提示-->
                                         <com.victor.loading.rotate.RotateLoading
                                             android:id="@+id/loading"

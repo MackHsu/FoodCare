@@ -33,10 +33,10 @@ public class MainGroup implements Comparable {
         }
 
         //计算总热量
-        totalEnergyThisMeal = 0;
-        for (MainFood mainFood: foodsThisMeal) {
-            totalEnergyThisMeal += mainFood.getTotalEnergy();
-        }
+//        totalEnergyThisMeal = 0;
+//        for (MainFood mainFood: foodsThisMeal) {
+//            totalEnergyThisMeal += mainFood.getTotalEnergy();
+//        }
     }
 
     public int getDietId() {

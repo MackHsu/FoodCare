@@ -19,6 +19,7 @@ import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
 import com.donkingliang.groupedadapter.holder.BaseViewHolder;
 import com.example.foodcare.Retrofit.DietPackage.Diet.DietDetailDelete.DietDetailDeleteTest;
 import com.example.foodcare.Retrofit.DietPackage.UpdateDietDetail.DietDetailUpdateTest;
+import com.example.foodcare.activity.MainActivity;
 import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
 import com.example.foodcare.R;
@@ -96,6 +97,7 @@ public class MainRecyclerAdapter extends GroupedRecyclerViewAdapter {
         Glide.with(mContext).load(mainFood.getImageUrl()).into((ImageView) holder.get(R.id.food_image));
         holder.setText(R.id.food_name_text, mainFood.getFoodName());
         holder.setText(R.id.food_weight_text, mainFood.getFoodWeight() + "克");
+        double d = mainFood.getTotalEnergy();
         holder.setText(R.id.total_energy_text, mainFood.getTotalEnergy() + "千卡");
 
         //删除
@@ -161,13 +163,14 @@ public class MainRecyclerAdapter extends GroupedRecyclerViewAdapter {
                                     case NO_RETURN:
                                         break;
                                     case UPDATE_SUCCEEDED:
-                                        mainGroups.get(groupPosition).getFoodsThisMeal().remove(childPosition);
-                                        if(mainGroups.get(groupPosition).getFoodsThisMeal().size() != 0) {
-                                            MainRecyclerAdapter.this.notifyChildRemoved(groupPosition, childPosition);
-                                        } else {
-                                            mainGroups.remove(groupPosition);
-                                            MainRecyclerAdapter.this.notifyGroupRemoved(groupPosition);
-                                        }
+//                                        mainGroups.get(groupPosition).getFoodsThisMeal().remove(childPosition);
+//                                        if(mainGroups.get(groupPosition).getFoodsThisMeal().size() != 0) {
+//                                            MainRecyclerAdapter.this.notifyChildRemoved(groupPosition, childPosition);
+//                                        } else {
+//                                            mainGroups.remove(groupPosition);
+//                                            MainRecyclerAdapter.this.notifyGroupRemoved(groupPosition);
+//                                        }
+                                        ((MainActivity) mContext).getTodayDietData();  //删除同时更新首页统计数据
                                         break;
                                     case UPDATE_FAILED:
                                         break;
@@ -240,8 +243,8 @@ public class MainRecyclerAdapter extends GroupedRecyclerViewAdapter {
                                         break;
                                     case UPDATE_SUCCEEDED:
                                         Toast.makeText(mContext, "修改成功", Toast.LENGTH_SHORT).show();
-                                        mainGroups.get(groupPosition).getFoodsThisMeal().get(childPosition).setFoodWeight(Integer.parseInt(editText.getText().toString()));
-                                        notifyChildChanged(groupPosition, childPosition);
+//                                        mainGroups.get(groupPosition).getFoodsThisMeal().get(childPosition).setFoodWeight(Integer.parseInt(editText.getText().toString()));
+                                        ((MainActivity) mContext).getTodayDietData();  //修改同时更新首页统计数据
                                         dialog.dismiss();
                                         break;
                                     case UPDATE_FAILED:

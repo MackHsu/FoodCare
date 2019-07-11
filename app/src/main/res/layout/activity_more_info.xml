@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:text="FoodName"
                 android:textSize="28sp"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
@@ -75,7 +75,7 @@
                 android:text="纤维素："
                 android:layout_below="@id/food_name"
                 android:layout_alignLeft="@id/food_name"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp" />
             <TextView
                 android:id="@+id/cellulose_text"
@@ -86,7 +86,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/cellulose_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--维他命A-->
             <TextView
                 android:id="@+id/vA_label"
@@ -95,7 +95,7 @@
                 android:text="维他命A："
                 android:layout_below="@id/cellulose_text"
                 android:layout_alignLeft="@id/cellulose_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -107,7 +107,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/vA_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--维他命C-->
             <TextView
                 android:id="@+id/vC_label"
@@ -116,7 +116,7 @@
                 android:text="维他命C："
                 android:layout_below="@id/vA_text"
                 android:layout_alignLeft="@id/vA_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -128,7 +128,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/vC_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--维他命E-->
             <TextView
                 android:id="@+id/vE_label"
@@ -137,7 +137,7 @@
                 android:text="维他命E："
                 android:layout_below="@id/vC_text"
                 android:layout_alignLeft="@id/vC_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -149,7 +149,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/vE_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--胡萝卜素-->
             <TextView
                 android:id="@+id/carotene_label"
@@ -158,7 +158,7 @@
                 android:text="胡萝卜素："
                 android:layout_below="@id/vE_text"
                 android:layout_alignLeft="@id/vE_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -170,7 +170,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/carotene_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--硫胺-->
             <TextView
                 android:id="@+id/liuan_label"
@@ -179,7 +179,7 @@
                 android:text="硫胺："
                 android:layout_below="@id/carotene_text"
                 android:layout_alignLeft="@id/carotene_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -191,7 +191,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/liuan_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--核黄素-->
             <TextView
                 android:id="@+id/hehuang_label"
@@ -200,7 +200,7 @@
                 android:text="核黄素："
                 android:layout_below="@id/liuan_text"
                 android:layout_alignLeft="@id/liuan_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -212,7 +212,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/hehuang_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--盐酸-->
             <TextView
                 android:id="@+id/yansuan_label"
@@ -221,7 +221,7 @@
                 android:text="盐酸："
                 android:layout_below="@id/hehuang_text"
                 android:layout_alignLeft="@id/hehuang_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -233,7 +233,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/yansuan_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--胆固醇-->
             <TextView
                 android:id="@+id/cholesterol_label"
@@ -242,7 +242,7 @@
                 android:text="胆固醇："
                 android:layout_below="@id/yansuan_text"
                 android:layout_alignLeft="@id/yansuan_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -254,7 +254,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/cholesterol_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--镁-->
             <TextView
                 android:id="@+id/mei_label"
@@ -263,7 +263,7 @@
                 android:text="镁："
                 android:layout_below="@id/cholesterol_text"
                 android:layout_alignLeft="@id/cholesterol_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -275,7 +275,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/mei_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--钙-->
             <TextView
                 android:id="@+id/gai_label"
@@ -284,7 +284,7 @@
                 android:text="钙："
                 android:layout_below="@id/mei_text"
                 android:layout_alignLeft="@id/mei_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -296,7 +296,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/gai_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--铁-->
             <TextView
                 android:id="@+id/tie_label"
@@ -305,7 +305,7 @@
                 android:text="铁："
                 android:layout_below="@id/gai_text"
                 android:layout_alignLeft="@id/gai_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -317,7 +317,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/tie_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--锌-->
             <TextView
                 android:id="@+id/xin_label"
@@ -326,7 +326,7 @@
                 android:text="锌："
                 android:layout_below="@id/tie_text"
                 android:layout_alignLeft="@id/tie_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -338,7 +338,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/xin_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--铜-->
             <TextView
                 android:id="@+id/tong_label"
@@ -347,7 +347,7 @@
                 android:text="铜："
                 android:layout_below="@id/xin_text"
                 android:layout_alignLeft="@id/xin_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -359,7 +359,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/tong_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--锰-->
             <TextView
                 android:id="@+id/meng_label"
@@ -368,7 +368,7 @@
                 android:text="锰："
                 android:layout_below="@id/tong_text"
                 android:layout_alignLeft="@id/tong_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -380,7 +380,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/meng_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--钾-->
             <TextView
                 android:id="@+id/jia_label"
@@ -389,7 +389,7 @@
                 android:text="钾："
                 android:layout_below="@id/meng_text"
                 android:layout_alignLeft="@id/meng_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -401,7 +401,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/jia_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--磷-->
             <TextView
                 android:id="@+id/lin_label"
@@ -410,7 +410,7 @@
                 android:text="磷："
                 android:layout_below="@id/jia_text"
                 android:layout_alignLeft="@id/jia_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -422,7 +422,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/lin_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--钠-->
             <TextView
                 android:id="@+id/na_label"
@@ -431,7 +431,7 @@
                 android:text="钠："
                 android:layout_below="@id/lin_text"
                 android:layout_alignLeft="@id/lin_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -443,7 +443,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/na_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
             <!--锡-->
             <TextView
                 android:id="@+id/xi_label"
@@ -452,7 +452,7 @@
                 android:text="锡："
                 android:layout_below="@id/na_text"
                 android:layout_alignLeft="@id/na_label"
-                android:textColor="@color/mainColor4"
+                android:textColor="@color/Black"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp" />
             <TextView
@@ -464,7 +464,7 @@
                 android:layout_marginRight="50dp"
                 android:layout_alignTop="@+id/xi_label"
                 android:textSize="18sp"
-                android:textColor="@color/mainColor" />
+                android:textColor="@color/Black" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
     </FrameLayout>

@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Sport implements Serializable {
 
+    private String url;
+
     private int id;
     private String name;
     private int consume;
@@ -11,9 +13,14 @@ public class Sport implements Serializable {
     public Sport() {
     }
 
-    public String getPicUrl(){
-        return "";
+    public String getUrl() {
+        return url;
     }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public Sport(int id) {
         this.id = id;
     }
