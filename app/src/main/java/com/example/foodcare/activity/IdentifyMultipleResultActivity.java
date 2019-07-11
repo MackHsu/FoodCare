@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.InvalidMarkException;
+import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -117,6 +118,11 @@ int id = 1;
     private void initButtonAndImage(){
         double Height = 0.0;
         double Width = 0.0;
+        if(foodPositions.size() == 0)
+        {
+            MyToast.mytoast("Sorry，我们未能识别出食物",this);
+            return;
+        }
         System.out.println("**********************"+foodPositions.get(foodPositions.size()-1).getUrl());
         Glide.with(this)
                 .load(IP.ip + foodPositions.get(foodPositions.size()-1).getUrl())
@@ -139,8 +145,7 @@ int id = 1;
 //        double Width = 410;
         Height = (Height/Width)*imageView.getWidth();
         Width = imageView.getWidth();
-        System.out.println(Height);
-        System.out.println(Width);
+        System.out.println("height" + Height + "Width" +Width);
 
         for (final FoodPosition foodPosition: foodPositions) {
             double ax = foodPosition.getRates()[0];
@@ -150,13 +155,15 @@ int id = 1;
             System.out.println(ax+"  "+ay+"  "+bx+"  "+by+"  ");
             System.out.println(foodPosition.getLabel() + foodPosition.getUrl());
             GradientDrawable drawable = new GradientDrawable();
-//            drawable.setShape(GradientDrawable.RECTANGLE); // 画框
-//            drawable.setStroke(10, Color.BLUE); // 边框粗细及颜色
+            drawable.setShape(GradientDrawable.RECTANGLE); // 画框
+            drawable.setStroke(10, Color.BLUE); // 边框粗细及颜色
             drawable.setColor(Color.parseColor("#00000000")); // 边框内部颜色
             Button button = new Button(this);
             button.setBackgroundDrawable(drawable);
-            button.setHeight((int)((bx-ax)*Height*1.8));
-            button.setWidth((int)((by-ay)*Width/1.5));
+            button.setHeight((int)((bx-ax)*Height));
+            button.setWidth((int)((by-ay)*Width));
+//            button.setHeight((int)((bx-ax)*Height*1.8));
+//            button.setWidth((int)((by-ay)*Width/1.5));
             button.setText(foodPosition.getLabel());
             System.out.println( (float) ax * (float) Width);
             System.out.println( (float) ay * (float) Height);
@@ -208,6 +215,7 @@ int id = 1;
 
                     if(response.body()==null) {
                         MyToast.mytoast("识别失败！(识别结果为空)", context);
+                        System.out.println("识别失败");
                         Message message = new Message();
                         message.what = UPLOAD_FAILED;
                         handler.sendMessage(message);
