@@ -136,9 +136,6 @@ public class UplaodPictureActivity extends AppCompatActivity {
         } else{
             Log.i("TAG","从主界面传过来的数据传输有误");
         }
-
-
-
     }
 
 
