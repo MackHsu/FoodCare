@@ -16,6 +16,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.UplaodPictureActivity"></activity>
         <activity android:name=".activity.RecommendRecipeActivity" />
+        <activity android:name=".activity.AddSportActivity"></activity>
+        <activity android:name=".activity.DishesInfoActivity" />
+        <activity android:name=".activity.MealInfoActivity" />
         <activity android:name=".activity.IdentifyResultTestActivity" />
         <activity android:name=".activity.IdentifyLabelDetailActivity" />
         <activity android:name=".activity.RegisterActivity" />
@@ -29,12 +32,8 @@
         <activity android:name=".activity.IdentifyResultActivity" />
         <activity android:name=".activity.IdentifyFoodActivity" />
         <activity android:name=".activity.ChangeAccountInfoActivity" />
-        <activity android:name=".activity.FruitActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.UserInfoActivity" />
-        <activity android:name=".RequestAndTransaction.UploadActivity" />
-        <activity android:name=".RequestAndTransaction.PostRequestActivity" />
-        <activity android:name=".RequestAndTransaction.GetRequestActivity" />
         <activity
             android:name=".activity.TodayAnalyseActivity"
             android:theme="@style/FoodCareStatusBarTheme" />
@@ -47,9 +46,8 @@
         <activity
             android:name=".activity.CalendarActivity"
             android:theme="@style/FoodCareStatusBarTheme" />
-        <activity android:name=".activity.UploadPictureActivity" />
         <activity
-            android:name=".activity.FoodInfoActivity"
+            android:name=".activity.MoreInfoActivity"
             android:theme="@style/FoodCareStatusBarTheme" />
         <activity
             android:name=".activity.AddFoodActivity"

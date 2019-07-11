@@ -1,6 +1,5 @@
 package com.example.foodcare.activity;
 
-import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -9,30 +8,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Food;
-import com.example.foodcare.Retrofit.A_entity.FoodReg;
 import com.example.foodcare.Retrofit.Page.SearchPageTest;
-import com.example.foodcare.Retrofit.Search.SearchTest;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.adapter.SearchAdapter;
 import com.google.gson.Gson;
 import com.victor.loading.rotate.RotateLoading;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -124,7 +114,7 @@ public class SearchActivity extends AppCompatActivity {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(SearchActivity.this, FoodInfoActivity.class);
+                Intent intent = new Intent(SearchActivity.this, MoreInfoActivity.class);
 
                 Gson gson=new Gson();
                 String jsonData=gson.toJson(foods.get(position).getId());
@@ -192,7 +182,7 @@ public class SearchActivity extends AppCompatActivity {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
-                Intent intent = new Intent(SearchActivity.this, FoodInfoActivity.class);
+                Intent intent = new Intent(SearchActivity.this, MoreInfoActivity.class);
                 intent.putExtra("foodId", foods.get(position).getId());
                 startActivity(intent);
             }

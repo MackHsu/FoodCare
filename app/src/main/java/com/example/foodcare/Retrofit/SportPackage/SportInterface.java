@@ -16,24 +16,24 @@ import retrofit2.http.Part;
 
 public interface SportInterface {
 
-    @POST("sport/list")
+    @POST("acc/sport/list")
     Call<List<Sport>> getAllSports();
 
     @Multipart
-    @POST("play/list")
+    @POST("acc/play/list")
     Call<List<Play>> getPlayByAccDate(@Part("account_id") int account_id,
                                       @Part("date") String date);
 
-    @POST("play/add")
+    @POST("acc/play/add")
     Call<Boolean> addPlay(@Body Play play);
 
     @Multipart
-    @POST("play/delete")
+    @POST("acc/play/delete")
     Call<Boolean> deletePlay(@Part("account_id") int account_id,
                                 @Part("sport_id") int sport_id,
                                 @Part("date") String date);
 
-    @POST("play/update")
+    @POST("acc/play/update")
     Call<Boolean> updatePlay(@Body Play play);
 
 

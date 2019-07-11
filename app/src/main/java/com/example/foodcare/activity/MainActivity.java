@@ -43,7 +43,6 @@ import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.entity.AccountID;
 import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
-import com.example.foodcare.presenter.MainPresenter;
 import com.example.foodcare.ToolClass.SaveFile;
 import com.example.foodcare.ToolClass.CommonUtil;
 import com.example.foodcare.view.HeaderAnimatedScrollView;
@@ -102,11 +101,11 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     LinearLayout mainBgLayout;
     ImageButton uploadPictureButton;
     RotateLoading loading;
-    MainPresenter mainPresenter;
     CircleTextImageView avatar;
     TextView username;
     TextView accounttext;
     TextView passageText;
+    FloatingActionButton sportButton;
     private final int GET_USERINFO_SUCCESS = 1;
 
     ArrayList<MainGroup> groupList;
@@ -142,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         passageText = (TextView) findViewById(R.id.Passage_main);
         username = (TextView) findViewById(R.id.username);                                //用户名
         accounttext = (TextView) findViewById(R.id.accounttext);                          //用户的那个id，自己设置得那个
-
+        sportButton = (FloatingActionButton) findViewById(R.id.floating_button_workout);//添加运动悬浮按钮
         dateText = (TextView) findViewById(R.id.date);
 
         mainHeaderLayout = (RelativeLayout) findViewById(R.id.main_header_layout);
@@ -213,6 +212,13 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             }
         });
 
+        sportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(MainActivity.this,AddSportActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //点击添加跳转到添加饮食情况界面
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -322,7 +328,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             public void onClick(View v) {
                 Day.lastDay();
                 refreshDate();
-                //TODO : 将界面中的diet根据更新后的日期进行更新
                 getTodayData();
             }
         });
@@ -333,7 +338,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 Day.nextDay();
                 refreshDate();
                 getTodayData();
-                //TODO : 将界面中的diet根据更新后的日期进行更新
             }
         });
 
@@ -517,12 +521,14 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     private void refreshDiets(List<Diet> diets) {
         //测试：写定每餐推荐量
+        //TODO: 推荐量
         this.diets = diets;
         groupList = new ArrayList<>();
 //        groupList.add(new MainGroup("早餐", 1000, new ArrayList<MainFood>())) ;
 //        groupList.add(new MainGroup("午餐", 1000, new ArrayList<MainFood>()));
 //        groupList.add(new MainGroup("晚餐", 1000, new ArrayList<MainFood>()));
         for (Diet diet: diets) {
+            if(diet.getDetailList() == null) break;
             MainGroup group = new MainGroup(diet.getId(), diet.getGroup(), diet.getGroup() * 100, new ArrayList<MainFood>());
             List<DietDetail> details = diet.getDetailList();
 
