@@ -48,7 +48,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class IdentifyFoodActivity extends AppCompatActivity {
 
-    Handler handler;
+    Handler handler;       //没用过
     public final int UPDATE_DATA =1;
 
     public static final int TAKE_PHOTO=1;
@@ -62,14 +62,14 @@ public class IdentifyFoodActivity extends AppCompatActivity {
     IdentifyFoodActivity thisupload = this;
     Uri UriOnScreen;
     ImageView imageView;
-    Button albumbutton;
-    Button uploadbutton;
-    Button camerafile;
-    TextView textofpath ;
-    TextView path;
+    Button albumbutton;      //    相册选取
+    Button uploadbutton;     //    上传按钮
+    Button camerafile;       //拍照界面
+    TextView textofpath ;    //
+    TextView path;           //
     IdentifyFoodActivity thisactivity;
     String filepath;
-    List<FoodRank> data;
+    //List<FoodRank> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +85,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
         //解决相机拍照问题!!!!!!
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+
         //选择相册监听器
         albumbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +96,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent,"Browser Image..."),CHOOSE_PHOTO);
             }
         });
+
         //拍照监听器
         camerafile = (Button) findViewById(R.id.camerafile);
         camerafile.setOnClickListener(new View.OnClickListener() {
@@ -344,4 +346,5 @@ public class IdentifyFoodActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 }

@@ -46,6 +46,7 @@ import com.example.foodcare.ToolClass.Day;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.Retrofit.A_entity.Diet;
 import com.example.foodcare.Retrofit.A_entity.DietDetail;
+import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.MainRecyclerAdapter;
 import com.example.foodcare.adapter.MainSportAdapter;
@@ -58,6 +59,8 @@ import com.example.foodcare.view.HeaderAnimatedScrollView;
 import com.example.foodcare.view.IMainView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
+import com.orhanobut.dialogplus.DialogPlus;
 import com.thinkcool.circletextimageview.CircleTextImageView;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -67,6 +70,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Date;
+
+import retrofit2.http.Query;
 
 public class MainActivity extends AppCompatActivity implements IMainView {
 
@@ -298,8 +303,45 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         uploadPictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, IdentifyFoodActivity.class);
+                final DialogPlus dialog = DialogPlus.newDialog(v.getContext())
+                        .setContentHolder(new ViewHolder(R.layout.dialog_items_take_photo))
+                        .create();
+
+                Button buttonTake=(Button)dialog.findViewById(R.id.take_photo_item_dialog_main);
+                Button buttonSelect=(Button)dialog.findViewById(R.id.select_photo_item_dialog_main);
+                Button buttonMultiple=(Button)dialog.findViewById(R.id.multiple_item_dialog_main);
+                buttonTake.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(getApplicationContext(),UplaodPictureActivity.class);
+                        intent.putExtra("WAY","TAKE_PHOTO");
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                });
+                buttonSelect.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        Intent intent=new Intent(getApplicationContext(),UplaodPictureActivity.class);
+                        intent.putExtra("WAY","SELECT_PICTURE");
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                });
+                buttonMultiple.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        Intent intent=new Intent(getApplicationContext(),IdentifyFoodActivity.class);
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+              /*  Intent intent = new Intent(MainActivity.this, IdentifyFoodActivity.class);
                 startActivity(intent);
+                最后如果出什么问题就用这个
+                */
             }
         });
 
