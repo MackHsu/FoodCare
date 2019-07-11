@@ -13,6 +13,7 @@ import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.A_entity.FoodReg;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.adapter.IdentifyLabelDetailAdapter;
+import com.example.foodcare.adapter.SpaceItemDecoration;
 import com.google.gson.Gson;
 
 public class IdentifyLabelDetailActivity extends AppCompatActivity {
@@ -31,6 +32,7 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
            foodReg =gson.fromJson(data,FoodReg.class);
 
            recyclerView = (RecyclerView) findViewById(R.id.identifylabeldetailrecycler);
+           recyclerView.addItemDecoration(new SpaceItemDecoration(19));
            recyclerView.setLayoutManager(new LinearLayoutManager(this));
            final IdentifyLabelDetailAdapter adapter = new IdentifyLabelDetailAdapter(R.layout.identify_label_detail_item, foodReg.getFoods());
            recyclerView.setAdapter(adapter);
@@ -59,39 +61,15 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
            }
            else
            {
-               System.out.println("*****************************************");
-               System.out.println("*****************************************");
                for(Food food :foodReg.getFoods())
                {
                    System.out.println(food.getName());
                    System.out.println(food.getPicture_mid());
-                   //adapter.addData(food);
                }
-
-              /*try{
-                   for(int i =0;i<foodReg.getFoods().size();i++)
-                   {
-                       adapter.addData(foodReg.getFoods().get(i));
-                   }
-               }
-               catch(Exception e){
-                   e.printStackTrace();
-               }*/
-
-            /*for (Food food: foodReg.getFoods()) {
-                adapter.addData(food);
-            }*/
            }
-
-
-
-
-
-
        }
        catch(Exception e){
            e.printStackTrace();
        }
-
     }
 }

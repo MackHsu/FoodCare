@@ -18,7 +18,7 @@ public class SearchAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Food item) {
         //Glide.with(mContext).load(item.getFood().getPicture_mid()).crossFade().into((ImageView) helper.getView(R.id.food_image));
         helper.setText(R.id.searchname, item.getName());//食物名
-        helper.setText(R.id.searchenergy, item.getHeat()+"");//食物热量
+        helper.setText(R.id.searchenergy, item.getHeat()+"千卡/100克");//食物热量
         helper.addOnClickListener(R.id.searchitemlayout);
     }
 }

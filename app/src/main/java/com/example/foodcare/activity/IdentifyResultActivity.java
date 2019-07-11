@@ -18,6 +18,7 @@ import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.adapter.IdentifyAdapter;
+import com.example.foodcare.adapter.SpaceItemDecoration;
 import com.google.gson.Gson;
 import com.victor.loading.rotate.RotateLoading;
 
@@ -55,6 +56,7 @@ public class IdentifyResultActivity extends AppCompatActivity {
         filepath = intent.getStringExtra("path");
 
         recyclerView = (RecyclerView) findViewById(R.id.identifyrecycler);
+        recyclerView.addItemDecoration(new SpaceItemDecoration(19));
         loading = (RotateLoading) findViewById(R.id.identifyloading);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -89,8 +91,6 @@ public class IdentifyResultActivity extends AppCompatActivity {
                     case UPLOAD_SUCCESS:
                         //识别成功，停止等待旋转
                         loading.stop();
-                        //foodName.setText(intent.getStringExtra("foodName"));
-
                         for (FoodReg foodReg: foodRegList) {
                             System.out.println(foodReg.getLabel()+foodReg.getProbability());
                             for(Food food:foodReg.getFoods())

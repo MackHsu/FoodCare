@@ -15,11 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.IdentifyMultipleResultActivity"></activity>
-        <activity android:name=".activity.IdentifiyMultipleResult" />
         <activity android:name=".activity.AddSportActivity" />
+        <activity android:name=".activity.UplaodPictureActivity"></activity>
+        <activity android:name=".activity.RecommendRecipeActivity" />
         <activity android:name=".activity.DishesInfoActivity" />
         <activity android:name=".activity.MealInfoActivity" />
-        <activity android:name=".activity.RecommendRecipeActivity" />
         <activity android:name=".activity.IdentifyResultTestActivity" />
         <activity android:name=".activity.IdentifyLabelDetailActivity" />
         <activity android:name=".activity.RegisterActivity" />
