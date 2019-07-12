@@ -177,8 +177,8 @@ int id = 1;
             System.out.println(ax+"  "+ay+"  "+bx+"  "+by+"  ");
             System.out.println(foodPosition.getLabel() + foodPosition.getUrl());
             GradientDrawable drawable = new GradientDrawable();
-            drawable.setShape(GradientDrawable.RECTANGLE); // 画框
-            drawable.setStroke(10, Color.BLUE); // 边框粗细及颜色
+//            drawable.setShape(GradientDrawable.RECTANGLE); // 画框
+//            drawable.setStroke(10, Color.BLUE); // 边框粗细及颜色
             drawable.setColor(Color.parseColor("#00000000")); // 边框内部颜色
             Button button = new Button(this);
             button.setBackgroundDrawable(drawable);
