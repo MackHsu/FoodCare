@@ -510,19 +510,25 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     //按两次back键退出
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        //获取按键并比较两次按back的时间大于2s不退出，否则退出
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (System.currentTimeMillis() - exit_time > 2000) {
-                Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
-                exit_time = System.currentTimeMillis();
-            } else {
-                Intent intent=new Intent();
-                setResult(RESULT_CANCELED,intent);    //这个是用来标识从这个界面退出的两种的方式的
-                finish();
-            }
+        if (mainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mainDrawerLayout.closeDrawer(GravityCompat.START);
             return true;
+        } else {
+
+            //获取按键并比较两次按back的时间大于2s不退出，否则退出
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (System.currentTimeMillis() - exit_time > 2000) {
+                    Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                    exit_time = System.currentTimeMillis();
+                } else {
+                    Intent intent = new Intent();
+                    setResult(RESULT_CANCELED, intent);    //这个是用来标识从这个界面退出的两种的方式的
+                    finish();
+                }
+                return true;
+            }
+            return super.onKeyDown(keyCode, event);
         }
-        return super.onKeyDown(keyCode, event);
     }
 
     //获取Diet数据
