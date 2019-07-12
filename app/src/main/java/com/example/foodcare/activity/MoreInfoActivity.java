@@ -111,23 +111,23 @@ public class MoreInfoActivity extends AppCompatActivity {
         }
         foodName.setText(food.getName());
         celluloseText.setText(food.getCellulose() == null ? "----" : food.getCellulose() + "克/100克");
-        vAText.setText(food.getVitaminA() == null ? "----" : food.getVitaminA() + "克/100克");
-        vCText.setText(food.getVitaminC() == null ? "----" : food.getVitaminC() + "克/100克");
-        vEText.setText(food.getVitaminE() == null ? "----" : food.getVitaminE() + "克/100克");
-        caroteneText.setText(food.getCarotene() == null ? "----" : food.getCarotene() + "克/100克");
-        liuanText.setText(food.getLiuan() == null ? "----" : food.getLiuan() + "克/100克");
-        hehuangText.setText(food.getHehuang() == null ? "----" : food.getHehuang() + "克/100克");
-        yansuanText.setText(food.getYansuan() == null ? "----" : food.getYansuan() + "克/100克");
-        cholesterolText.setText(food.getCholesterol() == null || food.getCholesterol() == 0 ? "----" : food.getCholesterol() + "克/100克");
-        meiText.setText(food.getMei() == null ? "----" : food.getMei() + "克/100克");
-        gaiText.setText(food.getGai() == null ? "----" : food.getGai() + "克/100克");
-        tieText.setText(food.getTie() == null ? "----" : food.getTie() + "克/100克");
-        xinText.setText(food.getXin() == null ? "----" : food.getXin() + "克/100克");
-        tongText.setText(food.getTong() == null ? "----" : food.getTong() + "克/100克");
-        mengText.setText(food.getMeng() == null ? "----" : food.getMeng() + "克/100克");
-        jiaText.setText(food.getJia() == null ? "----" : food.getJia() + "克/100克");
-        linText.setText(food.getLin() == null ? "----" : food.getLin() + "克/100克");
-        naText.setText(food.getNa() == null ? "----" : food.getNa() + "克/100克");
-        xiText.setText(food.getXi() == null ? "----" : food.getXi() + "克/100克");
+        vAText.setText(food.getVitaminA() == null ? "----" : food.getVitaminA() + "毫克/100克");
+        vCText.setText(food.getVitaminC() == null ? "----" : food.getVitaminC() + "毫克/100克");
+        vEText.setText(food.getVitaminE() == null ? "----" : food.getVitaminE() + "毫克/100克");
+        caroteneText.setText(food.getCarotene() == null ? "----" : food.getCarotene() + "毫克/100克");
+        liuanText.setText(food.getLiuan() == null ? "----" : food.getLiuan() + "毫克/100克");
+        hehuangText.setText(food.getHehuang() == null ? "----" : food.getHehuang() + "毫克/100克");
+        yansuanText.setText(food.getYansuan() == null ? "----" : food.getYansuan() + "毫克/100克");
+        cholesterolText.setText(food.getCholesterol() == null || food.getCholesterol() == 0 ? "----" : food.getCholesterol() + "毫克/100克");
+        meiText.setText(food.getMei() == null ? "----" : food.getMei() + "毫克/100克");
+        gaiText.setText(food.getGai() == null ? "----" : food.getGai() + "毫克/100克");
+        tieText.setText(food.getTie() == null ? "----" : food.getTie() + "毫克/100克");
+        xinText.setText(food.getXin() == null ? "----" : food.getXin() + "毫克/100克");
+        tongText.setText(food.getTong() == null ? "----" : food.getTong() + "毫克/100克");
+        mengText.setText(food.getMeng() == null ? "----" : food.getMeng() + "毫克/100克");
+        jiaText.setText(food.getJia() == null ? "----" : food.getJia() + "毫克/100克");
+        linText.setText(food.getLin() == null ? "----" : food.getLin() + "毫克/100克");
+        naText.setText(food.getNa() == null ? "----" : food.getNa() + "毫克/100克");
+        xiText.setText(food.getXi() == null ? "----" : food.getXi() + "毫克/100克");
     }
 }

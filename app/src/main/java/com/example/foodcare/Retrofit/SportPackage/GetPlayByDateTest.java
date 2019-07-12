@@ -72,11 +72,11 @@ public class GetPlayByDateTest {
                     Message message = new Message();
                     message.what = GET_PLAYS_NULL;
                     handler.sendMessage(message);
-
+                } else {
+                    Message message = new Message();
+                    message.what = GET_PLAYS_SUCCESS;
+                    handler.sendMessage(message);
                 }
-                Message message = new Message();
-                message.what = GET_PLAYS_SUCCESS;
-                handler.sendMessage(message);
             }
 
             @Override

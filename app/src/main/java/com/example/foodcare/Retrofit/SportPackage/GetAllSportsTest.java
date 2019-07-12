@@ -22,7 +22,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GetAllSportsTest {
     Handler handler;
     List<Sport> sports;
+    private final int REQUEST_FAIL = 0;
     public final int GET_SPORTS_SUCCESS = 1;
+    public final int GET_SPORTS_NULL = 2;
 
     public List<Sport> getSports() {
         return sports;
@@ -53,6 +55,9 @@ public class GetAllSportsTest {
                 {
                     MyToast.mytoast("返回为空",context);
                     System.out.println("返回为空");
+                    Message message = new Message();
+                    message.what = GET_SPORTS_NULL;
+                    handler.sendMessage(message);
                 }
                 else{
                     Message message = new Message();
@@ -67,6 +72,9 @@ public class GetAllSportsTest {
                 System.out.println("请求失败");
                 System.out.println(t.toString());
                 t.printStackTrace();
+                Message message = new Message();
+                message.what = REQUEST_FAIL;
+                handler.sendMessage(message);
             }
         });
     }

@@ -41,8 +41,9 @@ public class AddSportActivity extends AppCompatActivity {
     private ImageButton backButton;
     private List<Sport> sports = new ArrayList<>();
     private RotateLoading loading;
-    final int GET_ALL_SPORTS_SUCCESS = 1;
-    final int GET_ALL_SPORTS_FAILED = 0;
+    private final int REQUEST_FAIL = 0;
+    private final int GET_SPORTS_SUCCESS = 1;
+    private final int GET_SPORTS_NULL = 2;
 
     private final int NO_RETURN = 0;
     private final int ADD_PLAY_SUCCESS = 1;
@@ -74,16 +75,19 @@ public class AddSportActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
-                    case GET_ALL_SPORTS_SUCCESS:
+                    case GET_SPORTS_SUCCESS:
                         for (Sport sport: dataFetcher.getSports()) {
                             adapter.addData(sport);
                         }
                         loading.stop();
                         adapter.loadMoreComplete();
                         break;
-                    case GET_ALL_SPORTS_FAILED:
+                    case GET_SPORTS_NULL:
                         loading.stop();
                         adapter.loadMoreFail();
+                        break;
+                    case REQUEST_FAIL:
+                        loading.stop();
                         break;
                     default:
                         break;
