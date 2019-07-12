@@ -159,7 +159,6 @@ public class UplaodPictureActivity extends AppCompatActivity {
         if (!photoDir.exists()){
             photoDir.mkdirs();
         }
-        //在该文件夹下（覆盖）创建一个文件
         File photoFile=new File(photodir,"CachePhoto.jpg");
         try{
             if(photoFile.exists()){
@@ -266,10 +265,7 @@ public class UplaodPictureActivity extends AppCompatActivity {
                     String url = UriOnScreen.toString();//getRealFilePath(thisupload,UriOnScreen);
                     //textofpath.setText(url);
                     Log.i("TAG",url);
-                    //filepath = GetPathFromUri4kitkat.getPath(thisactivity,UriOnScreen);
-                    //filepath = GetPathFromUri.getPath(thisupload,UriOnScreen);
-                    //thisupload.grantUriPermission("com.example.urltest",UriOnScreen,Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    //检测动态权限
+                   //检测动态权限
                     if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
 
@@ -401,7 +397,6 @@ public class UplaodPictureActivity extends AppCompatActivity {
                         message.what = UPLOAD_SUCCESS;
                         handler.sendMessage(message);
                     }
-
                 }
                 //请求失败时回调
                 @Override

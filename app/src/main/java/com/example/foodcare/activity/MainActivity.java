@@ -154,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("MainActivity", "onCreate");
 
         //初始化
         menuButton = (ImageButton) findViewById(R.id.main_menu_button);
@@ -300,6 +299,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, TodayAnalyseActivity.class);
+                intent.putExtra("CT",consumptionToday);//消耗量
                 startActivityForResult(intent,RETURN_ANALYSE);
 
             }
@@ -427,7 +427,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("MainActivity", "onResume");
         mainDrawerLayout.closeDrawers();
         refreshDate();
         getTodayDietData();
@@ -546,7 +545,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 switch(msg.what) {
                     case DATA_NULL:
                         Toast.makeText(MainActivity.this, "用户今日Diet数据为空", Toast.LENGTH_SHORT).show();
-                        intakeText.setText(0 + "");
+                        intakeToday = 0;
+                        intakeText.setText(intakeToday + "");
                         loading.stop();
                         initInfo();
                         getTodaySportData();
@@ -842,16 +842,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         userInformationTest.request(AccountID.getId(),getApplicationContext());
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode,int resultCode,Intent data){
-//        switch (requestCode){
-//            case RETURN_ANALYSE:
-//                if(resultCode==RESULT_OK){
-//                    showNormalDialog();
-//                }
-//                break;
-//        }
-//    }
 
     private void showNormalDialog(){
         /* @setIcon 设置对话框图标

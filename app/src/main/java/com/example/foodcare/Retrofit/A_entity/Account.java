@@ -13,7 +13,7 @@ public class Account implements Serializable {
     // （从事体力劳动或体能训练如每天两次的训练）高强度运动）
     private int level;
     private int age;
-    private int sex;
+    private int sex;          //0是女，1是男
     private String user;
     private String password;
     private Double height;

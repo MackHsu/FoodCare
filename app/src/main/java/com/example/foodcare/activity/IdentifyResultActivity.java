@@ -24,9 +24,11 @@ import com.victor.loading.rotate.RotateLoading;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -89,8 +91,6 @@ public class IdentifyResultActivity extends AppCompatActivity {
                     case UPLOAD_SUCCESS:
                         //识别成功，停止等待旋转
                         loading.stop();
-                        //foodName.setText(intent.getStringExtra("foodName"));
-
                         for (FoodReg foodReg: foodRegList) {
                             System.out.println(foodReg.getLabel()+foodReg.getProbability());
                             for(Food food:foodReg.getFoods())
@@ -111,12 +111,17 @@ public class IdentifyResultActivity extends AppCompatActivity {
         //开始旋转
         loading.start();
     }
+    private static final OkHttpClient client = new OkHttpClient.Builder().
+            connectTimeout(60, TimeUnit.SECONDS).
+            readTimeout(60, TimeUnit.SECONDS).
+            writeTimeout(60, TimeUnit.SECONDS).build();
 
     public void request(String url) {
 
         //步骤4:创建Retrofit对象
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(IP.ip) // 设置 网络请求 Url
+                .client(client)
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
                 .build();
@@ -136,7 +141,6 @@ public class IdentifyResultActivity extends AppCompatActivity {
                     // 步骤7：处理返回的数据结果
                     //data = response.body();
                     System.out.println("请求成功");
-                    String text = "";
 
                     if(response.body()==null) {
                         MyToast.mytoast("识别失败！(识别结果为空)", IdentifyResultActivity.this);

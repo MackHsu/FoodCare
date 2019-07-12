@@ -18,7 +18,7 @@ public class IdentifyFoodTestAdapter extends BaseQuickAdapter<FoodRank, BaseView
     protected void convert(BaseViewHolder helper, FoodRank item) {
         //Glide.with(mContext).load(item.getFood().getPicture_mid()).crossFade().into((ImageView) helper.getView(R.id.food_image));
         helper.setText(R.id.identifyname, item.getFoodname());//识别标签名
-        helper.setText(R.id.identifyprobability, item.getProbability()+"");//识别置信度
+        helper.setText(R.id.identifyprobability, item.getProbability()+"");//识别置信
         helper.addOnClickListener(R.id.identifylayout);
         helper.addOnClickListener(R.id.identifybutton);
     }

@@ -16,9 +16,11 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,11 +64,13 @@ public class IdentifyFoodActivity extends AppCompatActivity {
     IdentifyFoodActivity thisupload = this;
     Uri UriOnScreen;
     ImageView imageView;
-    Button albumbutton;      //    相册选取
-    Button uploadbutton;     //    上传按钮
-    Button camerafile;       //拍照界面
-    TextView textofpath ;    //
-    TextView path;           //
+    ImageButton albumbutton;
+    ImageButton uploadbutton;
+    ImageButton camerafile;
+    ImageButton multipleButton;
+//    TextView textofpath ;
+//    TextView path;
+
     IdentifyFoodActivity thisactivity;
     String filepath;
     //List<FoodRank> data;
@@ -76,10 +80,12 @@ public class IdentifyFoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identify_food);thisactivity = this;
         imageView = (ImageView) findViewById(R.id.imageviewfilr);
-        albumbutton = (Button) findViewById(R.id.albumfile);
-        uploadbutton = (Button) findViewById(R.id.uploadbuttonfile);
-        textofpath= (TextView) findViewById(R.id.textofpath);
-        path = (TextView) findViewById(R.id.path);
+        albumbutton = (ImageButton) findViewById(R.id.albumfile);
+//        uploadbutton = (ImageButton) findViewById(R.id.uploadbuttonfile);
+        multipleButton = (ImageButton) findViewById(R.id.uploadbuttonfile);
+
+//        textofpath= (TextView) findViewById(R.id.textofpath);
+//        path = (TextView) findViewById(R.id.path);
 
 
         //解决相机拍照问题!!!!!!
@@ -98,7 +104,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
         });
 
         //拍照监听器
-        camerafile = (Button) findViewById(R.id.camerafile);
+        camerafile = (ImageButton) findViewById(R.id.camerafile);
         camerafile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +138,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                             return;
                         }//"com.example.urltest.provider"
                         UriOnScreen= FileProvider.getUriForFile(IdentifyFoodActivity.this,"com.example.search.fileprovider",photoFile);
-                        textofpath.setText(UriOnScreen.toString());
+//                        textofpath.setText(UriOnScreen.toString());
                         for(int i =0;i<100;i++)
                         {
                             System.out.println("此处为uri"+UriOnScreen.toString());
@@ -157,24 +163,34 @@ public class IdentifyFoodActivity extends AppCompatActivity {
         });
 
         //上传图片
-        uploadbutton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void onClick(View v) {
-
-                //realFilrPath = UriToPathTool.getRealFilePath(thisupload,UriOnScreen);
-                System.out.println(realFilrPath);
-                System.out.println(filepath);
-                //request(filepath);
-                Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyResultActivity.class);
-                intent.putExtra("path",filepath);
-                startActivity(intent);
-//                Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyResultTestActivity.class);
+//        uploadbutton.setOnClickListener(new View.OnClickListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.M)
+//            @Override
+//            public void onClick(View v) {
+//
+//                //realFilrPath = UriToPathTool.getRealFilePath(thisupload,UriOnScreen);
+//                System.out.println(realFilrPath);
+//                System.out.println(filepath);
+//                //request(filepath);
+//                Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyResultActivity.class);
 //                intent.putExtra("path",filepath);
 //                startActivity(intent);
+////                Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyResultTestActivity.class);
+////                intent.putExtra("path",filepath);
+////                startActivity(intent);
+//            }
+//        });
+
+        multipleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println(realFilrPath);
+                System.out.println(filepath);
+                Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyMultipleResultActivity.class);
+                intent.putExtra("path",filepath);
+                startActivity(intent);
             }
         });
-
     }
 
     public void setHandler(Handler handler){
@@ -211,7 +227,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                     realFilrPath = filepath;
                     //将path显示出来
                     System.out.println(filepath);
-                    path.setText(filepath);
+//                    path.setText(filepath);
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inJustDecodeBounds = false;
                     try{
@@ -234,7 +250,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                     Uri uri = data.getData();
                     UriOnScreen = uri;
                     String url = UriOnScreen.toString();//getRealFilePath(thisupload,UriOnScreen);
-                    textofpath.setText(url);
+//                    textofpath.setText(url);
                     //filepath = GetPathFromUri4kitkat.getPath(thisactivity,UriOnScreen);
                     //filepath = GetPathFromUri.getPath(thisupload,UriOnScreen);
                     //thisupload.grantUriPermission("com.example.urltest",UriOnScreen,Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -254,7 +270,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                     filepath = UriToPathTool.getRealFilePath(thisupload,UriOnScreen);
                     //将path显示出来
                     System.out.println(filepath);
-                    path.setText(filepath);
+//                    path.setText(filepath);
                     realFilrPath = filepath;
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inJustDecodeBounds = false;
@@ -346,5 +362,4 @@ public class IdentifyFoodActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 }
