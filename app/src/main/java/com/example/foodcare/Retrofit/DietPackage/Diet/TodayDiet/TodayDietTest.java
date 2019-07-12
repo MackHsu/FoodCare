@@ -85,7 +85,6 @@ public class TodayDietTest {
                     }
                     else{
                         Log.i("TAG","请求成功，且数据不是空");
-                        MyToast.mytoast(text,context);
                         Diets = response.body();
                         Message message = new Message();
                         message.what = DATA_UPDATED;

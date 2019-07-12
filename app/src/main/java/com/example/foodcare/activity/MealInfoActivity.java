@@ -99,7 +99,7 @@ public class MealInfoActivity extends AppCompatActivity {
         backButton = (ImageButton) findViewById(R.id.back_button);
         measureDivider = (View) findViewById(R.id.measure_divider);
         moreText = (TextView) findViewById(R.id.more);
-        addButton = (ImageButton) findViewById(R.id.add_button);
+        addButton = (ImageButton) findViewById(R.id.add_meal_button);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

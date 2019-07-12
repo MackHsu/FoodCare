@@ -74,7 +74,7 @@ public class AnyDayDietStringTest {
                     System.out.println("请求成功");
                     String text = "请求成功！！";
                     if(response.body()==null){
-                        text = text+"/n查询结果为空！！！";
+                        text = text+"查询结果为空！！！";
                         MyToast.mytoast(text,context);
                         Message message = new Message();
                         message.what = DATA_NULL;

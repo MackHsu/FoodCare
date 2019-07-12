@@ -86,14 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "用户名或密码不能为空",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    // 登陆
-
-                    // 登陆发送消息到服务器，服务器验证是否正确
                     LoginRight(un,up);
-                        /*Toast.makeText(getApplicationContext(), "登陆成功",
-                                Toast.LENGTH_SHORT).show();
-                        Login(un,up,"yes");*/
-
                 }
 
             }

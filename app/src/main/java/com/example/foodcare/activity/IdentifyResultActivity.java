@@ -73,7 +73,6 @@ public class IdentifyResultActivity extends AppCompatActivity {
                     String jsonData=gson.toJson(foodRegList.get(position));
                     //String jsonData = gson.toJson(easyFoods);
                     intent.putExtra("FoodReg",jsonData);
-                    MyToast.mytoast("成功进入标签详情界面",IdentifyResultActivity.this);
                     startActivity(intent);
                 } else {
                   MyToast.mytoast("请点击按钮进入标签详情界面！",IdentifyResultActivity.this);

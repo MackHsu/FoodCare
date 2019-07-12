@@ -45,7 +45,6 @@ public class FoodMapTest {
                 foodMap = response.body();
                 Message message = new Message();
                 message.what = GET_FOOD_DETAIL_SUCCESS;
-                MyToast.mytoast("请求成功！！！！！！",context);
                 handler.sendMessage(message);
             }
 
