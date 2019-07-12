@@ -119,24 +119,24 @@ public class SearchActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(SearchActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(SearchActivity.this, DishesInfoActivity.class);
-                if(foods.get(position).getGroup() == 1)
-                    intent = new Intent(SearchActivity.this,MealInfoActivity.class);
-                Gson gson=new Gson();
-                String jsonData=gson.toJson(foods.get(position).getId());
-                intent.putExtra("foodId",jsonData);
-                MyToast.mytoast("成功进入标签详情界面",SearchActivity.this);
-                startActivity(intent);
-//                if(view.getId() == R.id.identifybutton) {
-//                } else {
-//                    MyToast.mytoast("请点击按钮进入标签详情界面！",SearchActivity.this);
-//                }
-            }
-        });
+//
+//        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+//            @Override
+//            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+//                Intent intent = new Intent(SearchActivity.this, DishesInfoActivity.class);
+//                if(foods.get(position).getGroup() == 1)
+//                    intent = new Intent(SearchActivity.this,MealInfoActivity.class);
+//                Gson gson=new Gson();
+//                String jsonData=gson.toJson(foods.get(position).getId());
+//                intent.putExtra("foodId",jsonData);
+//                MyToast.mytoast("成功进入标签详情界面",SearchActivity.this);
+//                startActivity(intent);
+////                if(view.getId() == R.id.identifybutton) {
+////                } else {
+////                    MyToast.mytoast("请点击按钮进入标签详情界面！",SearchActivity.this);
+////                }
+//            }
+//        });
 
         final Handler handlerhere = new Handler(){
             @Override
@@ -186,7 +186,9 @@ public class SearchActivity extends AppCompatActivity {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
-                Intent intent = new Intent(SearchActivity.this, MoreInfoActivity.class);
+                Intent intent = new Intent(SearchActivity.this, DishesInfoActivity.class);
+                if(foods.get(position).getGroup() == 1)
+                    intent = new Intent(SearchActivity.this,MealInfoActivity.class);
                 intent.putExtra("foodId", foods.get(position).getId());
                 startActivity(intent);
             }
