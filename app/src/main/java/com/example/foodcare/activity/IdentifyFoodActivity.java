@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -60,7 +61,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
     private String realFilrPath;
     private Bitmap selectdBitmap;
     private  int MAX_SIZE = 769;
-
+    private ImageButton back;
     IdentifyFoodActivity thisupload = this;
     Uri UriOnScreen;
     ImageView imageView;
@@ -81,7 +82,13 @@ public class IdentifyFoodActivity extends AppCompatActivity {
 //        uploadbutton = (ImageButton) findViewById(R.id.uploadbuttonfile);
         multipleButton = (ImageButton) findViewById(R.id.uploadbuttonfile);
 
-
+        back = (ImageButton) findViewById(R.id.identify_food_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //解决相机拍照问题!!!!!!
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());

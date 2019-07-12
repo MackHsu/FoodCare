@@ -1,6 +1,7 @@
 package com.example.foodcare.activity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.Interfaces.IdentifyFoodInterface;
@@ -44,6 +46,7 @@ public class IdentifyResultActivity extends AppCompatActivity {
     private Handler handler;
     private final int UPLOAD_SUCCESS = 1;
     private final int UPLOAD_FAILED = 0;
+    private ImageButton back;
     public void setHandler(Handler handler){
         this.handler = handler;
     }
@@ -54,11 +57,16 @@ public class IdentifyResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         filepath = intent.getStringExtra("path");
-
+        back = (ImageButton) findViewById(R.id.identify_result_back);
         recyclerView = (RecyclerView) findViewById(R.id.identifyrecycler);
         recyclerView.addItemDecoration(new SpaceItemDecoration(19));
         loading = (RotateLoading) findViewById(R.id.identifyloading);
-
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final IdentifyAdapter adapter = new IdentifyAdapter(R.layout.identify_item, foodRegList);
         recyclerView.setAdapter(adapter);

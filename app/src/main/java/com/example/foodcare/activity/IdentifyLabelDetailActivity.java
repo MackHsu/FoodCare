@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
@@ -20,6 +21,7 @@ import com.google.gson.Gson;
 public class IdentifyLabelDetailActivity extends AppCompatActivity {
     private FoodReg foodReg;
     private RecyclerView recyclerView;
+    private ImageButton back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
        try{
@@ -30,6 +32,14 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
            String data=intent.getStringExtra("FoodReg");
            Gson gson =new Gson();
 
+
+           back = (ImageButton) findViewById(R.id.identify_label_detail_back);
+           back.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   finish();
+               }
+           });
            foodReg =gson.fromJson(data,FoodReg.class);
 
            recyclerView = (RecyclerView) findViewById(R.id.identifylabeldetailrecycler);
@@ -37,6 +47,7 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
            recyclerView.setLayoutManager(new LinearLayoutManager(this));
            final IdentifyLabelDetailAdapter adapter = new IdentifyLabelDetailAdapter(R.layout.identify_label_detail_item, foodReg.getFoods());
            recyclerView.setAdapter(adapter);
+
 
            adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
                @Override
