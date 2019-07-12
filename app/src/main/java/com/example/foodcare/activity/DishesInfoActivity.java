@@ -158,7 +158,7 @@ public class DishesInfoActivity extends AppCompatActivity {
                 finish();
             }
         });
-        addButton = (ImageButton) findViewById(R.id.add_button);
+        addButton = (ImageButton) findViewById(R.id.add_dishes_button);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

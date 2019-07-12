@@ -31,7 +31,7 @@ public class UserRegisterTest {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 String text = "";
-                text = response.body()+"/n";
+                text = response.body()+"";
                 System.out.println("请求成功");
                 System.out.println(text);
                 Toast toast=Toast.makeText(context,text,Toast.LENGTH_SHORT    );

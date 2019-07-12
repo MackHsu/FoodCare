@@ -213,13 +213,16 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         pieChart.setUsePercentValues(true);
         pieChart.setDragDecelerationFrictionCoef(5f);
         pieChart.animateXY(3000, 3000);
+        pieChart.setEntryLabelColor(getResources().getColor(R.color.mainColor4));
         //表项
         List<PieEntry> entries = new ArrayList<PieEntry>();
         entries.add(new PieEntry(LunchEnergy, "午餐"));
         entries.add(new PieEntry(BreakFastEnergy, "早餐"));
         entries.add(new PieEntry(DinnerEnergy, "晚餐"));
         entries.add(new PieEntry(AdditionEnergy, "加餐"));
+
         PieDataSet dataset = new PieDataSet(entries, "每日进食");
+        //dataset.setValueTextColor(Color.GREEN);
         //颜色
         List<Integer> colors = new ArrayList<Integer>();
         colors.add(getResources().getColor(R.color.Honeydew3));
@@ -231,6 +234,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         PieData data = new PieData(dataset);
         //将数字转化为百分比
         data.setDrawValues(true);
+       // data.setValueTextColor(Color.GREEN);
         data.setValueFormatter(new PercentFormatter());
         //把字体变大
         data.setValueTextSize(12f);
@@ -241,6 +245,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         pieChart.setData(data);
         pieChart.invalidate();
     }
+
     public void getTodayData() {
         final AnyDayDietStringTest dataFetcher = new AnyDayDietStringTest();
         Handler handler = new Handler() {

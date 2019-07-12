@@ -77,7 +77,7 @@ public class IdentifyMultipleResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identify_multiple_result);
-        loading_upload_text_view=(TextView)findViewById(R.id.loading_upload_text_view_m);
+        loading_upload_text_view=(TextView)findViewById(R.id.loading_upload_text_view_123);
         loading = (RotateLoading) findViewById(R.id.multiple_loading);
         if (valueAnimator == null) {
             valueAnimator = ValueAnimator.ofInt(0, 3).setDuration(1000);
@@ -182,8 +182,8 @@ int id = 1;
             drawable.setColor(Color.parseColor("#00000000")); // 边框内部颜色
             Button button = new Button(this);
             button.setBackgroundDrawable(drawable);
-            button.setHeight((int)((bx-ax)*Height));
-            button.setWidth((int)((by-ay)*Width));
+            button.setHeight((int)((by-ay)*Height));
+            button.setWidth((int)((bx-ax)*Width));
 //            button.setHeight((int)((bx-ax)*Height*1.8));
 //            button.setWidth((int)((by-ay)*Width/1.5));
             button.setText(foodPosition.getLabel());

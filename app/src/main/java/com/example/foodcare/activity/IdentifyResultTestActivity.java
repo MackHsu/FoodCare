@@ -80,7 +80,6 @@ public class IdentifyResultTestActivity extends AppCompatActivity {
         Handler handlerhere = new Handler(){
             @Override
             public void handleMessage(Message msg){
-                MyToast.mytoast("进入handler",IdentifyResultTestActivity.this);
                 switch(msg.what)
                 {
                     case UPLOAD_SUCCESS:

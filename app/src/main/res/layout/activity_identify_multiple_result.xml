@@ -76,7 +76,7 @@
                 android:layout_marginTop="40dp"
                 app:loading_width="2dp" />
             <TextView
-                android:id="@+id/loading_upload_text_view_m"
+                android:id="@+id/loading_upload_text_view_123"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

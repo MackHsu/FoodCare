@@ -381,8 +381,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         dateText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("点击一次");
-                MyToast.mytoast("点击一次",MainActivity.this);
                 CalendarDialog calendarDialog = new CalendarDialog();
                 //用于更新挑选的日期
                 Handler handlerhere = new Handler(){
@@ -390,7 +388,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         System.out.println("进入handler");
                         switch(msg.what) {
                             case DATE_PICKED:
-                                Toast.makeText(MainActivity.this, "从日期弹窗返回", Toast.LENGTH_SHORT).show();
                                 refreshDate();
                                 getTodayDietData();
                                 break;

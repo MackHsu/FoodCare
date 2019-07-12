@@ -63,14 +63,14 @@ public class UploadAvatarTest {
                         message.what = UPLOAD_FAILED;
                         handler.sendMessage(message);
                     } else if (response.body()) {
-                        text = text + "/n 更新头像成功";
+                        text = text + "更新头像成功";
                         MyToast.mytoast(text, context);
                         Message message = new Message();
                         message.what = UPLOAD_SUCCESS;
 
                         handler.sendMessage(message);
                     } else {
-                        text = text + "/n 更新头像失败";
+                        text = text + "更新头像失败";
                         MyToast.mytoast(text, context);
                         Message message = new Message();
                         message.what = UPLOAD_FAILED;
