@@ -69,9 +69,10 @@ public class UserInfoActivity extends AppCompatActivity {
     private TextView my_goal_account;
     private TextView my_sex_account;
     private TextView my_sport_account;
+    private TextView back_text_view_info;
+    private ImageView back_button_info;
     private Uri imageUri;
     private CircleTextImageView imageView;
-    private Toolbar toolbar;
     private int account_id;
     private Button button_submit;
     @Override
@@ -88,14 +89,21 @@ public class UserInfoActivity extends AppCompatActivity {
         my_sex_account=(TextView)findViewById(R.id.sex_account_r);
         my_sport_account=(TextView)findViewById(R.id.my_sport_account_r);
         button_submit=(Button)findViewById(R.id.submit_info);
-        toolbar=findViewById(R.id.toolbar_account);
-        toolbar.setTitle("< 我的信息");
-        toolbar.setOnClickListener(new View.OnClickListener() {
+        back_text_view_info=(TextView)findViewById(R.id.back_text_view_info);
+        back_button_info=(ImageView)findViewById(R.id.back_button_info);
+        back_button_info.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 finish();
             }
         });
+        back_text_view_info.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                finish();
+            }
+        });
+
         name_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

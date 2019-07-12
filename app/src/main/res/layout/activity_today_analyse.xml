@@ -3,6 +3,7 @@
 最后修改时间 2019.6.29  23:10-->
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
@@ -24,17 +25,33 @@
                 android:background="#00000000"
                 android:padding="10dp"/>
 
+            <ImageView
+                android:id="@+id/last_day_analyse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/today_detail_date_analyze"
+                android:src="@drawable/last_day_img" />
             <TextView
-                android:id="@+id/today_detail_date"
+                android:id="@+id/today_detail_date_analyze"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="#00000000"
                 android:padding="10dp"
-                android:text="@string/today_detail_date"
+                android:text="日期"
                 android:textColor="#ffffff"
                 android:textSize="22dp"
                 android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/next_day_analyse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/today_detail_date_analyze"
+                android:src="@drawable/next_day_img" />
+
+
         </RelativeLayout>
 
     </LinearLayout>
@@ -112,12 +129,22 @@
                 </LinearLayout>
 -->
             </LinearLayout>
+            <com.victor.loading.rotate.RotateLoading
+                android:id="@+id/loading_analyse"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                app:loading_color="@color/mainColor1"
+                app:loading_speed="11"
+                app:loading_width="2dp"
+                android:layout_margin="10dp"/>
             <TextView
                 android:id="@+id/error_info_analyse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="0dp"
                 android:layout_gravity="center_horizontal"
+                android:visibility="invisible"
                 android:text=""/>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -155,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:text="我们根据您所记录的食品记录\n和您的身体状况进行以上分析"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/shape_corner"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="20dp"/>
         </LinearLayout>
 
