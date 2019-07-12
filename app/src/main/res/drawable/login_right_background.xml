@@ -5,7 +5,6 @@
         android:endColor="#78ffd6"
         android:angle="135"
         android:gradientRadius="100dp"
-
         />
 
 </shape>
