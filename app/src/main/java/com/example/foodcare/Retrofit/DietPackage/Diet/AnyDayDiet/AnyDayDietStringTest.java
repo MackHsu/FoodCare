@@ -81,7 +81,6 @@ public class AnyDayDietStringTest {
                         handler.sendMessage(message);
                     }
                     else{
-                        MyToast.mytoast(text,context);
                         Diets = response.body();
                         Message message = new Message();
                         message.what = DATA_UPDATED;

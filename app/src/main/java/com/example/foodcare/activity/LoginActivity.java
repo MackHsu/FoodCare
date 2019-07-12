@@ -158,10 +158,6 @@ public class LoginActivity extends AppCompatActivity {
                         Log.i("TAG",account.getId()+"");
                         AccountID.setId(account.getId());
                         String text = "登陆成功";
-                        text = account.getName()+"/n";
-                        Toast toast=Toast.makeText(getApplicationContext(),text,Toast.LENGTH_SHORT    );
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
                         Message message=new Message();
                         message.what=LOGIN;
                         handler.sendMessage(message);

@@ -90,7 +90,7 @@ public class UserInfoActivity extends AppCompatActivity {
         my_sport_account=(TextView)findViewById(R.id.my_sport_account_r);
         button_submit=(Button)findViewById(R.id.submit_info);
         back_text_view_info=(TextView)findViewById(R.id.back_text_view_info);
-        back_button_info=(ImageView)findViewById(R.id.back_button_info);
+        back_button_info=(ImageView)findViewById(R.id.userinfo_back);
         back_button_info.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

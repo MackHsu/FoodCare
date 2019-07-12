@@ -319,8 +319,6 @@ public class RegisterActivity extends AppCompatActivity {
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                String text = "";
-                text = response.body()+"/n";
                 System.out.println("请求成功");
                 if(response.body()==null){
                     MyToast.mytoast("服务器出错",getApplicationContext());
@@ -331,7 +329,6 @@ public class RegisterActivity extends AppCompatActivity {
                 else{
                     Boolean _register=response.body();
                     if(_register){
-                        System.out.println(text);
                         MyToast.mytoast("注册成功",getApplicationContext());
                         Message message=new Message();
                         message.what=REGISTER;
