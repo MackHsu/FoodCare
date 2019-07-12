@@ -1,5 +1,6 @@
 package com.example.foodcare.activity;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodcare.R;
@@ -53,11 +55,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class IdentifyMultipleResultActivity extends AppCompatActivity {
 
+    private String[] scoreText = {". ", ".. ", "..."};//动态显示的点点
+    ValueAnimator valueAnimator;    //加载动画
+
     private Handler handler;
     private List<FoodPosition> foodPositions = new ArrayList<>();
     private String fileUrl;
     private final int UPLOAD_SUCCESS = 1;
     private final int UPLOAD_FAILED = 0;
+    private TextView loading_upload_text_view;
     private RotateLoading loading;
     private ImageView imageView;
     private RelativeLayout relativeLayout;
@@ -71,10 +77,23 @@ public class IdentifyMultipleResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identify_multiple_result);
-
+        loading_upload_text_view=(TextView)findViewById(R.id.loading_upload_text_view_m);
         loading = (RotateLoading) findViewById(R.id.multiple_loading);
-        loading.start();
+        if (valueAnimator == null) {
+            valueAnimator = ValueAnimator.ofInt(0, 3).setDuration(1000);
+            valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    int i = (int) animation.getAnimatedValue();
+                    loading_upload_text_view.setText("正在识别" + scoreText[i % scoreText.length]);
+                }
+            });
+        }
 
+        loading.start();
+        valueAnimator.start();
+        loading_upload_text_view.setVisibility(View.VISIBLE);
         imageView = (ImageView) findViewById(R.id.multiple_image);
         relativeLayout = (RelativeLayout) findViewById(R.id.multiple_relative);
         Intent intent = getIntent();
@@ -89,6 +108,8 @@ public class IdentifyMultipleResultActivity extends AppCompatActivity {
                     case UPLOAD_SUCCESS:
                         //识别成功，停止等待旋转
                         loading.stop();
+                        valueAnimator.end();
+                        loading_upload_text_view.setVisibility(View.INVISIBLE);
                         initButtonAndImage();
                         break;
                     case UPLOAD_FAILED:
@@ -101,7 +122,6 @@ public class IdentifyMultipleResultActivity extends AppCompatActivity {
 
         request(fileUrl,IdentifyMultipleResultActivity.this);
 //        printimage();
-
 
     }
 int id = 1;
