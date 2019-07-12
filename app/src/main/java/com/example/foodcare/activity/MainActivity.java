@@ -168,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         intakeText = (TextView) findViewById(R.id.intake_today);
         consumptionText = (TextView) findViewById(R.id.consumption_today);
         restText = (TextView) findViewById(R.id.rest_today_text);
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
         loading = (RotateLoading) findViewById(R.id.loading);
         username = (TextView) findViewById(R.id.username);                                //用户名
         accounttext = (TextView) findViewById(R.id.accounttext);                          //用户的那个id，自己设置得那个
@@ -819,6 +818,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         //判断推荐热量需要的数据是否已经填写
                         if (account.getAge() == 0 || account.getHeight() == null || account.getWeight() == null) {
                             showNormalDialog();
+                            recommendedToday = 0;
+                            getTodayDietData();
                         }
                         else {
                             recommendedToday = HeatAlgrithom.TotalHeat(account.getSex(), account.getAge(), account.getWeight(), account.getHeight().intValue(), account.getLevel(), account.getPlan()).intValue();
