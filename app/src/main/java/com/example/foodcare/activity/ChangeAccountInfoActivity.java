@@ -39,10 +39,6 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if(!checkInfo(resultInfo)){
-                    return;
-                }
-                //backTo();*/
                 finish();
             }
         });

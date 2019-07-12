@@ -123,8 +123,9 @@ public class SearchActivity extends AppCompatActivity {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(SearchActivity.this, MoreInfoActivity.class);
-
+                Intent intent = new Intent(SearchActivity.this, DishesInfoActivity.class);
+                if(foods.get(position).getGroup() == 1)
+                    intent = new Intent(SearchActivity.this,MealInfoActivity.class);
                 Gson gson=new Gson();
                 String jsonData=gson.toJson(foods.get(position).getId());
                 intent.putExtra("foodId",jsonData);
@@ -155,12 +156,6 @@ public class SearchActivity extends AppCompatActivity {
                             if (dataFetcher.getEnd()) {
                                 adapter.loadMoreEnd();
                             }
-//                            System.out.println("*********************************");
-//                            System.out.println("*********************************");
-//                            for(Food fooood:foods)
-//                            {
-//                                System.out.println(fooood.getName());
-//                            }
                             System.out.println("请求时"+dataFetcher.getStart());
                         }
 
