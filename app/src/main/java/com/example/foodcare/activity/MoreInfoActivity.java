@@ -109,7 +109,7 @@ public class MoreInfoActivity extends AppCompatActivity {
             Toast.makeText(this, "返回错误", Toast.LENGTH_SHORT).show();
             return;
         }
-        foodName.setText(food.getName());
+        foodName.setText(""+food.getName());
         celluloseText.setText(food.getCellulose() == null ? "----" : food.getCellulose() + "克/100克");
         vAText.setText(food.getVitaminA() == null ? "----" : food.getVitaminA() + "毫克/100克");
         vCText.setText(food.getVitaminC() == null ? "----" : food.getVitaminC() + "毫克/100克");

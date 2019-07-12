@@ -56,14 +56,14 @@
         android:layout_below="@+id/L1"
         android:layout_width="match_parent"
         android:paddingRight="15dp"
-        android:layout_height="50dp">
+        android:layout_height="40dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/name_account_l"
             android:text="用户名/昵称"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"/>
 
@@ -80,7 +80,7 @@
             android:layout_height="match_parent"
             android:id="@+id/name_account_r"
             android:text="请填写"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:gravity="center_vertical"
             android:layout_toLeftOf="@+id/J2"
             android:maxLength="6"/>
@@ -93,14 +93,14 @@
         android:layout_below="@+id/L2"
         android:paddingRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="40dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/age_account_l"
             android:text="年龄"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"/>
 
@@ -117,7 +117,7 @@
             android:layout_height="match_parent"
             android:id="@+id/age_account_r"
             android:text="请填写"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:gravity="center_vertical"
             android:layout_toLeftOf="@+id/J3"/>
 
@@ -128,14 +128,14 @@
         android:layout_below="@+id/L3"
         android:paddingRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="40dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/sex_account_l"
             android:text="性别"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"/>
 
@@ -152,7 +152,7 @@
             android:layout_height="match_parent"
             android:id="@+id/sex_account_r"
             android:text="请填写"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:gravity="center_vertical"
             android:layout_toLeftOf="@+id/J8"/>
 
@@ -163,14 +163,14 @@
         android:layout_below="@+id/L8"
         android:layout_width="match_parent"
         android:paddingRight="15dp"
-        android:layout_height="50dp">
+        android:layout_height="40dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/weight_account_l"
             android:text="体重"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"/>
 
@@ -187,7 +187,7 @@
             android:layout_height="match_parent"
             android:id="@+id/weight_account_r"
             android:text="请填写"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:gravity="center_vertical"
             android:layout_toLeftOf="@+id/J4"/>
     </RelativeLayout>
@@ -198,14 +198,14 @@
         android:layout_below="@+id/L4"
         android:paddingRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="40dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/height_account_l"
             android:text="身高"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"/>
 
@@ -222,7 +222,7 @@
             android:layout_height="match_parent"
             android:id="@+id/height_account_r"
             android:text="请填写"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:gravity="center_vertical"
             android:layout_toLeftOf="@+id/J5"/>
     </RelativeLayout>
@@ -232,14 +232,14 @@
         android:layout_below="@+id/L5"
         android:paddingRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="40dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/fat_rate_account_l"
             android:text="体脂率"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"/>
 
@@ -256,7 +256,7 @@
             android:layout_height="match_parent"
             android:id="@+id/fat_rate_account_r"
             android:text="请填写"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:gravity="center_vertical"
             android:layout_toLeftOf="@+id/J6"/>
 
@@ -267,14 +267,14 @@
         android:layout_below="@+id/L6"
         android:paddingRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="40dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/my_sport_account_l"
             android:text="我的运动"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"/>
 
@@ -291,7 +291,7 @@
             android:layout_height="match_parent"
             android:id="@+id/my_sport_account_r"
             android:text="请填写"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:gravity="center_vertical"
             android:layout_toLeftOf="@+id/J9"/>
 
@@ -302,14 +302,14 @@
         android:layout_below="@+id/L9"
         android:paddingRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="40dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/my_goal_account_l"
             android:text="我的目标"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"/>
 
@@ -326,7 +326,7 @@
             android:layout_height="match_parent"
             android:id="@+id/my_goal_account_r"
             android:text="请填写"
-            android:textSize="20dp"
+            android:textSize="16dp"
             android:gravity="center_vertical"
             android:layout_toLeftOf="@+id/J7"/>
 

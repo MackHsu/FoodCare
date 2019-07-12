@@ -61,9 +61,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FoodName"
-                android:textSize="28sp"
+                android:textSize="35sp"
                 android:textColor="@color/Black"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:textStyle="bold"/>
