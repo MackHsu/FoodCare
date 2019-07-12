@@ -1,6 +1,7 @@
 package com.example.foodcare.activity;
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -53,11 +54,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UplaodPictureActivity extends AppCompatActivity {
 
+    private String[] scoreText = {". ", ".. ", "..."};//动态显示的点点
+    ValueAnimator valueAnimator;    //加载动画
     private ImageView imageView;            //要识别的图片
     private ImageButton back_button_upload;//返回的按钮，左上角
     private RecyclerView recyclerView;    //识别结果列表
     private RotateLoading loading;         //加载缓冲
     private List<FoodReg> foodRegList;      //识别结果的列表
+    private TextView loading_upload_text_view;
     private Handler handler;
     private final int TAKE_PHOTO=1;
     private final int CHOOSE_PHOTO=2;
@@ -93,7 +97,7 @@ public class UplaodPictureActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new SpaceItemDecoration(19));
         loading=(RotateLoading)findViewById(R.id.identify_loading_upload);
         imageView=(ImageView)findViewById(R.id.picture_for_upload);
-
+        loading_upload_text_view=(TextView)findViewById(R.id.loading_upload_text_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter=new IdentifyAdapter(R.layout.identify_item,foodRegList);
         recyclerView.setAdapter(adapter);
@@ -143,6 +147,17 @@ public class UplaodPictureActivity extends AppCompatActivity {
             selectAlbum();
         } else{
             Log.i("TAG","从主界面传过来的数据传输有误");
+        }
+        if (valueAnimator == null) {
+            valueAnimator = ValueAnimator.ofInt(0, 3).setDuration(1000);
+            valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
+            valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    int i = (int) animation.getAnimatedValue();
+                    loading_upload_text_view.setText("正在识别" + scoreText[i % scoreText.length]);
+                }
+            });
         }
     }
 
@@ -334,6 +349,8 @@ public class UplaodPictureActivity extends AppCompatActivity {
                     case UPLOAD_SUCCESS:
                         //识别成功，停止等待旋转
                         loading.stop();
+                        valueAnimator.end();
+                        loading_upload_text_view.setVisibility(View.INVISIBLE);
                         //foodName.setText(intent.getStringExtra("foodName"));
 
                         for (FoodReg foodReg: foodRegList) {
@@ -355,6 +372,8 @@ public class UplaodPictureActivity extends AppCompatActivity {
         this.request(_filepath);
         //开始旋转
         loading.start();
+        loading_upload_text_view.setVisibility(View.VISIBLE);
+        valueAnimator.start();
     }
 
     public void request(String url) {

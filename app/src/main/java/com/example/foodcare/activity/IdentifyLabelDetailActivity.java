@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -41,10 +42,15 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
                @Override
                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                    if(view.getId() == R.id.identifylabelbutton) {
-                       Intent intent = new Intent(IdentifyLabelDetailActivity.this, DishesInfoActivity.class);
-                       if(foodReg.getFoods().get(0).getGroup()== 1 )//菜品
+                       Intent intent;
+                       Log.i("TAG",foodReg.getFoods().get(0).getGroup()+"");
+                       Log.i("TAG",foodReg.getFoods().get(0).getName());
+                       if(foodReg.getFoods().get(position).getGroup()== 1 )//菜品
                        {
                             intent = new Intent(IdentifyLabelDetailActivity.this, MealInfoActivity.class);
+                       }
+                       else{
+                           intent = new Intent(IdentifyLabelDetailActivity.this, DishesInfoActivity.class);
                        }
                        intent.putExtra("foodId",foodReg.getFoods().get(position).getId());
                        MyToast.mytoast("成功进入食物详情界面",IdentifyLabelDetailActivity.this);

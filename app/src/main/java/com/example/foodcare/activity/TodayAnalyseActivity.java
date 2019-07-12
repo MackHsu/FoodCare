@@ -47,6 +47,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.example.foodcare.ToolClass.HeatAlgrithom.TotalHeat;
+import static java.lang.Math.abs;
 
 public class TodayAnalyseActivity extends AppCompatActivity {
     private final int DATA_NULL = 0;
@@ -294,50 +295,55 @@ public class TodayAnalyseActivity extends AppCompatActivity {
 
 
     private void initPropertyData(){
-
-        //TodaySport=0;           //今日运动消耗
-        TodayIntake=0;          //今日摄入能量,在后面进行叠加
-        for(Diet diet : diets){
-            Log.i("TAG","正在遍历食谱");
-            int dietenergy = 0;
-            List<DietDetail> _detailList=diet.getDetailList();
-            for(DietDetail dietDetail: _detailList){
-                Food food = dietDetail.getFood();
-                Log.i("TAG","food已经实例");
-                //更新每顿饭能量， 所有食物的单位热量乘摄入量之和
-                dietenergy += food.getHeat()*dietDetail.getQuantity()/100;
-                Log.i("TAG","视频能量已经获取");
-                //更新所有摄入营养素总量
-                ProteinAmount += food.getProtein()*dietDetail.getQuantity()/100;
-                Log.i("TAG","蛋白质");
-                SugarAmount += food.getTanshui()*dietDetail.getQuantity()/100;
-                Log.i("TAG","苏糖已经");
-                FatAmount += food.getFat()*dietDetail.getQuantity()/100;
-                Log.i("TAG","只当");
-                if(food.getNa()==null){
-                    celluloseAmount=0.0;
+        try{
+            //TodaySport=0;           //今日运动消耗
+            TodayIntake=0;          //今日摄入能量,在后面进行叠加
+            for(Diet diet : diets){
+                Log.i("TAG","正在遍历食谱");
+                int dietenergy = 0;
+                List<DietDetail> _detailList=diet.getDetailList();
+                for(DietDetail dietDetail: _detailList){
+                    Food food = dietDetail.getFood();
+                    Log.i("TAG","food已经实例");
+                    //更新每顿饭能量， 所有食物的单位热量乘摄入量之和
+                    dietenergy += food.getHeat()*dietDetail.getQuantity()/100;
+                    Log.i("TAG","视频能量已经获取");
+                    //更新所有摄入营养素总量
+                    ProteinAmount += food.getProtein()*dietDetail.getQuantity()/100;
+                    Log.i("TAG","蛋白质");
+                    SugarAmount += food.getTanshui()*dietDetail.getQuantity()/100;
+                    Log.i("TAG","苏糖已经");
+                    FatAmount += food.getFat()*dietDetail.getQuantity()/100;
+                    Log.i("TAG","只当");
+                    if(food.getCellulose()==null){
+                        celluloseAmount=0.0;
+                    }
+                    else {
+                        celluloseAmount += food.getCellulose()*dietDetail.getQuantity()/100;
+                    }
+                    Log.i("TAG",celluloseAmount+"");
                 }
-                else {
-                    celluloseAmount += food.getCellulose()*dietDetail.getQuantity()/100;
+                switch(diet.getGroup())
+                {
+                    case 0:
+                        BreakFastEnergy = dietenergy;
+                        TodayIntake=TodayIntake+BreakFastEnergy;
+                        break;
+                    case 1:
+                        LunchEnergy = dietenergy;
+                        TodayIntake=TodayIntake+LunchEnergy;
+                        break;
+                    case 2:
+                        DinnerEnergy = dietenergy;
+                        TodayIntake=TodayIntake+ DinnerEnergy;
+                        break;
                 }
-                Log.i("TAG",celluloseAmount+"");
             }
-            switch(diet.getGroup())
-            {
-                case 0:
-                    BreakFastEnergy = dietenergy;
-                    TodayIntake=TodayIntake+BreakFastEnergy;
-                    break;
-                case 1:
-                    LunchEnergy = dietenergy;
-                    TodayIntake=TodayIntake+LunchEnergy;
-                    break;
-                case 2:
-                    DinnerEnergy = dietenergy;
-                    TodayIntake=TodayIntake+ DinnerEnergy;
-                    break;
-            }
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.i("TAG","获取信息失败，并且不知道是哪一步出错的");
         }
+
         AdditionEnergy=(BreakFastEnergy+LunchEnergy+DinnerEnergy)/10;
         TodayIntake=AdditionEnergy+TodayIntake;
         TodayLeft=TodayRecommended-TodayIntake;
@@ -355,7 +361,7 @@ public class TodayAnalyseActivity extends AppCompatActivity {
     }
 
     private void wdnmd(){
-        if(TodayRecommended==0){
+        if(abs(TodayRecommended)<0.001){
             Intent intent=new Intent();
             setResult(RESULT_OK,intent);
             finish();
