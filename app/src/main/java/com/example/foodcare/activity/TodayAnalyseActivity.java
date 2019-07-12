@@ -241,48 +241,6 @@ public class TodayAnalyseActivity extends AppCompatActivity {
         pieChart.setData(data);
         pieChart.invalidate();
     }
-
-
-   /* private void drawRadarChart(){
-        radarChart = (RadarChart)findViewById(R.id.RadarChart);
-        //X轴
-        XAxis xAxis = radarChart.getXAxis();
-        //字体颜色
-        xAxis.setTextSize(12f);//设置X周标签字体验色
-        //Y轴
-        YAxis yAxis = radarChart.getYAxis();
-        yAxis.setTextSize(20f);
-        yAxis.setStartAtZero(true);
-        //Y值是否显示在图标上
-        yAxis.setDrawLabels(true);
-        List<RadarEntry> yvalues = new ArrayList<>();//数据
-        List<String> label = new ArrayList<>();
-        label.add("能量");label.add("蛋白");label.add("碳水");label.add("脂肪");label.add("钠");
-        for(int i =1;i<=5;i++)
-        {
-            yvalues.add(new RadarEntry(i,0.8f+0.1f*i));
-        }
-        //dataset
-        List<RadarDataSet> datasets = new ArrayList<>();
-
-        RadarDataSet radardataset1 = new RadarDataSet(yvalues,"条形图");
-        //实心填充区域颜色
-        radardataset1.setColor(R.color.radar_recommended_fillcolor);
-        datasets.add(radardataset1);
-        //是否颜色填充实心区域
-        radardataset1.setDrawFilled(true);
-
-        // 数据线条宽度
-        radardataset1.setLineWidth(2f);
-        RadarData radardata = new RadarData(radardataset1);
-        radarChart.setData(radardata);
-        radarChart.animateXY(3000,3000);
-
-        radarChart.invalidate();
-    }*/
-
-    //获取所有的数据
-
     public void getTodayData() {
         final AnyDayDietStringTest dataFetcher = new AnyDayDietStringTest();
         Handler handler = new Handler() {

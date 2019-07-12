@@ -68,12 +68,9 @@ public class IdentifyFoodActivity extends AppCompatActivity {
     ImageButton uploadbutton;
     ImageButton camerafile;
     ImageButton multipleButton;
-//    TextView textofpath ;
-//    TextView path;
 
     IdentifyFoodActivity thisactivity;
     String filepath;
-    //List<FoodRank> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +80,6 @@ public class IdentifyFoodActivity extends AppCompatActivity {
         albumbutton = (ImageButton) findViewById(R.id.albumfile);
 //        uploadbutton = (ImageButton) findViewById(R.id.uploadbuttonfile);
         multipleButton = (ImageButton) findViewById(R.id.uploadbuttonfile);
-
-//        textofpath= (TextView) findViewById(R.id.textofpath);
-//        path = (TextView) findViewById(R.id.path);
 
 
         //解决相机拍照问题!!!!!!
@@ -162,24 +156,6 @@ public class IdentifyFoodActivity extends AppCompatActivity {
             }
         });
 
-        //上传图片
-//        uploadbutton.setOnClickListener(new View.OnClickListener() {
-//            @RequiresApi(api = Build.VERSION_CODES.M)
-//            @Override
-//            public void onClick(View v) {
-//
-//                //realFilrPath = UriToPathTool.getRealFilePath(thisupload,UriOnScreen);
-//                System.out.println(realFilrPath);
-//                System.out.println(filepath);
-//                //request(filepath);
-//                Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyResultActivity.class);
-//                intent.putExtra("path",filepath);
-//                startActivity(intent);
-////                Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyResultTestActivity.class);
-////                intent.putExtra("path",filepath);
-////                startActivity(intent);
-//            }
-//        });
 
         multipleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,8 +183,6 @@ public class IdentifyFoodActivity extends AppCompatActivity {
             case TAKE_PHOTO:
                 //选择照相返回
                 if ( resultCode == RESULT_OK) {
-                    /*String url = UriOnScreen.toString();//getRealFilePath(thisupload,UriOnScreen);
-                    textofpath.setText(url);*/
                     //检测动态权限
                     if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
@@ -249,11 +223,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                 if (requestCode == CHOOSE_PHOTO && resultCode == RESULT_OK && data != null){
                     Uri uri = data.getData();
                     UriOnScreen = uri;
-                    String url = UriOnScreen.toString();//getRealFilePath(thisupload,UriOnScreen);
-//                    textofpath.setText(url);
-                    //filepath = GetPathFromUri4kitkat.getPath(thisactivity,UriOnScreen);
-                    //filepath = GetPathFromUri.getPath(thisupload,UriOnScreen);
-                    //thisupload.grantUriPermission("com.example.urltest",UriOnScreen,Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    String url = UriOnScreen.toString();
                     //检测动态权限
                     if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
@@ -310,7 +280,6 @@ public class IdentifyFoodActivity extends AppCompatActivity {
         }
     }
 
-
     //新版本-----------------上传图像
     public void request(String url) {
 
@@ -326,7 +295,6 @@ public class IdentifyFoodActivity extends AppCompatActivity {
         //构建要上传的文件
         File file = new File(url);
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"),file);
-        //MultipartBody.Part body = MultipartBody.Part.createFormData("this is a image file","img.jpg",requestFile);
         MultipartBody.Part body = MultipartBody.Part.createFormData("img",file.getName(),requestFile);
         Call<List<FoodReg>> call = request.getCall(body);
         try{
@@ -335,7 +303,6 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<List<FoodReg>> call, Response<List<FoodReg>> response) {
                     // 步骤7：处理返回的数据结果
-                    //data = response.body();
                     System.out.println("请求成功");
                     String text = "";
                   /*  Message message = new Message();
@@ -346,9 +313,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                      else{
                           MyToast.mytoast("识别成功！",IdentifyFoodActivity.this);
                           Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyResultActivity.class);
-
                       }
-
                 }
                 //请求失败时回调
                 @Override
