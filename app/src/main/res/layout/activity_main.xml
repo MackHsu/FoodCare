@@ -380,12 +380,17 @@
                             android:layout_marginLeft="10dp"/>
                 </RelativeLayout>
                 <!--分割线-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#F5F5F5">
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:background="@color/mainColor"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="10dp"/>
+                </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -393,8 +398,9 @@
                     android:background="@drawable/login_right_background">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
                             android:orientation="horizontal">
                                 <ImageView
                                     android:layout_width="50dp"
@@ -411,7 +417,7 @@
                                     android:layout_margin="15dp"
                                     android:text="回到首页"
                                     android:background="#00000000"
-                                    android:textColor="@color/LightGray"
+                                    android:textColor="@color/mainColor"
                                     android:textSize="23sp"
                                     android:layout_gravity="center"
                                     />
@@ -435,33 +441,10 @@
                                     android:layout_margin="15dp"
                                     android:text="我的日历"
                                     android:background="#00000000"
-                                    android:textColor="@color/LightGray"
+                                    android:textColor="@color/mainColor"
                                     android:textSize="23sp"
                                     android:layout_gravity="center"/>
 
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                                <ImageView
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:src="@drawable/new_main"
-                                    android:layout_marginLeft="25dp"
-                                    android:layout_gravity="center_vertical"/>
-
-                                <Button
-                                    android:id="@+id/Passage_main"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="15dp"
-                                    android:text="健康快讯"
-                                    android:background="#00000000"
-                                    android:textColor="@color/LightGray"
-                                    android:textSize="23sp"
-                                    android:layout_gravity="center"/>
                         </LinearLayout>
 
                         <!--注销登陆-->
@@ -484,7 +467,7 @@
                                     android:layout_margin="15dp"
                                     android:text="注销登陆"
                                     android:background="#00000000"
-                                    android:textColor="@color/LightGray"
+                                    android:textColor="@color/mainColor"
                                     android:textSize="23sp"
                                     android:layout_gravity="center"/>
                         </LinearLayout>

@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     CircleTextImageView avatar;
     TextView username;
     TextView accounttext;
-    TextView passageText;
     FloatingActionButton sportButton;
 
     LinearLayout sportDivider;
@@ -171,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         restText = (TextView) findViewById(R.id.rest_today_text);
 //        toolbar = (Toolbar) findViewById(R.id.toolbar);
         loading = (RotateLoading) findViewById(R.id.loading);
-        passageText = (TextView) findViewById(R.id.Passage_main);
         username = (TextView) findViewById(R.id.username);                                //用户名
         accounttext = (TextView) findViewById(R.id.accounttext);                          //用户的那个id，自己设置得那个
         sportButton = (FloatingActionButton) findViewById(R.id.floating_button_workout);//添加运动悬浮按钮
@@ -359,15 +357,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 Intent intent=new Intent();
                 setResult(RESULT_OK,intent);
                 finish();
-            }
-        });
-
-        //点击跳转到健康快讯界面
-        passageText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PassageActivity.class);
-                startActivity(intent);
             }
         });
 

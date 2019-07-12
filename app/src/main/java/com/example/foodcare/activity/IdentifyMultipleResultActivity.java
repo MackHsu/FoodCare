@@ -79,6 +79,7 @@ public class IdentifyMultipleResultActivity extends AppCompatActivity {
         relativeLayout = (RelativeLayout) findViewById(R.id.multiple_relative);
         Intent intent = getIntent();
         fileUrl = intent.getStringExtra("path");
+
         Handler handlerhere =  new Handler(){
             @Override
             public void handleMessage(Message msg){
@@ -97,6 +98,7 @@ public class IdentifyMultipleResultActivity extends AppCompatActivity {
             }
         };
         this.setHandler(handlerhere);
+
         request(fileUrl,IdentifyMultipleResultActivity.this);
 //        printimage();
 

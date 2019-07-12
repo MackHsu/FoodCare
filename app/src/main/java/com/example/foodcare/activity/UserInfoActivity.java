@@ -94,6 +94,7 @@ public class UserInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+
             }
         });
         name_account.setOnClickListener(new View.OnClickListener() {

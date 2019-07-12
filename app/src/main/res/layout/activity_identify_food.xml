@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <android.support.v7.widget.CardView
+                android:id="@+id/image_card"
                 android:layout_width="match_parent"
                 android:layout_height="341dp"
                 android:layout_gravity="center_horizontal"
@@ -51,84 +52,37 @@
             </android.support.v7.widget.CardView>
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_alignParentBottom="true">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:orientation="horizontal">
-
-                        <ImageButton
-                            android:id="@+id/camerafile"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="20dp"
-                            android:background="@drawable/photo_icon"
-                            android:layout_marginRight="15dp"/>
-
-                    </LinearLayout>
-
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:orientation="horizontal">
-
-                        <ImageButton
-                            android:id="@+id/albumfile"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginBottom="20dp"
-                            android:background="@drawable/album_file_icon"
-                            android:layout_marginRight="15dp"/>
-
-                    </LinearLayout>
+                android:layout_below="@id/image_card">
+                <ImageButton
+                    android:id="@+id/camerafile"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/photo_icon"
+                    android:layout_marginLeft="30dp"/>
+                <ImageButton
+                    android:id="@+id/albumfile"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/album_file_icon" />
+                <ImageButton
+                    android:id="@+id/uploadbuttonfile"
+                    android:layout_width="53dp"
+                    android:layout_height="53dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/upload_icon"
+                    android:layout_marginRight="30dp" />
 
 
                 </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:orientation="horizontal">
-
-                        <ImageButton
-                            android:id="@+id/uploadbuttonfile"
-                            android:layout_width="53dp"
-                            android:layout_height="53dp"
-                            android:background="@drawable/upload_icon"
-                            android:layout_marginRight="15dp"
-                            android:layout_marginBottom="15dp"/>
-
-                    </LinearLayout>
-
-
-                </RelativeLayout>
-            </LinearLayout>
-        </RelativeLayout>
+            </RelativeLayout>
 
         <!--<TextView-->
         <!--android:id="@+id/textofpath"-->
