@@ -1,6 +1,7 @@
 package com.example.foodcare.activity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -9,21 +10,30 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.foodcare.R;
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.Retrofit.A_entity.FoodMap;
+import com.example.foodcare.Retrofit.DietPackage.Diet.DietDetailAdd.DietDetailAddTest;
 import com.example.foodcare.Retrofit.FoodPackage.FoodMap.FoodMapTest;
 import com.example.foodcare.ToolClass.IP;
 import com.example.foodcare.adapter.IngredientAdapter;
 import com.example.foodcare.adapter.PracticeAdapter;
 import com.example.foodcare.adapter.SpaceItemDecoration;
+import com.example.foodcare.entity.AccountID;
+import com.orhanobut.dialogplus.DialogPlus;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
+
+import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +42,7 @@ import java.util.Map;
 public class DishesInfoActivity extends AppCompatActivity {
 
     private int foodId;
+    private FoodMap foodMap;
     private Map<String, String> ingredientList;
     private Map<String, String> excipientList;
     private Map<String, String> seasoningList;
@@ -47,6 +58,8 @@ public class DishesInfoActivity extends AppCompatActivity {
     TextView fatText;
     TextView proteinText;
     TextView moreText;
+    ImageButton backButton;
+    ImageButton addButton;
 
     CardView ingredientCard;
     ExpandableLayout ingredientExpandable;
@@ -80,6 +93,11 @@ public class DishesInfoActivity extends AppCompatActivity {
     private final int GET_FOOD_DETAIL_SUCCESS = 1;
     private final int GET_FOOD_DETAIL_FAILED = 0;
 
+    private final int NO_RETURN = 0;
+    private final int UPDATE_SUCCEEDED = 1;
+    private final int UPDATE_FAILED = 2;
+    private final int REQUEST_FAILED = 3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +115,7 @@ public class DishesInfoActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case GET_FOOD_DETAIL_SUCCESS:
+                        foodMap = dataFetcher.getFoodMap();
                         showInfo(dataFetcher.getFoodMap().getFood());
                         loadMapData(dataFetcher.getFoodMap());
                         initRecyclers();
@@ -129,6 +148,20 @@ public class DishesInfoActivity extends AppCompatActivity {
                 Intent intent = new Intent(DishesInfoActivity.this, MoreInfoActivity.class);
                 intent.putExtra("foodId", foodId);
                 startActivity(intent);
+            }
+        });
+        backButton = (ImageButton) findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        addButton = (ImageButton) findViewById(R.id.add_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setAndShowDialog();
             }
         });
 
@@ -170,6 +203,78 @@ public class DishesInfoActivity extends AppCompatActivity {
         cookText = (TextView) findViewById(R.id.cook_text);
         cookExpandableImage = (ImageView) findViewById(R.id.cook_pick);
         expandableIamges.add(cookExpandableImage);
+    }
+
+    //添加食物弹窗
+    private void setAndShowDialog() {
+        final DialogPlus dialog = DialogPlus.newDialog(this)
+                .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.bottomsheet))
+                .create();
+        //下拉框
+        final NiceSpinner spinner = (NiceSpinner) dialog.findViewById(R.id.spinner);
+        ArrayList<String> meals = new ArrayList<>();
+        meals.add("早餐"); meals.add("午餐"); meals.add("晚餐");
+        spinner.attachDataSource(meals);
+        //文本和图像
+        TextView nameTextDialog = (TextView) dialog.findViewById(R.id.food_name);
+        TextView energyTextDialog = (TextView) dialog.findViewById(R.id.food_energy);
+        ImageView foodImageDialog = (ImageView) dialog.findViewById(R.id.image);
+        if (foodMap == null) {
+            Toast.makeText(this, "加载错误", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        nameTextDialog.setText(foodMap.getFood().getName());
+        energyTextDialog.setText(foodMap.getFood().getHeat() + "千卡/100克");
+        Glide.with(this).load(IP.ip + foodMap.getFood().getPicture_mid()).into(foodImageDialog);
+
+        dialog.show();
+
+        //取消
+        Button cancelButton = (Button) dialog.findViewById(R.id.cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        //确定
+        final EditText editText = (EditText) dialog.findViewById(R.id.weight_edit_text);
+        Button addButton = (Button) dialog.findViewById(R.id.add);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DietDetailAddTest dataManager = new DietDetailAddTest();
+                Handler handler = new Handler() {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        switch (msg.what) {
+                            case NO_RETURN:
+                                Toast.makeText(DishesInfoActivity.this, "没有返回值", Toast.LENGTH_SHORT).show();
+                                break;
+                            case UPDATE_SUCCEEDED:
+                                Toast.makeText(DishesInfoActivity.this, "添加成功", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                break;
+                            case UPDATE_FAILED:
+                                Toast.makeText(DishesInfoActivity.this, "添加失败", Toast.LENGTH_SHORT).show();
+                                break;
+                            case REQUEST_FAILED:
+                                Toast.makeText(DishesInfoActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                };
+                dataManager.setHandler(handler);
+                dataManager.request(foodMap.getFood().getId(),
+                        Integer.parseInt(editText.getText().toString()),
+                        AccountID.getId(),
+                        spinner.getSelectedIndex(),
+                        DishesInfoActivity.this);
+            }
+        });
     }
 
     private void showInfo(Food food) {

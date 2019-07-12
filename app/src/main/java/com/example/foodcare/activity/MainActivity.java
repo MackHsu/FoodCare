@@ -429,7 +429,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         super.onResume();
         mainDrawerLayout.closeDrawers();
         refreshDate();
-        getTodayDietData();
+//        getTodayDietData();
+        initInfo();
     }
 
 //    @Override
@@ -548,12 +549,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         intakeToday = 0;
                         intakeText.setText(intakeToday + "");
                         loading.stop();
-                        initInfo();
                         getTodaySportData();
                         break;
                     case DATA_UPDATED:
                         List<Diet> diets = dataFetcher.getDiets();
-                        initInfo();
                         getTodaySportData();
                         loading.stop();
 //                        intakeText.setText(refreshDiets(diets) + "");
@@ -748,12 +747,13 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         intakeToday = 0;
         this.diets = diets;
         groupList = new ArrayList<>();
-//        groupList.add(new MainGroup("早餐", 1000, new ArrayList<MainFood>())) ;
-//        groupList.add(new MainGroup("午餐", 1000, new ArrayList<MainFood>()));
-//        groupList.add(new MainGroup("晚餐", 1000, new ArrayList<MainFood>()));
         for (Diet diet: diets) {
             if(diet.getDetailList() == null) break;
-            MainGroup group = new MainGroup(diet.getId(), diet.getGroup(), diet.getGroup() * 100, new ArrayList<MainFood>());
+            Double rate;
+            if (diet.getGroup() == 0 || diet.getGroup() == 2) rate = 0.3d;
+            else rate = 0.4d;
+            int num = ((Double)(recommendedToday * rate)).intValue(); //保留两位小数
+            MainGroup group = new MainGroup(diet.getId(), diet.getGroup(), num, new ArrayList<MainFood>());
             List<DietDetail> details = diet.getDetailList();
 
             for (DietDetail detail: details) {
@@ -831,8 +831,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         else {
                             recommendedToday = HeatAlgrithom.TotalHeat(account.getSex(), account.getAge(), account.getWeight(), account.getHeight().intValue(), account.getLevel(), account.getPlan()).intValue();
                             recommendedIntakeText.setText(recommendedToday + "");
-                            int rest = recommendedToday - intakeToday + consumptionToday;
-                            restText.setText(rest + "");
+                            getTodayDietData();
                         }
                         break;
                 }

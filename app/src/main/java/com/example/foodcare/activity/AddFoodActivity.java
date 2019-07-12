@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
@@ -51,6 +52,8 @@ public class AddFoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food);
+        //不弹出键盘
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         //初始化
         backButton = (ImageButton) findViewById(R.id.back_button);
@@ -258,7 +261,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
     }
 
-    //前端测试用
+//前端测试用
 //    private void initFoods() {
 //        foodList.add(new AddFood(0, "", "米饭", 150));
 //        foodList.add(new AddFood(1, "", "鸡腿", 400));
