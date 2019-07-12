@@ -43,6 +43,7 @@ import com.example.foodcare.Retrofit.SportPackage.UpdatePlayTest;
 import com.example.foodcare.Retrofit.User.UserInformation.UserInformationTest;
 import com.example.foodcare.ToolClass.CalendarDialog;
 import com.example.foodcare.ToolClass.Day;
+import com.example.foodcare.ToolClass.HeatAlgrithom;
 import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.Retrofit.A_entity.Diet;
 import com.example.foodcare.Retrofit.A_entity.DietDetail;
@@ -128,7 +129,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     ArrayList<MainGroup> groupList;
     List<Diet> diets;
-    double consumptionToday;     //运动
+    int consumptionToday;
+    int intakeToday;
+    int recommendedToday;
 
     private final int DATA_NULL = 0;
     private final int DATA_UPDATED = 1;
@@ -204,7 +207,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
         //mainPresenter = new MainPresenter(this);
         loading.start();
-        getTodayDietData();
+//        在OnResume获取今日数据
+//        getTodayDietData();
 
 //
 //        //标题栏
@@ -446,7 +450,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         recommendedIntakeText.setText(recommendedIntake + "");
         intakeText.setText(intake + "");
         consumptionText.setText(consumption + "");
-        double rest = recommendedIntake - intake + consumption;
+        int rest = recommendedToday - intakeToday + consumptionToday;
         restText.setText(rest + "");
     }
 
@@ -541,6 +545,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 switch(msg.what) {
                     case DATA_NULL:
                         Toast.makeText(MainActivity.this, "用户今日Diet数据为空", Toast.LENGTH_SHORT).show();
+                        intakeToday = 0;
+                        intakeText.setText(intakeToday + "");
                         loading.stop();
                         initInfo();
                         getTodaySportData();
@@ -551,7 +557,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         getTodaySportData();
                         loading.stop();
 //                        intakeText.setText(refreshDiets(diets) + "");
-                        intakeText.setText(refreshDiets(diets).intValue() + "");
+                        intakeText.setText(refreshDiets(diets) + "");
                         break;
                     case FAILED:
                         Toast.makeText(MainActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
@@ -578,11 +584,15 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 switch (msg.what) {
                     case GET_PLAYS_NULL:
                         sportDivider.setVisibility(View.GONE);
+                        consumptionToday = 0;
+                        consumptionText.setText(0 + "");
                         loading.stop();
                         break;
                     case GET_PLAYS_SUCCESS:
                         sportDivider.setVisibility(View.VISIBLE);
-                        consumptionText.setText(refreshSports(dataFetcher.getPlays()).intValue() + "");
+                        List plays = dataFetcher.getPlays();
+                        consumptionText.setText(refreshSports(dataFetcher.getPlays()) + "");
+                        restText.setText(recommendedToday - intakeToday + consumptionToday + "");
                         loading.stop();
                         break;
                     case REQUEST_FALSE:
@@ -598,9 +608,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     }
 
     //将获取的play数据填入表格
-    private Double refreshSports(List<Play> playsData) {
+    private int refreshSports(List<Play> playsData) {
         List<Play> plays = new ArrayList<>();
-        consumptionToday = 0d;
+        consumptionToday = 0;
         if (playsData.size() != 0) {
             for (Play play: playsData) {
                 consumptionToday += play.getTime() * play.getSport().getConsume() / 60d;
@@ -615,8 +625,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         initSportsListener(adapter, plays);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         sportRecycler.setLayoutManager(manager);
-        BigDecimal bg = new BigDecimal(consumptionToday);
-        consumptionToday = bg.setScale(0, BigDecimal.ROUND_HALF_UP).doubleValue();
         return consumptionToday;
     }
 
@@ -734,10 +742,10 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     }
 
     //将获取的Diet数据填入表格
-    private Double refreshDiets(List<Diet> diets) {
+    private int refreshDiets(List<Diet> diets) {
         //测试：写定每餐推荐量
         //TODO: 推荐量
-        double intakeToday = 0d;
+        intakeToday = 0;
         this.diets = diets;
         groupList = new ArrayList<>();
 //        groupList.add(new MainGroup("早餐", 1000, new ArrayList<MainFood>())) ;
@@ -799,21 +807,34 @@ public class MainActivity extends AppCompatActivity implements IMainView {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case ACCOUNT_GET_SUCCESS:
-                        if(userInformationTest.account.getName()==null){
+                        Account account = userInformationTest.account;
+                        if(account.getName()==null){
                             username.setText("昵称");
                         }
                         else{
-                            username.setText(userInformationTest.account.getName());
+                            username.setText(account.getName());
                         }
-                        accounttext.setText(userInformationTest.account.getUser());
+                        accounttext.setText(account.getUser());
+
                         try{
-                            String url=IP.ip+userInformationTest.account.getPicture();
+                            String url=IP.ip+account.getPicture();
                             Glide.with(getApplicationContext()).load(url).into(UserInformation);
                         }catch (Exception e){
                             Log.i("TAG","没有请求到图片");
                             e.printStackTrace();
                         }
 
+                        //判断推荐热量需要的数据是否已经填写
+                        if (account.getAge() == 0 || account.getHeight() == null || account.getWeight() == null) {
+                            showNormalDialog();
+                        }
+                        else {
+                            recommendedToday = HeatAlgrithom.TotalHeat(account.getSex(), account.getAge(), account.getWeight(), account.getHeight().intValue(), account.getLevel(), account.getPlan()).intValue();
+                            recommendedIntakeText.setText(recommendedToday + "");
+                            int rest = recommendedToday - intakeToday + consumptionToday;
+                            restText.setText(rest + "");
+                        }
+                        break;
                 }
             }
         };
@@ -821,16 +842,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         userInformationTest.request(AccountID.getId(),getApplicationContext());
     }
 
-    @Override
-    protected void onActivityResult(int requestCode,int resultCode,Intent data){
-        switch (requestCode){
-            case RETURN_ANALYSE:
-                if(resultCode==RESULT_OK){
-                    showNormalDialog();
-                }
-                break;
-        }
-    }
 
     private void showNormalDialog(){
         /* @setIcon 设置对话框图标
@@ -856,6 +867,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         MyToast.mytoast("请尽快完善个人信息",getApplicationContext());
+                        recommendedIntakeText.setText("请先完善信息");
                     }
                 });
         // 显示

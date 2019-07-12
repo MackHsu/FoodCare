@@ -17,7 +17,7 @@ public class HeatAlgrithom {
     private static double[] map = {1.2,1.375,1.55,1.725,1.9};
 
     //计算总热量
-    public static double TotalHeat(int sex,int age,double weight,double height,int level,int plan){
+    public static Double TotalHeat(int sex,int age,double weight,double height,int level,int plan){
         //个人基础代谢率
         double BMR = 0.0;
 
