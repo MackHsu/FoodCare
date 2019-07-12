@@ -73,7 +73,17 @@
                 android:layout_gravity="center_horizontal"
                 app:loading_color="@color/mainColor1"
                 app:loading_speed="11"
+                android:layout_marginTop="40dp"
                 app:loading_width="2dp" />
+            <TextView
+                android:id="@+id/loading_upload_text_view_m"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="正在识别"
+                android:textSize="25dp"
+                android:visibility="invisible"/>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

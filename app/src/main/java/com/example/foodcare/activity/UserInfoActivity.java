@@ -101,6 +101,7 @@ public class UserInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 finish();
+
             }
         });
 

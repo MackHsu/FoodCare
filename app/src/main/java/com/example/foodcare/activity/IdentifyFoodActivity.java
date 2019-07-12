@@ -160,6 +160,10 @@ public class IdentifyFoodActivity extends AppCompatActivity {
         multipleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(filepath == null||filepath==""){
+                    MyToast.mytoast("请先选择需要上传的图片！",IdentifyFoodActivity.this);
+                    return;
+                }
                 System.out.println(realFilrPath);
                 System.out.println(filepath);
                 Intent intent = new Intent(IdentifyFoodActivity.this,IdentifyMultipleResultActivity.class);
@@ -282,7 +286,10 @@ public class IdentifyFoodActivity extends AppCompatActivity {
 
     //新版本-----------------上传图像
     public void request(String url) {
-
+        if(url == ""){
+            MyToast.mytoast("Sorry，请先选择需要识别的图片！",this);
+            return;
+        }
         //步骤4:创建Retrofit对象
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(IP.ip) // 设置 网络请求 Url
@@ -291,6 +298,7 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                 .build();
 
         IdentifyFoodInterface request = retrofit.create(IdentifyFoodInterface.class);
+
 
         //构建要上传的文件
         File file = new File(url);
