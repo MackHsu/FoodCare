@@ -390,7 +390,6 @@ public class UplaodPictureActivity extends AppCompatActivity {
         //构建要上传的文件
         File file = new File(url);
         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"),file);
-        //MultipartBody.Part body = MultipartBody.Part.createFormData("this is a image file","img.jpg",requestFile);
         MultipartBody.Part body = MultipartBody.Part.createFormData("img",file.getName(),requestFile);
         Call<List<FoodReg>> call = request.getCall(body);
         try{

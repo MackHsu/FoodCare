@@ -53,7 +53,6 @@ public class IdentifyLabelDetailActivity extends AppCompatActivity {
                            intent = new Intent(IdentifyLabelDetailActivity.this, DishesInfoActivity.class);
                        }
                        intent.putExtra("foodId",foodReg.getFoods().get(position).getId());
-                       MyToast.mytoast("成功进入食物详情界面",IdentifyLabelDetailActivity.this);
                        startActivity(intent);
                    } else {
                        MyToast.mytoast("请点击按钮进入食物详情界面！",IdentifyLabelDetailActivity.this);

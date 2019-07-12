@@ -54,16 +54,12 @@ public class CalendarActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        // dates.add(new CalendarDay(new Date(str2long("2017-8-5","yyyy-MM-dd"))));
         System.out.println("********************************");
         for(CalendarDay day:dates)
         {
             System.out.println(dates.toString());
         }
         calendarView.addDecorators(new EventDecorator(Color.YELLOW,dates));
-        //  calendarView.addDecorators(new BackGroundSpan(dates));
-
-        //************
 
         calendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.MONDAY)   //设置每周开始的第一天
@@ -77,7 +73,6 @@ public class CalendarActivity extends AppCompatActivity {
             public void onDateSelected(@NonNull MaterialCalendarView widget,
                                        @NonNull CalendarDay date,
                                        boolean selected) {
-                //跳转到当日的饮食情况  ************************************
                 // 将当前选择的日期装入bundles中作为参数随着intent传入将进入的界面
                 Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
                 int monthint =  date.getMonth()+1;
@@ -92,7 +87,6 @@ public class CalendarActivity extends AppCompatActivity {
                     day = "0" + day;
                 }
                 String datepicked = year+"-"+month+"-"+day;
-
                 System.out.println("日历修改前"+Day.getDateString());
                 System.out.println("日历  年"+date.getYear());
                 System.out.println("日历  月"+date.getMonth());
