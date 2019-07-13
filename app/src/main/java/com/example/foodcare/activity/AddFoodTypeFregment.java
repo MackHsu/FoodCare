@@ -1,4 +1,5 @@
 package com.example.foodcare.activity;
+//许朗铭
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import com.example.foodcare.Retrofit.Page.CategoryPageTest;
 import com.example.foodcare.Retrofit.Page.DishPageTest;
 import com.example.foodcare.Retrofit.Page.FrequentPageTest;
 import com.example.foodcare.ToolClass.IP;
+import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.adapter.AddFoodAdapter2;
 import com.example.foodcare.adapter.SpaceItemDecoration;
 import com.example.foodcare.entity.AccountID;
@@ -370,11 +372,17 @@ public class AddFoodTypeFregment extends Fragment {
                     }
                 };
                 dataManager.setHandler(handler);
-                dataManager.request(foodList.get(position).getFoodId(),
-                        Integer.parseInt(editText.getText().toString()),
-                        AccountID.getId(),
-                        spinner.getSelectedIndex(),
-                        mContext);
+                try {
+                    int num = Integer.parseInt(editText.getText().toString());
+                    if (num <= 0) throw(new Exception());
+                    dataManager.request(foodList.get(position).getFoodId(),
+                            num,
+                            AccountID.getId(),
+                            spinner.getSelectedIndex(),
+                            mContext);
+                } catch (Exception e) {
+                    MyToast.mytoast("请输入分量", mContext);
+                }
             }
         });
     }

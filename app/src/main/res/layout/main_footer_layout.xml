@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--许朗铭 2017302580224-->
+<!--陈炳生-->
 
 <!--每个分组的尾部，显示每餐的总热量和推荐热量-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -1,5 +1,7 @@
 package com.example.foodcare.activity;
-//曾志昊 2017302580214
+
+//许朗铭
+
 import android.content.Intent;
 import android.media.Image;
 import android.os.Handler;

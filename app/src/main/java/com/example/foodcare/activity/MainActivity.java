@@ -23,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -168,7 +169,6 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         intakeText = (TextView) findViewById(R.id.intake_today);
         consumptionText = (TextView) findViewById(R.id.consumption_today);
         restText = (TextView) findViewById(R.id.rest_today_text);
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
         loading = (RotateLoading) findViewById(R.id.loading);
         username = (TextView) findViewById(R.id.username);                                //用户名
         accounttext = (TextView) findViewById(R.id.accounttext);                          //用户的那个id，自己设置得那个
@@ -438,6 +438,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         intakeText.setText(intake + "");
         consumptionText.setText(consumption + "");
         int rest = recommendedToday - intakeToday + consumptionToday;
+        if (rest < 0) rest = 0;
         restText.setText(rest + "");
     }
 
@@ -583,7 +584,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         sportDivider.setVisibility(View.VISIBLE);
                         List plays = dataFetcher.getPlays();
                         consumptionText.setText(refreshSports(dataFetcher.getPlays()) + "");
-                        restText.setText(recommendedToday - intakeToday + consumptionToday + "");
+                        int rest = recommendedToday - intakeToday + consumptionToday;
+                        if (rest < 0) rest = 0;
+                        restText.setText(rest + "");
                         loading.stop();
                         break;
                     case REQUEST_FALSE:
@@ -631,6 +634,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                 TextView nameTextDialog = (TextView) dialog.findViewById(R.id.sport_sheet_name);
                 TextView energyTextDialog = (TextView) dialog.findViewById(R.id.sport_sheet_energy);
                 ImageView sportImageDialog = (ImageView) dialog.findViewById(R.id.sport_sheet_image);
+                final EditText sportTimeDialog = (EditText) dialog.findViewById(R.id.time_edit_text);
                 nameTextDialog.setText(((TextView) view.findViewById(R.id.sport_name_text)).getText());
                 energyTextDialog.setText(((TextView) view.findViewById(R.id.total_energy_text)).getText());
                 sportImageDialog.setImageDrawable(((ImageView) view.findViewById(R.id.sport_image)).getDrawable());
@@ -676,8 +680,15 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                                 }
                             }
                         };
-                        dataManager.setHandler(handler);
-                        dataManager.request(plays.get(position), MainActivity.this);
+                        try {
+                            dataManager.setHandler(handler);
+                            int time = Integer.parseInt(sportTimeDialog.getText().toString());
+                            if (time <= 0) throw(new Exception());
+                            plays.get(position).setTime(time);
+                            dataManager.request(plays.get(position), MainActivity.this);
+                        } catch (Exception e) {
+                            MyToast.mytoast("请输入时间", MainActivity.this);
+                        }
                     }
                 });
             }
@@ -819,6 +830,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         //判断推荐热量需要的数据是否已经填写
                         if (account.getAge() == 0 || account.getHeight() == null || account.getWeight() == null) {
                             showNormalDialog();
+                            recommendedToday = 0;
+                            getTodayDietData();
                         }
                         else {
                             recommendedToday = HeatAlgrithom.TotalHeat(account.getSex(), account.getAge(), account.getWeight(), account.getHeight().intValue(), account.getLevel(), account.getPlan()).intValue();
