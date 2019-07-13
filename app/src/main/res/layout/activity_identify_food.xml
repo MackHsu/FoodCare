@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="多物体识别"
+                android:text="多菜品识别"
                 android:textColor="#fff"
                 android:textSize="20sp"
                 android:layout_centerHorizontal="true"
