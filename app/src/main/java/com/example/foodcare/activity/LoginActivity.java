@@ -168,7 +168,6 @@ public class LoginActivity extends AppCompatActivity {
                         toast.show();
                     }
                 }
-
             }
 
             @Override

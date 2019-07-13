@@ -1,5 +1,5 @@
 package com.example.foodcare.Retrofit.User.UserLogin;
-
+/********************曾志昊 2017302580214************************/
 import android.content.Context;
 import android.view.Gravity;
 import android.widget.Toast;
@@ -35,11 +35,11 @@ public class UserLoginTest {
                 System.out.println("请求成功");
                 account = response.body().getAccount();
                 System.out.println(account.getName());
-                String text = "";
-                    text = account.getName()+"/n";
-                    Toast toast=Toast.makeText(context,text,Toast.LENGTH_SHORT    );
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+//                String text = "";
+//                    text = account.getName()+"/n";
+//                    Toast toast=Toast.makeText(context,text,Toast.LENGTH_SHORT    );
+//                    toast.setGravity(Gravity.CENTER, 0, 0);
+//                    toast.show();
 
             }
 

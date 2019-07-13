@@ -1,5 +1,5 @@
 package com.example.foodcare.Retrofit.DietPackage.Diet.AnyDayDiet;
-
+/********************曾志昊 2017302580214************************/
 
 import com.example.foodcare.Retrofit.A_entity.Diet;
 
@@ -17,15 +17,6 @@ import retrofit2.http.Query;
 
 public interface AnyDayDietInterface {
 
-//    @POST("acc/diet/find")
-//    @Multipart
-//    Call<List<Diet>> getCall(@Part("account_id") int account_id,
-//                             @Part("date") Date date);
-
-    //    @POST("acc/diet/find")
-//    @FormUrlEncoded
-//    Call<List<Diet>> getAnyDayDietString(@Field("account_id") int account_id,
-//                                         @Field("date") String date);
     @GET("acc/diet/find")
     Call<List<Diet>> getAnyDayDietString(@Query("account_id") int account_id,
                                          @Query("date") String date);

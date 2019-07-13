@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--创建者：曾志昊-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -55,12 +56,5 @@
             app:loading_speed="11"
             app:loading_width="2dp" />
     </LinearLayout>
-
-    <!--<ListView-->
-        <!--android:id="@+id/listView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:layout_below="@+id/main_header_layout_old"/>-->
 
 </RelativeLayout>

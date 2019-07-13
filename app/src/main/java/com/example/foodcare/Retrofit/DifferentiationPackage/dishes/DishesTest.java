@@ -1,5 +1,5 @@
 package com.example.foodcare.Retrofit.DifferentiationPackage.dishes;
-
+/********************曾志昊 2017302580214************************/
 import com.example.foodcare.Retrofit.A_entity.Food;
 import com.example.foodcare.ToolClass.NullOnEmptyConverterFactory;
 import com.example.foodcare.ToolClass.IP;
@@ -34,9 +34,7 @@ public class DishesTest {
                 {
                     System.out.println(response.body().get(i).getName());
                 }
-
             }
-
             @Override
             public void onFailure(Call<List<Food>> call, Throwable t) {
                 t.printStackTrace();

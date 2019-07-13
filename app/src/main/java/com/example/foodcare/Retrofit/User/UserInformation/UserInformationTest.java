@@ -1,5 +1,5 @@
 package com.example.foodcare.Retrofit.User.UserInformation;
-
+/********************曾志昊 2017302580214************************/
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -42,11 +42,11 @@ public class UserInformationTest {
                 if(response.body()!=null){
                     account = response.body();
                     System.out.println(account.getName());
-                    String text = "";
-                    text = account.getName()+"/n";
-                    Toast toast=Toast.makeText(context,text,Toast.LENGTH_SHORT    );
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+//                    String text = "";
+//                    text = account.getName()+"/n";
+//                    Toast toast=Toast.makeText(context,text,Toast.LENGTH_SHORT    );
+//                    toast.setGravity(Gravity.CENTER, 0, 0);
+//                    toast.show();
                     Message message = new Message();
                     message.what = ACCOUNT_GET_SUCCESS;
                     handler.sendMessage(message);

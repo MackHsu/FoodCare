@@ -1,5 +1,5 @@
 package com.example.foodcare.activity;
-
+/********************曾志昊 2017302580214************************/
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;

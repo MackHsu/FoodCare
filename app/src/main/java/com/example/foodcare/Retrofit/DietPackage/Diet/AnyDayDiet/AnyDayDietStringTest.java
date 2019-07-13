@@ -1,5 +1,5 @@
 package com.example.foodcare.Retrofit.DietPackage.Diet.AnyDayDiet;
-
+/********************曾志昊 2017302580214************************/
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -88,7 +88,7 @@ public class AnyDayDietStringTest {
                     }
                 }
 
-                //请求失败时回调
+                //请求/失败时回调
                 @Override
                 public void onFailure(Call<List<Diet>> call, Throwable throwable) {
                     System.out.println("连接失败");

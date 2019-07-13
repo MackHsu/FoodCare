@@ -1,5 +1,4 @@
-//********曾志昊于2019.6.29 23:08最后修改
-//***********创建者：曾志昊**************
+/********************曾志昊 2017302580214************************/
 package com.example.foodcare.ToolClass;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;

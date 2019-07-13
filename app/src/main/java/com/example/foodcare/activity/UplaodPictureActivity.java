@@ -400,7 +400,6 @@ public class UplaodPictureActivity extends AppCompatActivity {
                     // 步骤7：处理返回的数据结果
                     //data = response.body();
                     System.out.println("请求成功");
-                    String text = "";
 
                     if(response.body()==null) {
                         MyToast.mytoast("识别失败！(识别结果为空)", getApplicationContext());

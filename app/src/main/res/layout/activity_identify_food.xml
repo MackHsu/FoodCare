@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--创建者：曾志昊-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -83,16 +84,6 @@
 
                 </RelativeLayout>
             </RelativeLayout>
-
-        <!--<TextView-->
-        <!--android:id="@+id/textofpath"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/path"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp" />-->
 
     </LinearLayout>
 

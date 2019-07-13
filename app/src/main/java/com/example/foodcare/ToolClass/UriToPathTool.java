@@ -1,5 +1,5 @@
 package com.example.foodcare.ToolClass;
-
+/********************曾志昊 2017302580214************************/
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentUris;

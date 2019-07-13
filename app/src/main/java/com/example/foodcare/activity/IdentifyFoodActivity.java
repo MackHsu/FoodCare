@@ -1,5 +1,5 @@
 package com.example.foodcare.activity;
-
+/********************曾志昊 2017302580214************************/
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -319,7 +319,6 @@ public class IdentifyFoodActivity extends AppCompatActivity {
                 public void onResponse(Call<List<FoodReg>> call, Response<List<FoodReg>> response) {
                     // 步骤7：处理返回的数据结果
                     System.out.println("请求成功");
-                    String text = "";
                   /*  Message message = new Message();
                     message.what = GET_DATA_SUCCEEDED;
                     handler.sendMessage(message);*/

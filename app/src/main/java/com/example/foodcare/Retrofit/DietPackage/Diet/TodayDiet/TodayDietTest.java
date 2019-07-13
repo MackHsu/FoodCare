@@ -1,5 +1,5 @@
 package com.example.foodcare.Retrofit.DietPackage.Diet.TodayDiet;
-
+/********************曾志昊 2017302580214************************/
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
@@ -72,15 +72,12 @@ public class TodayDietTest {
                 @Override
                 public void onResponse(Call<List<Diet>> call, Response<List<Diet>> response) {
                     // 步骤7：处理返回的数据结果
-                    System.out.println("请求成功");
-                    String text = "请求成功！！";
                     if(response.body()==null){
-                        text = text+"/n查询结果为空！！！";
                         Diets=new ArrayList<>();
                         Message message = new Message();
                         message.what = DATA_NULL;
                         handler.sendMessage(message);
-                        MyToast.mytoast(text,context);
+                        MyToast.mytoast("查询结果为空！！！",context);
                         Log.i("TAG","请求成功，但数据是空");
                     }
                     else{

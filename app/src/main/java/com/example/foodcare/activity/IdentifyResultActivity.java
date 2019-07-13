@@ -1,5 +1,5 @@
 package com.example.foodcare.activity;
-
+/********************曾志昊 2017302580214************************/
 import android.content.Intent;
 import android.media.Image;
 import android.os.Handler;
@@ -92,7 +92,6 @@ public class IdentifyResultActivity extends AppCompatActivity {
         Handler handlerhere = new Handler(){
             @Override
             public void handleMessage(Message msg){
-                //MyToast.mytoast("进入handler",IdentifyResultActivity.this);
                 switch(msg.what)
                 {
                     case UPLOAD_SUCCESS:
