@@ -32,6 +32,7 @@ import com.victor.loading.rotate.RotateLoading;
 
 import org.angmarch.views.NiceSpinner;
 
+import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,13 +155,19 @@ public class AddSportActivity extends AppCompatActivity {
                                     }
                                 }
                             };
-                            dataManager.setHandler(handler);
-                            Play playtoadd = new Play();
-                            playtoadd.setAccount_id(AccountID.getId());
-                            playtoadd.setDate(Day.getDateString());
-                            playtoadd.setSport(sports.get(position));
-                            playtoadd.setTime( Integer.parseInt(editText.getText().toString()));
-                            dataManager.request(playtoadd,AddSportActivity.this);
+                            try {
+                                dataManager.setHandler(handler);
+                                int time = Integer.parseInt(editText.getText().toString());
+                                if (time <= 0) throw(new Exception());
+                                Play playtoadd = new Play();
+                                playtoadd.setAccount_id(AccountID.getId());
+                                playtoadd.setDate(Day.getDateString());
+                                playtoadd.setSport(sports.get(position));
+                                playtoadd.setTime(Integer.parseInt(editText.getText().toString()));
+                                dataManager.request(playtoadd, AddSportActivity.this);
+                            } catch (Exception e) {
+                                MyToast.mytoast("请输入时间", AddSportActivity.this);
+                            }
                         }
                     });
                 }

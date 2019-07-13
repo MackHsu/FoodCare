@@ -19,6 +19,7 @@ import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
 import com.donkingliang.groupedadapter.holder.BaseViewHolder;
 import com.example.foodcare.Retrofit.DietPackage.Diet.DietDetailDelete.DietDetailDeleteTest;
 import com.example.foodcare.Retrofit.DietPackage.UpdateDietDetail.DietDetailUpdateTest;
+import com.example.foodcare.ToolClass.MyToast;
 import com.example.foodcare.activity.MainActivity;
 import com.example.foodcare.model.MainFood;
 import com.example.foodcare.model.MainGroup;
@@ -258,11 +259,18 @@ public class MainRecyclerAdapter extends GroupedRecyclerViewAdapter {
                                 }
                             }
                         };
-                        dataManager.setHandler(handler);
-                        dataManager.request(mainGroups.get(groupPosition).getDietId(),
-                                mainGroups.get(groupPosition).getFoodsThisMeal().get(childPosition).getFoodId(),
-                                Integer.parseInt(editText.getText().toString()),
-                                mContext);
+                        try {
+                            dataManager.setHandler(handler);
+                            int num = Integer.parseInt(editText.getText().toString());
+                            if (num <= 0) throw(new Exception());
+                            dataManager.request(mainGroups.get(groupPosition).getDietId(),
+                                    mainGroups.get(groupPosition).getFoodsThisMeal().get(childPosition).getFoodId(),
+                                    Integer.parseInt(editText.getText().toString()),
+                                    mContext);
+                        }
+                        catch (Exception e) {
+                            MyToast.mytoast("请输入分量", mContext);
+                        }
                     }
                 });
             }
