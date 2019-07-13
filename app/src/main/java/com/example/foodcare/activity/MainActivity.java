@@ -437,6 +437,7 @@ public class MainActivity extends AppCompatActivity implements IMainView {
         intakeText.setText(intake + "");
         consumptionText.setText(consumption + "");
         int rest = recommendedToday - intakeToday + consumptionToday;
+        if (rest < 0) rest = 0;
         restText.setText(rest + "");
     }
 
@@ -582,7 +583,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
                         sportDivider.setVisibility(View.VISIBLE);
                         List plays = dataFetcher.getPlays();
                         consumptionText.setText(refreshSports(dataFetcher.getPlays()) + "");
-                        restText.setText(recommendedToday - intakeToday + consumptionToday + "");
+                        int rest = recommendedToday - intakeToday + consumptionToday;
+                        if (rest < 0) rest = 0;
+                        restText.setText(rest + "");
                         loading.stop();
                         break;
                     case REQUEST_FALSE:
